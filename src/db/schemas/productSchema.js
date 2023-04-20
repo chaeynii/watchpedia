@@ -14,4 +14,4 @@ const productSchema = new Schema(
   },
   { timestamps: true, collection: "products" }
 );
-git;
+export { productSchema };

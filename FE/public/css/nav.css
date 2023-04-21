@@ -1,0 +1,123 @@
+/* header + nav */
+/* header */
+
+header {
+    width: 100%;
+    height: 120px;
+    background-color: #fff;
+    border-bottom: 1px solid #EFEFEF;
+}
+
+.header-wrap {
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+header .logo {
+    margin-bottom: 0;
+}
+
+header .logo a {
+    display: block;
+    width: 120px;
+    height: 80px;
+    background-image: url(../../public/images/logo.png);
+    background-size: cover;
+    background-position-x: -20px;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    text-indent: -9999px;
+}
+
+header.drop {
+    position: fixed;
+    z-index: 99;
+    height: 50px;
+}
+
+header.drop .logo a {
+    width: 70px;
+    height: 50px;
+    background-position-x: center;
+    background-position-y: -15px;
+    background-size: cover;
+}
+
+.util-link {
+    margin-left: auto;
+    margin-bottom: 0;
+}
+
+.util-link li {
+    float: left;
+}
+
+.util-link li button {
+    color:#3a3a3a;
+    font-size: 16px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.util-link li button:hover {
+    color:#000;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
+/* nav */ 
+nav {
+    width: 100%;
+    height: 75px;
+    border-bottom: 1px solid #EFEFEF;
+}
+
+nav .container-fluid {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+nav .container-fluid .navbar-nav li.nav-item.dropdown {
+    width: 150px;
+}
+
+nav .container-fluid .navbar-nav .dropdown-menu {
+    padding: 0;
+    border-radius:0;
+}
+
+nav .container-fluid .navbar-nav .dropdown-menu li a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+nav .container-fluid .navbar-nav .dropdown-menu li a:hover {
+    background-color: #f8f9fa;
+    color:#712cf9;
+}
+
+nav.drop {
+    position: fixed;
+    z-index: 99;
+    top: 51px;
+    height: 50px;
+    box-shadow: -2px 5px 5px rgba(0,0,0,.2);
+}
+
+.btn.btn-primary.puple {
+    background-color: #712cf9;
+    border:none;
+}
+
+.btn.btn-primary.puple:hover {
+    background-color: #6528e0;
+}

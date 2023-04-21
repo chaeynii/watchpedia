@@ -23,24 +23,24 @@ function addAllEvents() {
 async function handleSubmit(e) {
   e.preventDefault();
 
-  const fullName = fullNameInput.value;
+  const name = fullNameInput.value;
   const email = emailInput.value;
-  const password = passwordInput.value;
+  const pw = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
 
   // 잘 입력했는지 확인
-  const isFullNameValid = fullName.length >= 2;
+  const isFullNameValid = name.length >= 2;
   const isEmailValid = validateEmail(email);
-  const isPasswordValid = password.length >= 4;
-  const isPasswordSame = password === passwordConfirm;
+  const isPasswordValid = pw.length >= 4;
+  const isPasswordSame = pw === passwordConfirm;
 
   if (!isFullNameValid || !isPasswordValid) {
     return alert("이름은 2글자 이상, 비밀번호는 4글자 이상이어야 합니다.");
-  }
+  }``
 
-  if (!isEmailValid) {
-    return alert("이메일 형식이 맞지 않습니다.");
-  }
+  // if (!isEmailValid) {
+  //   return alert("이메일 형식이 맞지 않습니다.");
+  // }
 
   if (!isPasswordSame) {
     return alert("비밀번호가 일치하지 않습니다.");
@@ -48,7 +48,7 @@ async function handleSubmit(e) {
 
   // 회원가입 api 요청
   try {
-    const data = { fullName, email, password };
+    const data = { name, email, pw };
 
     await Api.post("/api/register", data);
 
@@ -59,5 +59,5 @@ async function handleSubmit(e) {
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
-  }
+  }``
 }

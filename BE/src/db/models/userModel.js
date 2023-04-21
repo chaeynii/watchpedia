@@ -1,5 +1,5 @@
 import { model } from "mongoose";
-import { UserSchema } from "../schemas/user-schema";
+import { UserSchema } from "../schemas/userSchema";
 
 const User = model("users", UserSchema);
 
@@ -30,6 +30,14 @@ export class UserModel {
 
     const updatedUser = await User.findOneAndUpdate(filter, update, option);
     return updatedUser;
+  }
+
+  async delete(userId){
+
+    const deletedUser  = await User.deleteOne(userId)
+
+    return deletedUser
+
   }
 }
 

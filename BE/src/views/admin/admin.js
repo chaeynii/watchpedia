@@ -22,23 +22,24 @@ async function handleSubmit(e) {
   e.preventDefault();
 
   const email = emailInput.value;
-  const password = passwordInput.value;
+  const pw = passwordInput.value;
 
   // 잘 입력했는지 확인
-  const isEmailValid = validateEmail(email);
-  const isPasswordValid = password.length >= 4;
+  // const isEmailValid = validateEmail(email);
+  // const isPasswordValid = pw.length >= 4;
 
-  if (!isEmailValid || !isPasswordValid) {
-    return alert(
-      "비밀번호가 4글자 이상인지, 이메일 형태가 맞는지 확인해 주세요."
-    );
-  }
+  // if (!isEmailValid || !isPasswordValid) {
+  //   return alert(
+    
+  //     "비밀번호가 4글자 이상인지, 이메일 형태가 맞는지 확인해 주세요."
+  //   );
+  // }
 
   // 로그인 api 요청
   try {
-    const data = { email, password };
+    const data = { email, pw };
 
-    const result = await Api.post("/api/login", data);
+    const result = await Api.post("/api/admin/login", data);
     const token = result.token;
 
     // 로그인 성공, 토큰을 세션 스토리지에 저장
@@ -50,7 +51,7 @@ async function handleSubmit(e) {
     // 로그인 성공
 
     // 기본 페이지로 이동
-    window.location.href = "/";
+    window.location.href = "/admin/login";
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);

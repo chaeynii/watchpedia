@@ -1,0 +1,183 @@
+.main-container {
+    width:1200px;
+    justify-content: center;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.cart--progress {
+    display: flex;
+    margin-left: 0px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.cart--progress__items {
+    margin: 7px;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+}
+
+.cart-address__title {
+    font-size: 28px;
+    font-weight: 300;
+    margin-left: 20px;
+    margin-bottom: 30px;
+}
+
+.cart-address__body {
+    margin-left: 20px;
+    margin-bottom: 50px;
+}
+
+.items--delete {
+    margin-bottom: 20px;
+    border: none;
+    background-color: #712cf9 
+    color: white;
+    border-radius: 5px;
+    font-size: 18px;
+    width: 100px;
+    height: 40px;
+}
+
+.table {
+    margin: 0;
+  }
+  
+.row {
+display: flex;
+border-top: 1px solid lightgray;
+border-bottom: 1px solid lightgray;
+align-items: center;
+}
+
+.col1 {  /* 체크박스 */
+flex: 5%;
+display: flex;
+justify-content: center; 
+align-items: center; 
+}
+
+.col2 {
+flex: 20%;
+display: flex;
+justify-content: center; 
+}
+
+.col3 {
+flex: 25%;
+text-align: center;
+}
+
+.col4 {
+flex: 10%;
+text-align: center;
+}
+
+.col5 {
+flex: 30%;
+text-align: center;
+}
+
+.col6 {
+flex: 10%;
+text-align: center;
+}
+
+.count-btn {
+    width: 35px;
+    height: 35px;
+    background-color: #fff;
+    font-size: 18px;
+    color: #3a3a3a;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #d3d4d5;
+    transition: all ease-in-out 0.2s;
+}
+
+.count-btn:hover {
+    background-color: #d3d4d5;
+    color:#fff;
+}
+
+.col5 div, button {
+    display: inline-block;
+}
+
+.row img {
+    width: 150px;
+    height: 150px;
+}
+
+.col6 p {
+    font-weight: 700;
+}
+
+.cart__calcbox {
+    font-size: 28px; 
+    color:#7c76c5"
+}
+
+.cart__calcbox {
+    width: 50%;
+    justify-content: center;
+    height: 100%;
+    margin: 40px auto;
+}
+
+
+.cart__calcbox li {
+    border: none;
+}
+
+.calcbox__row {
+    flex: 10%;
+    text-align: center;
+}
+
+.calcbox__amount {
+    flex: 10%;
+    display: flex;
+    justify-content: center; 
+    }
+
+.calcbox__price {
+    flex: 10%;
+    display: flex;
+    justify-content: center; 
+}
+
+.calc__btn {
+    background-color: #712cf9;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    margin: 50px auto;
+    justify-content: center;
+    height: 50px;  
+    font-size:20px;
+}
+
+.calc__btn:hover {
+    color:#fff;        
+}
+
+.order--complete {
+    color: #7c76c5; 
+    font-weight: 700;
+    font-size: 35px;
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+}
+
+.order--complete__thx {
+    color: #d3d4d5;
+    font-weight: 700;
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,99 @@
+@import "../../../public/css/main.css";
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+  }
+
+  li {
+    text-overflow: ellipsis;
+  }
+  
+  /* main__container */
+  #main__container {
+    min-height: 100vh;
+  }
+
+  /* main-contents */
+  .main-contents {
+    width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* main-contents > nav-wrap */
+
+  .main-contents > .nav-wrap {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .main-contents > .nav-wrap > .admin-list > ul {
+    display: flex;
+    margin-left: 10px;
+    align-items: center;
+  }
+
+  .main-contents > .nav-wrap > .admin-list > ul > li > a > button {
+    width: 120px;
+    height: 50px;
+    margin: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main-contents > .nav-wrap > .admin-add > ul {
+    display: flex;
+    margin: 10px;
+    align-items: center;
+  }
+
+  .main-contents > .nav-wrap > .admin-add button {
+    width: 120px;
+    height: 30px;
+    margin: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  /* main-contents > section */
+  .main-contents > section > table {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+  }
+
+  .main-contents > section > table tr {
+    /* width: 100%; */
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+  }
+
+  .main-contents > section > table td {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .main-contents > section > table .table-head {
+    background-color: gainsboro;
+  }
+
+
+
+
+
+  /* modal */
+  .modal.show {
+    display: block;
+    position: fixed;
+    bottom: 20%;
+  }

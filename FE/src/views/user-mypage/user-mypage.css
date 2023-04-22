@@ -1,0 +1,118 @@
+body {
+    width: 100%;
+    color: #3a3a3a;
+}
+
+/* main */
+#main-container {
+    width: 1200px;
+    height: 100%;
+    padding: 100px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    min-height: 100vh; 
+}
+
+.mypage-head {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.mypage-category {
+    display: flex;
+    font-size: 18px;
+}
+
+.mypage-category.nav {
+    gap: 8px;
+    padding: 6px 0;
+}
+
+.mypage-category.nav-item {
+    width: 150px;
+    margin: 10px 0;
+}
+
+.mypage-category--a {
+    color: #3a3a3a;
+}
+
+.mypage-category--a:hover {
+    color: #712cf9;
+}
+
+.mypage-category--a.clicked {
+    color: #712cf9;
+}
+
+.mypage__contents {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: 50px;
+    width: 600px;
+}
+
+.subtitle-area {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+table tbody tr th{
+    border: none;
+}
+
+table tbody tr td {
+    border: none;
+}
+
+/* 고객정보 입력란 */
+.table {
+    margin: 30px 5px;
+}
+
+tr {
+    margin: 2px;
+}
+
+td {
+    margin: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+
+.password__input--group {
+    height: 100px;
+}
+
+.address-group {
+    height: 140px;
+}
+
+.address__input {
+    display: flex;
+    justify-content: space-between;
+}
+
+.user__postalcode {
+    width: 280px;
+}
+
+.address__search.btn {
+    width: 150px;
+}
+
+.edit__button {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    margin-top: 10px;
+}
+
+.user-info--change.btn {
+    width: 100px;
+}

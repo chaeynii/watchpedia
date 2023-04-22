@@ -1,5 +1,25 @@
+// // DOM
+
+// const btnAdminAddCategory = document.querySelector(".button-add__category");
+// const modal = document.querySelector(".modal");
+
+
+// // function
+// function showModal(){
+//     modal.classList += 'show';
+// }
+// function test(){
+//     alert("hi")
+//     console.log("hi-console")
+// }
+
+// //event
+// btnAdminAddCategory.addEventListener("click", test);
+
+
 // import { main } from "/public/js/main.js";
 // const { loggedInUser } = await main();
+
 import {
   createOrderTable,
   createUserTable,
@@ -13,35 +33,34 @@ let categoryId;
 let beforeValue;
 let productId;
 
-const adminBtnOrder = document.querySelector(".btn__admin__order");
-const adminBtnUser = document.querySelector(".btn__admin__user");
-const adminBtnCategory = document.querySelector(".btn__admin__category");
-const adminBtnaddProduct = document.querySelector(".btn__admin__product");
+const adminBtnOrder = document.querySelector(".btn-admin__order");
+const adminBtnUser = document.querySelector(".btn-admin__user");
+const adminBtnCategory = document.querySelector(".btn-admin__category");
+const adminBtnProduct = document.querySelector(".btn-admin__product");
 const allBtns = [
   adminBtnOrder,
   adminBtnUser,
   adminBtnCategory,
-  adminBtnaddProduct,
+  adminBtnProduct,
 ];
 
 const orderAdmin = [
-  "주문관리",
+  "주문일자",
+  "주문번호",
+  "상품명",
   "주문자",
-  "주문정보",
-  "총액(원)",
-  "상태관리",
-  "취소",
+  "주문상태",
+  "주문취소",
 ];
-const userAdmin = ["가입날짜", "이메일", "이름", "권한", "관리"];
+const userAdmin = ["가입날짜", "이메일", "이름", "주문내역", "회원삭제"];
 const categoryAdmin = [
-  "생성날짜",
-  "카테고리 이름",
-  "수정날짜",
+  "카테고리(대)",
+  "카테고리(소)",
   "수정",
   "삭제",
 ];
 const productAdmin = [
-  "생성날짜",
+  "등록날짜",
   "상품명",
   "카테고리",
   "가격(원)",
@@ -53,8 +72,8 @@ const productAdmin = [
 function compareEnglish(lsName) {
   if (lsName === "주문관리") return "order__management";
   else if (lsName === "회원관리") return "user__management";
-  else if (lsName === "카테고리 관리") return "add__category";
-  return "add__product";
+  else if (lsName === "카테고리관리") return "category__management";
+  return "product__management";
 }
 
 for (let i = 0; i < allBtns.length; i++) {
@@ -72,9 +91,9 @@ for (let i = 0; i < allBtns.length; i++) {
 
     //주문관리 기능 구현
     if (listName === "주문관리") {
-      document.querySelector(".btn__admin__addCategory").style =
+      document.querySelector(".btn-add__category").style =
         "display:none";
-      document.querySelector(".btn__admin__addProduct").style =
+      document.querySelector(".btn-add__category").style =
         "display:none";
       fetch("/api/orders")
         .then(async (res) => {
@@ -114,9 +133,9 @@ for (let i = 0; i < allBtns.length; i++) {
 
     //회원관리 기능구현
     else if (listName === "회원관리") {
-      document.querySelector(".btn__admin__addCategory").style =
+      document.querySelector(".btn-add__category").style =
         "display:none";
-      document.querySelector(".btn__admin__addProduct").style =
+      document.querySelector(".btn-add__product").style =
         "display:none";
 
       fetch("/api/users")
@@ -157,11 +176,11 @@ for (let i = 0; i < allBtns.length; i++) {
           userManagementDelete();
         })
         .catch((err) => alert(err));
-    } else if (listName === "카테고리 관리") {
+    } else if (listName === "카테고리관리") {
       //상품추가와 카테고리추가 없애기
-      document.querySelector(".btn__admin__addCategory").style =
+      document.querySelector(".btn-add__category").style =
         "display:inline";
-      document.querySelector(".btn__admin__addProduct").style =
+      document.querySelector(".btn-add__product").style =
         "display:none";
 
       fetch("/api/categories")
@@ -196,11 +215,11 @@ for (let i = 0; i < allBtns.length; i++) {
           categoryManagementDelete();
         })
         .catch((err) => alert(err));
-    } else if (listName === "상품 관리") {
+    } else if (listName === "상품관리") {
       //상품추가와 카테고리추가 없애기
-      document.querySelector(".btn__admin__addCategory").style =
+      document.querySelector(".btn-add__category").style =
         "display:none";
-      document.querySelector(".btn__admin__addProduct").style =
+      document.querySelector(".btn-add__product").style =
         "display:inline";
 
       fetch("/api/products")

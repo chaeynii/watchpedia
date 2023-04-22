@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { productService } from "../services/index.js";
-import { loginRequired } from "../middlewares/login-required.js";
+import { productService } from "../services";
+import { loginRequired } from "../middlewares";
 // admin middelware 추가
 const productRouter = Router();
+
 // nextError 함수 정의
 function nextError(callback) {
   return async (req, res, next) => {
@@ -31,22 +32,13 @@ productRouter.get(
   })
 );
 
-// 상품 목록 조회 라우터
-productRouter.get(
-  "/",
-  nextError(async (req, res, next) => {
-    const productIds = req.query.productIds;
-    const products = await productService.getProductsById(productIds);
-    return res.status(200).json({ products });
-  })
-);
 // 상품 추가 라우터
 productRouter.post(
   "/product",
   nextError(async (req, res, next) => {
     const productInfo = req.body;
     const createdProduct = await productService.addProduct(productInfo);
-    return res.status(201).json({ product: createdProduct });
+    return res.status(200).json({ product: createdProduct });
   })
 );
 // 상품 업데이트 라우터, admin 추가해야함

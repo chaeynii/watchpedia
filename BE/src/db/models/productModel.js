@@ -1,26 +1,17 @@
 import { model } from "mongoose";
 import { productSchema } from "../schemas/productSchema";
-import { categoryModel } from "../categoryModel";
 
 const Product = model("Product", productSchema);
 
-export {
-  findProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-  findAllproducts,
-};
-
 // 상품 생성
 const createProduct = async (productInfo) => {
-  const product = await Product.create(productInfo);
-  return product;
+  const createdproduct = await Product.create(productInfo);
+  return createdproduct;
 };
 
 // Id 기반 상품 조회
 const findProductById = async (productId) => {
-  const product = await Product.findOne({ productId });
+  const product = await Product.findOne({ _id: productId });
   return product;
 };
 
@@ -31,7 +22,7 @@ const findAllproducts = async () => {
 };
 
 // 상품 업데이트
-const updateProduct = async (productId, productData) => {
+const updateProduct = async (productId, update) => {
   const filter = { _id: productId };
   const option = { returnOriginal: false };
 

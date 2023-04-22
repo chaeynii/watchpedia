@@ -10,16 +10,10 @@ const getProductById = async (productId) => {
   const findProduct = await productModel.findById(productId);
   return findProduct;
 };
-// 상품 배열을 기반으로 데이터베이스에 상품 목록을 가져옴
-// 매개변수가 제공되지 않으면 데이터베이스에 모든 상품을 가져옴
-const getProductsById = async (productIds) => {
-  if (!productIds) {
-    const products = await productModel.findAll();
-    return products;
-  } else {
-    const products = await productModel.findByIds(productIds);
-    return products;
-  }
+// 모든 상품을 가져옴
+const getProductAllById = async () => {
+  const findAllProducts = await productModel.findAll();
+  return findAllProducts;
 };
 // 상품 ID를 기반으로 데이터베이스에 상품 정보를 업데이트
 const updateProductById = async (productId, productInfo) => {
@@ -40,7 +34,7 @@ const searchProduct = async (inputValue) => {
 const productService = {
   addProduct,
   getProductById,
-  getProductsById,
+  getProductAllById,
   updateProductById,
   deleteProductById,
   searchProduct,

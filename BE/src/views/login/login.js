@@ -22,11 +22,11 @@ async function handleSubmit(e) {
   e.preventDefault();
 
   const email = emailInput.value;
-  const password = passwordInput.value;
+  const pw = passwordInput.value;
 
   // 잘 입력했는지 확인
   const isEmailValid = validateEmail(email);
-  const isPasswordValid = password.length >= 4;
+  const isPasswordValid = pw.length >= 4;
 
   if (!isEmailValid || !isPasswordValid) {
     return alert(
@@ -36,7 +36,7 @@ async function handleSubmit(e) {
 
   // 로그인 api 요청
   try {
-    const data = { email, password };
+    const data = { email, pw };
 
     const result = await Api.post("/api/login", data);
     const token = result.token;

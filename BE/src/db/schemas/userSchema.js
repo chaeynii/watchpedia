@@ -25,11 +25,8 @@ const UserSchema = new Schema(
   address_2:{
     type: String
   },
-  token:{
-    type: String
-  },
-  toke_Exp:{
-    type: Number
+  zip:{
+    type:String
   }
  }
 );

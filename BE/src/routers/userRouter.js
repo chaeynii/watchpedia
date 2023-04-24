@@ -23,7 +23,8 @@ userRouter.post("/register", async (req, res, next) => {
     const pw = req.body.pw;
     const phone = req.body.phone;
     const address_1 = req.body.address_1;
-    const address_2 = req.body.address_2
+    const address_2 = req.body.address_2;
+    const zip = req.body.zip;
 
     // 위 데이터를 유저 db에 추가하기
     const newUser = await userService.addUser({
@@ -32,7 +33,8 @@ userRouter.post("/register", async (req, res, next) => {
       pw,
       phone,
       address_1,
-      address_2
+      address_2,
+      zip
     });
 
     // 추가된 유저의 db 데이터를 프론트에 다시 보내줌
@@ -106,7 +108,7 @@ userRouter.post('/admin/login', async (req, res, next) => {
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
-userRouter.get("/userlist", loginRequired, async function (req, res, next) {
+userRouter.get("/admin/users", loginRequired, async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();
@@ -150,6 +152,7 @@ userRouter.patch(
       const pw = req.body.pw;
       const address_1 = req.body.address_1;
       const address_2 = req.body.address_2;
+      const zip = req.body.zip;
       const phone = req.body.phone;
 
       // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
@@ -168,6 +171,7 @@ userRouter.patch(
         ...(pw && {pw}),
         ...(address_1 && { address_1 }),
         ...(address_2 && { address_2 }),
+        ...(zip && { zip }),
         ...(phone && { phone }),
       };
 
@@ -198,5 +202,19 @@ userRouter.delete('/:userId', loginRequired, async(req, res, next) => {
     next(error)
   }
 })
+
+//관리자 회원 삭제
+userRouter.delete('/admin/users/:userId', loginRequired, async(req, res, next) => {
+  try{
+    
+    await userService.deleteUser(req.params)
+
+    res.status(201).send()
+    res.redirect('/')
+  }catch(error){
+    next(error)
+  }
+})
+
 
 export { userRouter };

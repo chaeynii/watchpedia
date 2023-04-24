@@ -9,7 +9,7 @@ const productSchema = new Schema(
     smallImageURL: { type: String, required: true },
     bigImageURL: { type: String, required: true },
     price: { type: Number, required: true },
-    color: { type: String, required: true }, // 이것도 배열로 받아야하나?
+    color: [{ type: String, required: true }], // 이것도 배열로 받아야하나?
     stock: { type: String, default: 10, required: true },
   },
   { timestamps: true }

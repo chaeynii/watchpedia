@@ -71,14 +71,14 @@ class UserService {
     const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
 
     // 2개 프로퍼티를 jwt 토큰에 담음
-    const token = jwt.sign({ userId: user._id }, secretKey);
+    const token = jwt.sign({ userId: user._id, email }, secretKey);
 
     return { token };
   }
 
   // 사용자 목록을 받음.
   async getUsers() {
-    const users = await this.userModel.findAll();
+    const users = await this.userModel.findAll({});
     return users;
   }
 

@@ -6,9 +6,7 @@ function createTop(listArr) {
     for (let count = 0; count < listArr.length; count++) {
       addHtml.push(`
       <th scope="col">
-          <font style="vertical-align: inherit;">
-            <font style="vertical-align: inherit;">${listArr[count]}</font>
-          </font>
+        ${listArr[count]}
       </th>`);
     }
     tr.innerHTML += addHtml.join("");
@@ -17,38 +15,28 @@ function createTop(listArr) {
   }
   
   function createOrderMiddle(dataArr) {
+    console.log("createOrderMiddle 실행")
     const middle = document.createElement("tbody");
     const addHtml = [];
+    console.log(dataArr.length)
     for (let count = 0; count < dataArr.length; count++) {
       addHtml.push(
-        `<tr id="${dataArr[count]._id}">
+        // `<tr id="${dataArr[count]._id}">
+        `<tr>
             <th scope="row">
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">${
-                  dataArr[count].date
-                }</font>
-              </font>
+              ${dataArr[count].date}
             </th>
             <td>
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">${
-                  dataArr[count].name
-                }</font>
-              </font>
+              ${dataArr[count].orderNumber}
             </td>
             <td>
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">${dataArr[
-                  count
-                ].products.join(",<br>")}</font>
-              </font>
+              ${dataArr[count].name}
             </td>
             <td>
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">${
-                  dataArr[count].total
-                }</font>
-              </font>
+              ${dataArr[count].products.join(",<br>")}
+            </td>
+            <td>
+              ${dataArr[count].total}
             </td>
             <td>
               <div class="dropdown">
@@ -64,7 +52,7 @@ function createTop(listArr) {
               </div>
             </td>
             <td>
-              <button type="button" class="btn btn-outline-danger btn__delete">삭제하기</button>
+              <button type="button" class="btn btn-outline-danger btn__delete">주문취소</button>
             </td>
           </tr>`
       );
@@ -92,39 +80,27 @@ function createTop(listArr) {
   }
   
   function createUserMiddle(dataArr) {
+    console.log("createUserMiddle 실행")
     const middle = document.createElement("tbody");
     const addHtml = [];
     for (let count = 0; count < dataArr.length; count++) {
       addHtml.push(
-        `<tr id="${dataArr[count]._id}">
+        // `<tr id="${dataArr[count]._id}">
+        `<tr>
             <th scope="row">
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">${dataArr[count].date}</font>
-              </font>
+              ${dataArr[count].date}
             </th>
             <td>
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">${dataArr[count].email}</font>
-              </font>
+              ${dataArr[count].email}
             </td>
             <td>
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">${dataArr[count].name}</font>
-              </font>
+              ${dataArr[count].name}
             </td>
             <td>
-              <div class="dropdown">
-                <a class="btn btn-outline-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  ${dataArr[count].role}
-                </a>
-                <ul class="dropdown-menu btn__edit">
-                  <li><a class="dropdown-item">일반유저</a></li>
-                  <li><a class="dropdown-item">관리자</a></li>
-                </ul>
-              </div>
+              <button type="button" class="btn btn-outline btn__show-list">조회</button>
             </td>
             <td>
-              <button type="button" class="btn btn-outline-danger btn__delete">삭제하기</button>
+              <button type="button" class="btn btn-outline-danger btn__delete">회원삭제</button>
             </td>
           </tr>`
       );
@@ -138,28 +114,20 @@ function createTop(listArr) {
     const addHtml = [];
     for (let count = 0; count < dataArr.length; count++) {
       addHtml.push(
-        `<tr id="${dataArr[count]._id}">
-            <th scope="row">
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">${dataArr[count].date}</font>
-              </font>
-            </th>
-            <td>
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;" class="current__name">${dataArr[count].name}</font>
-              </font>
+        // `<tr id="${dataArr[count]._id}">
+        `<tr>
+            <td class="current__name">
+              ${dataArr[count].nameLarge}
+            </td>
+            <td class="current__name">
+              ${dataArr[count].nameSmall}
             </td>
             <td>
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">${dataArr[count].updateDate}</font>
-              </font>
+            <button type="button" class="btn btn-outline-primary ms-auto p-2 bd-highlight btn__edit" data-bs-toggle="modal"
+        data-bs-target="#btn__admin__editCategory">수정</button>
             </td>
             <td>
-            <button type="button" class="btn btn-outline-primary ms-auto p-2 bd-highlight btn__admin__editCategory" data-bs-toggle="modal"
-        data-bs-target="#btn__admin__editCategory">수정하기</button>
-            </td>
-            <td>
-              <button type="button" class="btn btn-outline-danger btn__delete">삭제하기</button>
+              <button type="button" class="btn btn-outline-danger btn__delete">삭제</button>
             </td>
           </tr>`
       );
@@ -182,38 +150,29 @@ function createTop(listArr) {
     const addHtml = [];
     for (let count = 0; count < dataArr.length; count++) {
       addHtml.push(
-        `<tr id="${dataArr[count]._id}">
+        // `<tr id="${dataArr[count]._id}">
+        `<tr>
             <th scope="row">
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">${dataArr[count].date}</font>
-              </font>
+              ${dataArr[count].date}
             </th>
-            <td>
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;" class="current__name">${dataArr[count].name}</font>
-              </font>
+            <td class="current__name">
+              ${dataArr[count].name}
             </td>
             <td>
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">${dataArr[count].category}</font>
-              </font>
+              ${dataArr[count].category}
             </td>
             <td>
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">${dataArr[count].price}</font>
-              </font>
+              ${dataArr[count].price}
             </td>
             <td>
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">${dataArr[count].stock}</font>
-              </font>
+              ${dataArr[count].stock}
             </td>
             <td>
-            <button type="button" class="btn btn-outline-primary ms-auto p-2 bd-highlight btn__admin__editProduct" data-bs-toggle="modal"
-        data-bs-target="#btn__admin__editProduct">수정하기</button>
+            <button type="button" class="btn btn-outline-primary ms-auto p-2 bd-highlight btn__edit" data-bs-toggle="modal"
+        data-bs-target="#btn__admin__editProduct">수정</button>
             </td>
             <td>
-              <button type="button" class="btn btn-outline-danger btn__delete">삭제하기</button>
+              <button type="button" class="btn btn-outline-danger btn__delete">삭제</button>
             </td>
           </tr>`
       );

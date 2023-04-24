@@ -3,80 +3,45 @@ import { categorySchema } from "../schemas/categorySchema";
 
 const Category = model("Category", categorySchema);
 
-// 특정 카테고리 조회 _id
+// 카테고리 생성
+const createCategory = async (categoryData) => {
+  const createdCategory = await Category.create(categoryData);
+  return createdCategory;
+};
+
+// ID 기반 카테고리 조회
 const findCategoryById = async (categoryId) => {
-  try {
-    const category = await Category.findOne({ _id: categoryId });
-    return category;
-  } catch (error) {
-    console.log("ID Category 조회 오류", error);
-    throw error;
-  }
+  const category = await Category.findOne({ _id: categoryId });
+  return category;
 };
 
-// 특정 카테고리 조회 name
-const findCategoryByName = async (name) => {
-  try {
-    const category = await Category.findOne({ name });
-    return category;
-  } catch (error) {
-    console.log("이름 Category 조회 오류", error);
-    throw error;
-  }
+const findAllCategories = async () => {
+  const categories = await Category.findAll({});
+  return categories;
 };
 
-// 모든 카테고리 조회
-const findAllCategory = async () => {
-  try {
-    const categoryList = await Category.find({});
-    return categoryList;
-  } catch (error) {
-    console.log("전체 카테고리 조회 오류", error);
-    throw error;
-  }
-};
-
-// 새로운 카테고리 생성
-const createCategory = async (categoryInfo) => {
-  try {
-    const createNewCategory = await Category.create(categoryInfo);
-    return createNewCategory;
-  } catch (error) {
-    console.log("새 카테고리 생성 오류", error);
-    throw error;
-  }
-};
-
-// 카테고리 수정
-const updateCategory = async (categoryId, categoryInfo) => {
-  try {
-    const updatedCategory = await Category.findOneAndUpdate(
-      { _id: categoryId },
-      categoryInfo,
-      { new: true }
-    );
-    return updatedCategory;
-  } catch (error) {
-    console.log("카테고리 수정 오류", error);
-    throw error;
-  }
+// 카테고리 업데이트
+const updateCategory = async (category, update) => {
+  const filter = { _id: categoryId };
+  const option = { returnOriginal: false }; // 업데이트 된 이후의 정보가 반환
+  const updateCategory = await Category.findOneAndUpdate(
+    filter,
+    update,
+    option
+  );
+  return updateCategory;
 };
 
 // 카테고리 삭제
 const deleteCategory = async (categoryId) => {
-  try {
-    await Category.deleteOne({ _id: categoryId });
-  } catch (error) {
-    console.log("카테고리 삭제 오류", error);
-    throw error;
-  }
+  const deletedCategory = await Category.findOndeAndRemove({ _id: categoryId });
+  return deletedCategory;
 };
 
 export {
   findCategoryById,
-  findCategoryByName,
-  findAllCategory,
   createCategory,
   updateCategory,
   deleteCategory,
+  findAllCategories,
 };

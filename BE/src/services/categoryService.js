@@ -1,43 +1,47 @@
-import { categoryModel } from "../db";
+// import { categoryModel } from "../db/models/categoryModel"
 
-// 새로운 카테고리를 데이터베이스에 추가
-const addCategory = async (categoryInfo) => {
-  const createCategory = await categoryModel.create(categoryInfo);
+const categoryModel = require("../db/models/categoryModel");
+// 새로운 카테고리 추가
+const addCategory = async (categoryData) => {
+  const createCategory = await categoryModel.createCategory(categoryData);
   return createCategory;
 };
-// Id를 기반으로 조회된 카테고리 객체 반환
+
+// Id를 기반으로 카테고리 검색
 const getCategoryById = async (categoryId) => {
-  const findCategory = await categoryModel.findById(categoryId);
-  return findCategory;
+  const findProduct = await categoryModel.findCategoryById(categoryId);
+  if (!categoryId) {
+    throw new Error("해당 카테고리가 없습니다.");
+  }
+  return findProduct;
 };
 
-// name 기반으로 조회된 카테고리 객체 반환
-const getCategoryByName = async (name) => {
-  const findCategory = await categoryModel.findByName(name);
-  return findCategory;
-};
-// 카테고리 목록 전체 반환
+// 모든 카테고리 반환
 const getAllCategories = async () => {
-  const allCategories = await categoryModel.findAll();
-  return allCategories;
+  const findAllCategories = await categoryModel.findAllCategories();
+  return findAllCategories;
 };
-// 수정된 카테고리 반환
-const editCategory = async (categoryId, categoryInfo) => {
-  const updatedCategory = await categoryId.update(categoryId, categoryInfo);
-  return updatedCategory;
+
+// 카테고리 업데이트
+const updateCategory = async (categoryId, categoryData) => {
+  const updatedCategory = await categoryModel.update.update(
+    categoryId,
+    categoryData
+  );
 };
-// Id를 기반으로 해당하는 카테고리 삭제
-const removeCategory = async (categoryId) => {
-  await categoryModel.delete(categoryId);
+
+// 카테고리 삭제
+const deleteCategory = async (categoryId, categoryData) => {
+  const deletedCategory = await categoryModel.delete(categoryId, categoryData);
+  return deletedCategory;
 };
 
 const categoryService = {
   addCategory,
   getCategoryById,
-  getCategoryByName,
   getAllCategories,
-  editCategory,
-  removeCategory,
+  updateCategory,
+  deleteCategory,
 };
 
 export { categoryService };

@@ -4,7 +4,6 @@ const productModel = require("../db/models/productModel");
 
 // 상품 정보를 받아와 데이터베이스에 새로운 상품을 추가
 const addProduct = async (productInfo) => {
-  console.log(productInfo);
   const createProduct = await productModel.createProduct(productInfo);
 
   return createProduct;

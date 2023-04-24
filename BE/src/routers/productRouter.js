@@ -32,18 +32,29 @@ productRouter.get(
   })
 );
 
+// 상품 전체 조회 라우터
+productRouter.get(
+  "/",
+  nextError(async (req, res, next) => {
+    const products = await productService.getAllProduct();
+    return res.status(200).json({ products });
+  })
+);
+
+// 상품 생성 라우터
 productRouter.post("/product", async function (req, res, next) {
   try {
     const productInfo = req.body;
     const createdProduct = await productService.addProduct(productInfo);
 
     console.log("Success Product", productInfo);
-    // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
+
     res.status(200).json({ product: createdProduct });
   } catch (error) {
     console.log("/product error", error);
   }
 });
+
 // 상품 업데이트 라우터, admin 추가해야함
 productRouter.put(
   "/:name",

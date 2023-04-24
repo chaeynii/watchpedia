@@ -9,21 +9,21 @@ const createProduct = async (productInfo) => {
   return createdproduct;
 };
 
-// Id 기반 상품 조회
-const findProductById = async (productId) => {
-  const product = await Product.findOne({ _id: productId });
+// 이름 기반 상품 조회
+const findProductByName = async (name) => {
+  const product = await Product.findOne({ name: name });
   return product;
 };
 
-// Id 상품 목록 조회
+// 전체 목록 조회
 const findAllproducts = async () => {
   const products = await Product.findAll({});
   return products;
 };
 
 // 상품 업데이트
-const updateProduct = async (productId, update) => {
-  const filter = { _id: productId };
+const updateProduct = async (name, update) => {
+  const filter = { name: name };
   const option = { returnOriginal: false };
 
   const updateProduct = await Product.findOneAndUpdate(filter, update, option);
@@ -31,13 +31,13 @@ const updateProduct = async (productId, update) => {
 };
 
 // 상품 삭제
-const deleteProduct = async (productId) => {
-  const deletedProduct = await Product.findOneAndRemove({ _id: productId });
+const deleteProduct = async (name) => {
+  const deletedProduct = await Product.findOneAndRemove({ name: name });
   return deletedProduct;
 };
 
 export {
-  findProductById,
+  findProductByName,
   createProduct,
   updateProduct,
   deleteProduct,

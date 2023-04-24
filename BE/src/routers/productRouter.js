@@ -19,10 +19,10 @@ function nextError(callback) {
 
 // 상품 조회 라우터
 productRouter.get(
-  "/:productId",
+  "/:name",
   nextError(async (req, res, next) => {
-    const productId = req.params.productId;
-    const product = await productService.getProductById(productId);
+    const name = req.params.name;
+    const product = await productService.getProductByName(name);
     if (!product) {
       const error = new Error("상품을 찾을 수 없습니다.");
       error.status = 404;
@@ -32,24 +32,27 @@ productRouter.get(
   })
 );
 
-// 상품 추가 라우터
-productRouter.post(
-  "/product",
-  nextError(async (req, res, next) => {
+productRouter.post("/product", async function (req, res, next) {
+  try {
     const productInfo = req.body;
     const createdProduct = await productService.addProduct(productInfo);
-    return res.status(200).json({ product: createdProduct });
-  })
-);
+
+    console.log("Success Product", productInfo);
+    // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
+    res.status(200).json({ product: createdProduct });
+  } catch (error) {
+    console.log("/product error", error);
+  }
+});
 // 상품 업데이트 라우터, admin 추가해야함
 productRouter.put(
-  "/:productId",
+  "/:name",
   loginRequired,
   nextError(async (req, res, next) => {
-    const productId = req.params.productId;
+    const productName = req.params.name;
     const productInfo = req.body;
-    const updatedProduct = await productService.updateProductById(
-      productId,
+    const updatedProduct = await productService.updateProductByName(
+      productName,
       productInfo
     );
     return res.status(200).json({ product: updatedProduct });
@@ -58,23 +61,23 @@ productRouter.put(
 
 // 상품 삭제 라우터 , admin 추가해야함
 productRouter.delete(
-  "/:productId",
+  "/:name",
   loginRequired,
   nextError(async (req, res, next) => {
-    const productId = req.params.productId;
-    await productService.deleteProductById(productId);
+    const productName = req.params.name;
+    await productService.deleteProductByName(productName);
     return res.status(200).json();
   })
 );
 
-// 상품 검색 라우터
-productRouter.get(
-  "/search/:inputValue",
-  nextError(async (req, res, next) => {
-    const inputValue = req.params.inputValue;
-    const searchedProduct = await productService.searchProduct(inputValue);
-    return res.status(200).json({ product: searchedProduct });
-  })
-);
+// 상품 검색 라우터 => 검색 기능 없음
+// productRouter.get(
+//   "/search/:inputValue",
+//   nextError(async (req, res, next) => {
+//     const inputValue = req.params.inputValue;
+//     const searchedProduct = await productService.searchProduct(inputValue);
+//     return res.status(200).json({ product: searchedProduct });
+//   })
+// );
 
 export { productRouter };

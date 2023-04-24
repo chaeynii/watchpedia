@@ -2,12 +2,11 @@ import { Schema } from "mongoose";
 
 const categorySchema = new Schema(
   {
-    smartwatch: [
-      {
-        type: String,
-      },
-    ],
-    strap: [
+    nameLarge: {
+      type: String,
+      required: true,
+    },
+    nameSmall: [
       {
         type: String,
       },

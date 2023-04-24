@@ -4,13 +4,10 @@ const categorySchema = new Schema(
   {
     nameLarge: {
       type: String,
-      required: true,
     },
-    nameSmall: [
-      {
-        type: String,
-      },
-    ],
+    nameSmall: {
+      type: String,
+    },
   },
   {
     timestamps: true,

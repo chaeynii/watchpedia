@@ -1,0 +1,18 @@
+[
+    {
+        "date": "2023-01-01",
+        "orderNumber": "A00123ef97",
+        "name": "김민지",
+        "products": ["APPLE WATCH","블랙"],
+        "total": 400000,
+        "shopStatus": "배송전"
+    },
+    {
+        "date": "2023-01-02",
+        "orderNumber": "A00123eg02",
+        "name": "김땡땡",
+        "products": ["APPLE WATCH","그래파이트"],
+        "total": 400000,
+        "shopStatus": "배송전"
+    }
+]

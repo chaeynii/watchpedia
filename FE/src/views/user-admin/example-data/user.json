@@ -1,0 +1,14 @@
+[
+    {
+        "date": "2023-01-01",
+        "name": "김민지",
+        "email": "abc3minji@email.com",
+        "orderList": ["APPLE WATCH", "APPLE WATCH"]
+    },
+    {
+        "date": "2023-01-02",
+        "name": "김땡땡",
+        "email": "aaa123@email.com",
+        "orderList": ["APPLE WATCH"]
+    }
+]

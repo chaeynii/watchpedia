@@ -25,9 +25,8 @@
     <script defer type="text/javascript" src="../../../public/js/nav.js"></script>
     <link rel="stylesheet" href="../../../public/css/footer.css">
     
-    <!-- costom css, js -->
+    <!-- costom css -->
     <link rel="stylesheet" href="order-list.css">
-    <script type="modul" src="order-list.js" defer></script>
 </head>
 <body>
     <!-- Header [시작] -->
@@ -86,18 +85,18 @@
             <div class="mypage-category">
                 <ul class="mypage-category nav flex-column">
                     <li class="mypage-category nav-item">
-                        <a class="mypage-category--a clicked" aria-current="page" href="../user-mypage/user-mypage.html">회원정보 수정</a>
+                        <a class="mypage-category--a" aria-current="page" href="../user-mypage/user-mypage.html">회원정보 수정</a>
                     </li>
                     <li class="mypage-category nav-item">
-                        <a class="mypage-category--a" href="order-list.html">주문/배송 조회</a>
+                        <a class="mypage-category--a clicked" href="order-list.html">주문/배송 조회</a>
                     </li>
                     <li class="mypage-category nav-item">
-                        <a class="mypage-category--a" href="#">회원 탈퇴</a>
+                        <a class="mypage-category--a user__delete" href="#">회원 탈퇴</a>
                     </li>
                 </ul>
             
 
-                <div class="mypage__contents">
+                <div class="mypage__contents order__list">
                     <div class="subtitle-area">
                         <h2 class="subtitle">주문/배송 정보</h2>
                     </div>
@@ -148,4 +147,5 @@
     </footer>
     <!-- Footer [끝] -->
 </body>
+<script type="module" src="order-list.js" defer></script>
 </html>

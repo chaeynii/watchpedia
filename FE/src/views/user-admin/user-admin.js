@@ -102,12 +102,13 @@ for (let i = 0; i < allBtns.length; i++) {
               orderNumber: data.orderNumber,
               // date: data.createdAt.slice(0, 10),
               date: data.date,
-              name: data.name,
+              name: data.buyer,
               // products: data.productList.map((data) => data.name),
-              products: data.products,
+              productList: data.productList,
+              countList: data.countList,
               // total: Number(data.totalAmount).toLocaleString(),
-              total: data.total,
-              shopStatus: data.shippingStatus,
+              total: data.totalAmount,
+              shippingStatus: data.shippingStatus,
             };
           });
           return newDatas.sort((a, b) => {
@@ -214,6 +215,7 @@ for (let i = 0; i < allBtns.length; i++) {
         "display:none";
 
       const CATEGORY_INFO_URL = "./example-data/category.json";
+      // const CATEGORY_INFO_URL = "api/category";
       fetch(CATEGORY_INFO_URL)
         .then(async (res) => {
           const json = await res.json();
@@ -228,8 +230,8 @@ for (let i = 0; i < allBtns.length; i++) {
           const newDatas = datas.map((data) => {
             return {
               _id: data._id,
-              nameLarge: data.nameLarge,
-              nameSmall: data.nameSmall,
+              name: data.name,
+              subCategory: data.subCategory,
             };
           });
           return newDatas.sort((a, b) => {

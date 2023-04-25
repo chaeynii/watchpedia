@@ -114,10 +114,10 @@ function createTop(listArr) {
       addHtml.push(
         `<tr id="${dataArr[count]._id}">
             <td class="current__name">
-              ${dataArr[count].nameLarge}
+              ${dataArr[count].name}
             </td>
             <td class="current__name">
-              ${dataArr[count].nameSmall}
+              ${dataArr[count].subCategory}
             </td>
             <td>
             <button type="button" class="btn btn-outline-primary ms-auto p-2 bd-highlight btn__edit" data-bs-toggle="modal"

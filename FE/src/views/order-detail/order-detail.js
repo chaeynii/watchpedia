@@ -57,19 +57,19 @@ function renderOrderContent(order) {
                     <span>></span>
                 </li>
                 <li class="nav-item">
-                    <span class="shipping-status">배송준비중</span>
+                    <span class="shipping-status" id="shipping-ready">배송준비중</span>
                 </li>
                 <li class="nav-item">
                     <span>></span>
                 </li>
                 <li class="nav-item">
-                    <span class="shipping-status">배송중</span>
+                    <span class="shipping-status" id="shipping-ongoing">배송중</span>
                 </li>
                 <li class="nav-item">
                     <span>></span>
                 </li>
                 <li class="nav-item">
-                    <span class="shipping-status">배송완료</span>
+                    <span class="shipping-status" id="shipping-finished">배송완료</span>
                 </li>
             </ul>
         </div>
@@ -162,8 +162,39 @@ function renderOrderProduct(order, productInfo) {
     }
 }
 
-// 주문 수정 기능
+function checkOrderShippingStatus(order) {
+    const shippingStatus = order.shippingStatus;
+    if (shippingStatus === "배송준비중") {
+        document.getElementById("shipping-ready").style.color = "rgba(0, 0, 0, 0.7)";
+        document.getElementById("shipping-ready").style.fontSize = "23px";
+    } else {
+        const orderEditBtn = document.getElementById(
+            "order__options--edit"
+        );
+        const orderCancelBtn = document.getElementById(
+            "order__options--cancel"
+        );
 
+        orderEditBtn.disabled = true;
+        orderEditBtn.title = "배송이 시작되어 주문 정보를 수정할 수 없습니다.";
+        orderCancelBtn.disabled = true;
+        orderCancelBtn.title = "배송이 시작되어 주문을 취소할 수 없습니다.";
+
+        if (shippingStatus === "배송중") {
+            document.getElementById("shipping-ongoing").style.color = "rgba(0, 0, 0, 0.7)";
+            document.getElementById("shipping-ongoing").style.fontSize = "23px";
+        } else if (shippingStatus === "배송완료") {
+            document.getElementById("shipping-finished").style.color = "rgba(0, 0, 0, 0.7)";
+            document.getElementById("shipping-finished").style.fontSize = "23px";
+        } else if (shippingStatus === "취소완료") {
+            document.getElementById(
+            "order-detail__content--wrap"
+            ).innerHTML = `<h2 id="shipping-cancel" class="shipping-status">취소완료</h2>`;
+        }
+    }
+}
+
+// 주문 수정 기능
 // 주문 수정 모달 창의 기본 값 채우기
 function fillOrderEditModalInput(order) {
     document.getElementById(
@@ -347,5 +378,34 @@ const shippingStreetAddress = document.getElementById(
 shippingPostCode.addEventListener("click", searchAddress);
 shippingStreetAddress.addEventListener("click", searchAddress);
 
+// 회원탈퇴 기능
+const userDeleteBtn = document.querySelector(".user__delete");
 
+function deleteUser() {
+    const answer = confirm(
+        "회원 탈퇴 하시겠습니까? \n탈퇴즉시 정보가 삭제됩니다."
+    );
+    if (answer) {
+        fetch(`/api/users/${_id}`, {
+            method: "DELETE",
+        })
+        .then(async (res) => {
+            const json = await res.json();
 
+            if (res.ok) {
+                return json;
+            }
+
+            return Promise.reject(json);
+        })
+        .then((data) => {
+            alert("회원 정보가 삭제되었습니다.");
+            window.location.href = "/";
+        })
+        .catch((err) =>
+            alert(`회원정보 삭제 과정에서 오류가 발생하였습니다: ${err}`)
+        );
+    }
+}
+
+userDeleteBtn.addEventListener("click", deleteUser);

@@ -62,11 +62,6 @@ userRouter.post("/login", async function (req, res, next) {
     // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
     const userToken = await userService.getUserToken({ email, pw });
 
-<<<<<<< HEAD
-=======
-    console.log("user:::", userToken);
-
->>>>>>> 3f0f2c46382799d18f90376afc718b34780e1a13
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
     res.status(200).json(userToken);
   } catch (error) {
@@ -191,7 +186,6 @@ userRouter.patch(
 );
 
 //회워탈퇴
-<<<<<<< HEAD
 userRouter.delete('/user/:userId', loginRequired, async(req, res, next) => {
   try{
     
@@ -201,16 +195,6 @@ userRouter.delete('/user/:userId', loginRequired, async(req, res, next) => {
     res.redirect('/')
   }catch(error){
     next(error)
-=======
-userRouter.delete("/:userId", loginRequired, async (req, res, next) => {
-  try {
-    await userService.deleteUser(req.params);
-
-    res.status(201).send();
-    res.redirect("/");
-  } catch (error) {
-    next(error);
->>>>>>> 3f0f2c46382799d18f90376afc718b34780e1a13
   }
 });
 

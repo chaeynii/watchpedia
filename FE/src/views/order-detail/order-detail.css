@@ -210,7 +210,7 @@ body {
 
 /* 모달창 */
 .modal-content {
-    width: 600px;
+    width: 560px;
 }
 
 .modal-title {
@@ -255,8 +255,8 @@ table tbody tr td {
     justify-content: space-between;
 }
 
-.modal-user__postalcode {
-    width: 280px;
+.modal-user__postcode {
+    width: 260px;
 }
 
 .modal-address__search.btn {

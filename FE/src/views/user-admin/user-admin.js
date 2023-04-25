@@ -83,59 +83,63 @@ for (let i = 0; i < allBtns.length; i++) {
       btnAddProduct.style =
         "display:none";
 
-      // fetch("/api/orders")
-      //   .then(async (res) => {
-      //     const json = await res.json();
-
-      //     if (res.ok) {
-      //       return json;
-      //     }
-
-      //     return Promise.reject(json);
-      //   })
-      //   .then((datas) => {
-      //     const newDatas = datas.map((data) => {
-      //       return {
-      //         _id: data._id,
-      //         date: data.createdAt.slice(0, 10),
-      //         name: data.recipientName,
-      //         products: data.productList.map((data) => data.name),
-      //         total: Number(data.totalAmount).toLocaleString(),
-      //         shopStatus: data.shippingStatus,
-      //       };
-      //     });
-      //     return newDatas.sort((a, b) => {
-      //       return new Date(b.date) - new Date(a.date);
-      //     });
-      //   })
-      //   .then((newDatas) => {
-      //     newHtml.appendChild(createOrderTable(orderAdmin, newDatas));
-      //     mainTag.append(newHtml);
-      //   })
-      //   .then(() => {
-      //     orderManagementEdit();
-      //     orderManagementDelete();
-      //   })
-      //   .catch((err) => alert(err));
-      
       const ORDER_INFO_URL = "./example-data/order.json";
 
-      async function getOrderData() {
-        try {
-          const response1 = await fetch(ORDER_INFO_URL);
-          const orderInfoData = await response1.json();
-          
-          newHtml.appendChild(createOrderTable(orderAdmin, orderInfoData));
-          mainTag.append(newHtml)
+      fetch(ORDER_INFO_URL)
+        .then(async (res) => {
+          const json = await res.json();
 
+          if (res.ok) {
+            return json;
+          }
+
+          return Promise.reject(json);
+        })
+        .then((datas) => {
+          const newDatas = datas.map((data) => {
+            return {
+              _id: data._id,
+              orderNumber: data.orderNumber,
+              // date: data.createdAt.slice(0, 10),
+              date: data.date,
+              name: data.name,
+              // products: data.productList.map((data) => data.name),
+              products: data.products,
+              // total: Number(data.totalAmount).toLocaleString(),
+              total: data.total,
+              shopStatus: data.shippingStatus,
+            };
+          });
+          return newDatas.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date);
+          });
+        })
+        .then((newDatas) => {
+          newHtml.appendChild(createOrderTable(orderAdmin, newDatas));
+          mainTag.append(newHtml);
+        })
+        .then(() => {
           orderManagementEdit();
           orderManagementDelete();
+        })
+        .catch((err) => alert(err));
+      
+      // async function getOrderData() {
+      //   try {
+      //     const response1 = await fetch(ORDER_INFO_URL);
+      //     const orderInfoData = await response1.json();
+          
+      //     newHtml.appendChild(createOrderTable(orderAdmin, orderInfoData));
+      //     mainTag.append(newHtml)
 
-        } catch(err) {  
-          console.log(err)
-        }
-      }
-      getOrderData();
+      //     orderManagementEdit();
+      //     orderManagementDelete();
+
+      //   } catch(err) {  
+      //     console.log(err)
+      //   }
+      // }
+      // getOrderData();
       
     }
 
@@ -147,62 +151,60 @@ for (let i = 0; i < allBtns.length; i++) {
       document.querySelector(".btn-add__product").style =
         "display:none";
 
-      // fetch("/api/users")
-      //   .then(async (res) => {
-      //     const json = await res.json();
-
-      //     if (res.ok) {
-      //       return json;
-      //     }
-
-      //     return Promise.reject(json);
-      //   })
-      //   .then((datas) => {
-      //     const newDatas = datas.map((data) => {
-      //       // if (data.role === "admin") {
-      //       //   data.role = "관리자";
-      //       // } else {
-      //       //   data.role = "일반유저";
-      //       // }
-      //       return {
-      //         _id: data._id,
-      //         date: data.createdAt.slice(0, 10),
-      //         name: data.name,
-      //         email: data.email,
-      //         // role: data.role,
-      //       };
-      //     });
-      //     return newDatas.sort((a, b) => {
-      //       return new Date(b.date) - new Date(a.date);
-      //     });
-      //   })
-      //   .then((newData) => {
-      //     newHtml.appendChild(createUserTable(userAdmin, newData));
-      //     mainTag.append(newHtml);
-      //   })
-      //   .then(() => {
-      //     userManagementEdit();
-      //     userManagementDelete();
-      //   })
-      //   .catch((err) => alert(err));
-
       const USER_INFO_URL = "./example-data/user.json";
 
-      async function getUserData() {
-        try {
-          const response1 = await fetch(USER_INFO_URL);
-          const userInfoData = await response1.json();
-          
-          newHtml.appendChild(createUserTable(userAdmin, userInfoData));
-          mainTag.append(newHtml)
+      fetch(USER_INFO_URL)
+        .then(async (res) => {
+          const json = await res.json();
 
-          // userShowOrderList()
-          userManagementDelete()
-        } catch(err) {  
-          console.log(err)
-        }
-      }
-      getUserData();
+          if (res.ok) {
+            return json;
+          }
+
+          return Promise.reject(json);
+        })
+        .then((datas) => {
+          const newDatas = datas.map((data) => {
+            return {
+              _id: data._id,
+              // date: data.createdAt.slice(0, 10),
+              date: data.date,
+              name: data.name,
+              email: data.email,
+              orderList: data.orderList,
+            };
+          });
+          return newDatas.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date);
+          });
+        })
+        .then((newData) => {
+          newHtml.appendChild(createUserTable(userAdmin, newData));
+          mainTag.append(newHtml);
+        })
+        .then(() => {
+          // userManagementEdit();
+          userManagementDelete();
+        })
+        .catch((err) => alert(err));
+
+      
+
+      // async function getUserData() {
+      //   try {
+      //     const response1 = await fetch(USER_INFO_URL);
+      //     const userInfoData = await response1.json();
+          
+      //     newHtml.appendChild(createUserTable(userAdmin, userInfoData));
+      //     mainTag.append(newHtml)
+
+      //     // userShowOrderList()
+      //     userManagementDelete()
+      //   } catch(err) {  
+      //     console.log(err)
+      //   }
+      // }
+      // getUserData();
 
     } else if (listName === "카테고리관리") {
       //상품추가와 카테고리추가 없애기
@@ -211,56 +213,57 @@ for (let i = 0; i < allBtns.length; i++) {
       document.querySelector(".btn-add__product").style =
         "display:none";
 
-      // fetch("/api/categories")
-      //   .then(async (res) => {
-      //     const json = await res.json();
-
-      //     if (res.ok) {
-      //       return json;
-      //     }
-
-      //     return Promise.reject(json);
-      //   })
-      //   .then((datas) => {
-      //     const newDatas = datas.map((data) => {
-      //       return {
-      //         _id: data._id,
-      //         nameLarge: data.nameLarge,
-      //         nameSmall: data.nameSmall,
-      //       };
-      //     });
-      //     return newDatas.sort((a, b) => {
-      //       return new Date(b.date) - new Date(a.date);
-      //     });
-      //   })
-      //   .then((newDatas) => {
-      //     newHtml.appendChild(createCategoryTable(categoryAdmin, newDatas));
-      //     mainTag.append(newHtml);
-      //   })
-      //   .then(() => {
-      //     categoryManagementEdit();
-      //     categoryManagementDelete();
-      //   })
-      //   .catch((err) => alert(err));
-
       const CATEGORY_INFO_URL = "./example-data/category.json";
+      fetch(CATEGORY_INFO_URL)
+        .then(async (res) => {
+          const json = await res.json();
 
-      async function getCategoryData() {
-        try {
-          const response1 = await fetch(CATEGORY_INFO_URL);
-          const categoryInfoData = await response1.json();
+          if (res.ok) {
+            return json;
+          }
+
+          return Promise.reject(json);
+        })
+        .then((datas) => {
+          const newDatas = datas.map((data) => {
+            return {
+              _id: data._id,
+              nameLarge: data.nameLarge,
+              nameSmall: data.nameSmall,
+            };
+          });
+          return newDatas.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date);
+          });
+        })
+        .then((newDatas) => {
+          newHtml.appendChild(createCategoryTable(categoryAdmin, newDatas));
+          mainTag.append(newHtml);
+        })
+        .then(() => {
+          categoryManagementEdit();
+          categoryManagementDelete();
+        })
+        .catch((err) => alert(err));
+
+      
+
+      // async function getCategoryData() {
+      //   try {
+      //     const response1 = await fetch(CATEGORY_INFO_URL);
+      //     const categoryInfoData = await response1.json();
           
-          newHtml.appendChild(createCategoryTable(categoryAdmin, categoryInfoData));
-          mainTag.append(newHtml)
+      //     newHtml.appendChild(createCategoryTable(categoryAdmin, categoryInfoData));
+      //     mainTag.append(newHtml)
 
-          categoryManagementCreate()
-          categoryManagementDelete()
-        } catch(err) {  
-          console.log(err)
-        }
-      }
+      //     categoryManagementCreate()
+      //     categoryManagementDelete()
+      //   } catch(err) {  
+      //     console.log(err)
+      //   }
+      // }
 
-      getCategoryData();
+      // getCategoryData();
       
     } else if (listName === "상품관리") {
       //상품추가와 카테고리추가 없애기
@@ -269,59 +272,62 @@ for (let i = 0; i < allBtns.length; i++) {
       document.querySelector(".btn-add__product").style =
         "display:inline";
 
-      // fetch("/api/products")
-      //   .then(async (res) => {
-      //     const json = await res.json();
-
-      //     if (res.ok) {
-      //       return json;
-      //     }
-
-      //     return Promise.reject(json);
-      //   })
-      //   .then((datas) => {
-      //     const newDatas = datas.map((data) => {
-      //       return {
-      //         _id: data._id,
-      //         date: data.createdAt.slice(0, 10),
-      //         category: data.category.replace("#", ""),
-      //         name: data.name,
-      //         price: Number(data.price).toLocaleString(),
-      //         stock: Number(data.stock).toLocaleString(),
-      //       };
-      //     });
-      //     return newDatas.sort((a, b) => {
-      //       return new Date(b.date) - new Date(a.date);
-      //     });
-      //   })
-      //   .then((newDatas) => {
-      //     newHtml.appendChild(createProductTable(productAdmin, newDatas));
-      //     mainTag.append(newHtml);
-      //   })
-      //   .then(() => {
-      //     productManagementEdit();
-      //     productManagementDelete();
-      //   })
-      //   .catch((err) => alert(err));
       const PRODUCT_INFO_URL = "./example-data/product.json";
 
-      async function getProductData() {
-        try {
-          const response1 = await fetch(PRODUCT_INFO_URL);
-          const productInfoData = await response1.json();
+      fetch(PRODUCT_INFO_URL)
+        .then(async (res) => {
+          const json = await res.json();
+
+          if (res.ok) {
+            return json;
+          }
+
+          return Promise.reject(json);
+        })
+        // .then((datas) => {
+        //   const newDatas = datas.map((data) => {
+        //     return {
+        //       _id: data._id,
+        //       date: data.createdAt.slice(0, 10),
+        //       category: data.category.replace("#", ""),
+        //       name: data.name,
+        //       price: Number(data.price).toLocaleString(),
+        //       stock: Number(data.stock).toLocaleString(),
+        //     };
+        //   });
+        //   return newDatas.sort((a, b) => {
+        //     return new Date(b.date) - new Date(a.date);
+        //   });
+        // })
+        .then((newDatas) => {
+          newHtml.appendChild(createProductTable(productAdmin, newDatas));
+          mainTag.append(newHtml);
+        })
+        .then(() => {
+          productManagementEdit();
+          productManagementDelete();
+        })
+        .catch((err) => alert(err));
+
+      
+
+      // async function getProductData() {
+      //   try {
+      //     const response1 = await fetch(PRODUCT_INFO_URL);
+      //     const productInfoData = await response1.json();
           
-          newHtml.appendChild(createProductTable(productAdmin, productInfoData));
-          mainTag.append(newHtml)
+      //     newHtml.appendChild(createProductTable(productAdmin, productInfoData));
+      //     mainTag.append(newHtml)
 
-          productManagementCreate()
-          productManagementDelete()
+      //     productManagementCreate()
+      //     productManagementDelete()
 
-        } catch(err) {  
-          console.log(err)
-        }
-      }
+      //   } catch(err) {  
+      //     console.log(err)
+      //   }
+      // }
 
-      getProductData();
+      // getProductData();
     }
   });
 }
@@ -337,11 +343,19 @@ function orderManagementEdit() {
   for (let count = 0; count < editBtns.length; count++) {
     editBtns[count].addEventListener("click", (e) => {
       e.preventDefault();
-      console.log(editBtns[count],"-clicked!")
+      // console.log(editBtns[count],"-clicked!")
       const btnValue = e.target.text;
       const btnId =
         e.target.parentElement.parentElement.parentElement.parentElement
           .parentElement.id;
+      console.log("e.target.parentElement:", e.target.parentElement)
+      console.log("e.target.parentElement.parentElement:", e.target.parentElement.parentElement)
+      console.log("e.target.parentElement.parentElement.parentElement:", e.target.parentElement.parentElement.parentElement)
+      console.log("e.target.parentElement.parentElement.parentElement.parentElement:", 
+      e.target.parentElement.parentElement.parentElement.parentElement)
+      console.log("e.target.parentElement.parentElement.parentElement.parentElement.parentElement:", 
+      e.target.parentElement.parentElement.parentElement.parentElement.parentElement)
+      console.log("btnId:",btnId)
       //배송상태가 바뀐 값(배송중 => 배송완료)으로 현재 버튼이 배송완료 바뀌는 기능
       e.target.parentElement.parentElement.parentElement.querySelector(
         "a"
@@ -399,51 +413,51 @@ function orderManagementDelete() {
 }
 
 //============== 유저관련 ===============
-function userManagementEdit() {
-  const editBtns = document.querySelectorAll(".dropdown-item");
-  for (let count = 0; count < editBtns.length; count++) {
-    editBtns[count].addEventListener("click", (e) => {
-      e.preventDefault();
-      const btnValue = e.target.text;
-      const btnId =
-        e.target.parentElement.parentElement.parentElement.parentElement
-          .parentElement.id;
-      //배송상태가 바뀐 값(배송중 => 배송완료)으로 현재 버튼이 배송완료 바뀌는 기능
-      e.target.parentElement.parentElement.parentElement.querySelector(
-        "a"
-      ).innerText = `${btnValue}`;
-      let newRole;
-      if (btnValue === "관리자") {
-        newRole = "admin";
-      } else {
-        newRole = "basic-user";
-      }
-      fetch(`/api/users/${btnId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          role: `${newRole}`,
-        }),
-      })
-        .then(async (res) => {
-          const json = await res.json();
+// function userManagementEdit() {
+//   const editBtns = document.querySelectorAll(".dropdown-item");
+//   for (let count = 0; count < editBtns.length; count++) {
+//     editBtns[count].addEventListener("click", (e) => {
+//       e.preventDefault();
+//       const btnValue = e.target.text;
+//       const btnId =
+//         e.target.parentElement.parentElement.parentElement.parentElement
+//           .parentElement.id;
+//       //배송상태가 바뀐 값(배송중 => 배송완료)으로 현재 버튼이 배송완료 바뀌는 기능
+//       e.target.parentElement.parentElement.parentElement.querySelector(
+//         "a"
+//       ).innerText = `${btnValue}`;
+//       let newRole;
+//       if (btnValue === "관리자") {
+//         newRole = "admin";
+//       } else {
+//         newRole = "basic-user";
+//       }
+//       fetch(`/api/users/${btnId}`, {
+//         method: "PUT",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+//           role: `${newRole}`,
+//         }),
+//       })
+//         .then(async (res) => {
+//           const json = await res.json();
 
-          if (res.ok) {
-            return json;
-          }
+//           if (res.ok) {
+//             return json;
+//           }
 
-          return Promise.reject(json);
-        })
-        .then((alt) => {
-          alt.role === "admin" ? (alt.role = "관리자") : "일반유저";
-          alert(`${alt.name}의 권한이 "${alt.role}"로 변경되었습니다.`);
-        })
-        .catch((err) => alert(err));
-    });
-  }
-}
+//           return Promise.reject(json);
+//         })
+//         .then((alt) => {
+//           alt.role === "admin" ? (alt.role = "관리자") : "일반유저";
+//           alert(`${alt.name}의 권한이 "${alt.role}"로 변경되었습니다.`);
+//         })
+//         .catch((err) => alert(err));
+//     });
+//   }
+// }
 function userManagementDelete() {
   const deleteBtns = document.querySelectorAll(".btn__delete");
   for (let count = 0; count < deleteBtns.length; count++) {

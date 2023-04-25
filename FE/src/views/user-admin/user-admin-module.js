@@ -21,8 +21,7 @@ function createTop(listArr) {
     console.log(dataArr.length)
     for (let count = 0; count < dataArr.length; count++) {
       addHtml.push(
-        // `<tr id="${dataArr[count]._id}">
-        `<tr>
+        `<tr id="${dataArr[count]._id}">
             <th scope="row">
               ${dataArr[count].date}
             </th>
@@ -85,8 +84,7 @@ function createTop(listArr) {
     const addHtml = [];
     for (let count = 0; count < dataArr.length; count++) {
       addHtml.push(
-        // `<tr id="${dataArr[count]._id}">
-        `<tr>
+        `<tr id="${dataArr[count]._id}">
             <th scope="row">
               ${dataArr[count].date}
             </th>
@@ -114,8 +112,7 @@ function createTop(listArr) {
     const addHtml = [];
     for (let count = 0; count < dataArr.length; count++) {
       addHtml.push(
-        // `<tr id="${dataArr[count]._id}">
-        `<tr>
+        `<tr id="${dataArr[count]._id}">
             <td class="current__name">
               ${dataArr[count].nameLarge}
             </td>
@@ -150,8 +147,7 @@ function createTop(listArr) {
     const addHtml = [];
     for (let count = 0; count < dataArr.length; count++) {
       addHtml.push(
-        // `<tr id="${dataArr[count]._id}">
-        `<tr>
+        `<tr id="${dataArr[count]._id}">
             <th scope="row">
               ${dataArr[count].date}
             </th>

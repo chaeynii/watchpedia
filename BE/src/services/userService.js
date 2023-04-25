@@ -1,4 +1,5 @@
 import { userModel } from "../db";
+import { orderModel } from "../db/models/orderModel"
 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -7,6 +8,7 @@ class UserService {
   // 본 파일의 맨 아래에서, new UserService(userModel) 하면, 이 함수의 인자로 전달됨
   constructor(userModel) {
     this.userModel = userModel;
+    this.orderModel = orderModel;
   }
 
   // 회원가입
@@ -87,6 +89,7 @@ class UserService {
 
     return user
   }
+
 
   // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
   async setUser(userInfoRequired, toUpdate) {

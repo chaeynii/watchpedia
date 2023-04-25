@@ -34,7 +34,7 @@ userRouter.post("/register", async (req, res, next) => {
       phone,
       address_1,
       address_2,
-      zip
+      zip,
     });
 
     // 추가된 유저의 db 데이터를 프론트에 다시 보내줌
@@ -61,8 +61,6 @@ userRouter.post("/login", async function (req, res, next) {
 
     // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
     const userToken = await userService.getUserToken({ email, pw });
-
-    console.log('user:::', userToken)
 
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
     res.status(200).json(userToken);
@@ -191,7 +189,7 @@ userRouter.patch(
 );
 
 //회워탈퇴
-userRouter.delete('/:userId', loginRequired, async(req, res, next) => {
+userRouter.delete('/user/:userId', loginRequired, async(req, res, next) => {
   try{
     
     await userService.deleteUser(req.params)

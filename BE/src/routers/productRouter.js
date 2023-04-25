@@ -21,7 +21,7 @@ function nextError(callback) {
 productRouter.get("/:productId", async(req, res, next) => {
   try{
     const product = await productService.getProductById(req.params.productId)
-
+    
     res.status(200).send(product)
   }catch(error){
     next(error)

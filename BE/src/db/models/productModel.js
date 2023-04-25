@@ -17,10 +17,9 @@ const findProductByName = async (name) => {
 
 //id로 조회해오기
 const findProductById = async (productIds) => {
-  const productId = await Product.findById({_id: productIds})
-
-  return productId
-}
+  const productId = await Product.findById({ _id: productIds });
+  return productId;
+};
 
 // 전체 목록 조회
 const findAllproducts = async () => {
@@ -49,5 +48,5 @@ export {
   updateProduct,
   deleteProduct,
   findAllproducts,
-  findProductById
-}
+  findProductById,
+};

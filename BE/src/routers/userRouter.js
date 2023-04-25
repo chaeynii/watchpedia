@@ -62,6 +62,11 @@ userRouter.post("/login", async function (req, res, next) {
     // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
     const userToken = await userService.getUserToken({ email, pw });
 
+<<<<<<< HEAD
+=======
+    console.log("user:::", userToken);
+
+>>>>>>> 3f0f2c46382799d18f90376afc718b34780e1a13
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
     res.status(200).json(userToken);
   } catch (error) {
@@ -70,7 +75,7 @@ userRouter.post("/login", async function (req, res, next) {
 });
 
 //관리자 router
-userRouter.post('/admin/login', async (req, res, next) => {
+userRouter.post("/admin/login", async (req, res, next) => {
   try {
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
     if (is.emptyObject(req.body)) {
@@ -86,13 +91,11 @@ userRouter.post('/admin/login', async (req, res, next) => {
     // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
     const userToken = await userService.getUserToken({ email, pw });
 
-    console.log('user:::', userToken)
-    
+    console.log("user:::", userToken);
+
     //관리자 아이디 체크
-    if(email !== 'admin'){
-      throw new Error(
-        '관리자 회원아닙니다!'
-      )
+    if (email !== "admin") {
+      throw new Error("관리자 회원아닙니다!");
     }
 
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
@@ -101,8 +104,7 @@ userRouter.post('/admin/login', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-
-})
+});
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
@@ -118,15 +120,15 @@ userRouter.get("/admin/users", loginRequired, async function (req, res, next) {
   }
 });
 
-userRouter.get('/mypage/:userId', loginRequired, async (req, res, next) => {
-    try{
-      const user = await userService.getCurrentUser(req.params.userId)
+userRouter.get("/mypage/:userId", loginRequired, async (req, res, next) => {
+  try {
+    const user = await userService.getCurrentUser(req.params.userId);
 
-      res.status(200).json(user)
-    }catch(error){
-      next(error)
-    }
-})
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // 사용자 정보 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
@@ -161,19 +163,19 @@ userRouter.patch(
       //   throw new Error("정보를 변경하려면, 현재의 비밀번호가 필요합니다.");
       // }
 
-      const userInfoRequired = {userId};
+      const userInfoRequired = { userId };
 
       // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
       // 보내주었다면, 업데이트용 객체에 삽입함.
       const toUpdate = {
-        ...(pw && {pw}),
+        ...(pw && { pw }),
         ...(address_1 && { address_1 }),
         ...(address_2 && { address_2 }),
         ...(zip && { zip }),
         ...(phone && { phone }),
       };
 
-      console.log(toUpdate,currentPassword)
+      console.log(toUpdate, currentPassword);
       // 사용자 정보를 업데이트함.
       const updatedUserInfo = await userService.setUser(
         userInfoRequired,
@@ -189,6 +191,7 @@ userRouter.patch(
 );
 
 //회워탈퇴
+<<<<<<< HEAD
 userRouter.delete('/user/:userId', loginRequired, async(req, res, next) => {
   try{
     
@@ -198,21 +201,33 @@ userRouter.delete('/user/:userId', loginRequired, async(req, res, next) => {
     res.redirect('/')
   }catch(error){
     next(error)
+=======
+userRouter.delete("/:userId", loginRequired, async (req, res, next) => {
+  try {
+    await userService.deleteUser(req.params);
+
+    res.status(201).send();
+    res.redirect("/");
+  } catch (error) {
+    next(error);
+>>>>>>> 3f0f2c46382799d18f90376afc718b34780e1a13
   }
-})
+});
 
 //관리자 회원 삭제
-userRouter.delete('/admin/users/:userId', loginRequired, async(req, res, next) => {
-  try{
-    
-    await userService.deleteUser(req.params)
+userRouter.delete(
+  "/admin/users/:userId",
+  loginRequired,
+  async (req, res, next) => {
+    try {
+      await userService.deleteUser(req.params);
 
-    res.status(201).send()
-    res.redirect('/')
-  }catch(error){
-    next(error)
+      res.status(201).send();
+      res.redirect("/");
+    } catch (error) {
+      next(error);
+    }
   }
-})
-
+);
 
 export { userRouter };

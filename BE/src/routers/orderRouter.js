@@ -11,9 +11,9 @@ orderRouter.get('/admin/orders', async( req, res, next ) =>{
   try{
     const orders = await orderService.getOrders()
 
-    res.status(200).send(orders)
-  }catch(error){
-    next(error)
+    res.status(200).send(orders);
+  } catch (error) {
+    next(error);
   }
 })
 
@@ -86,7 +86,7 @@ orderRouter.patch('/mypage/order/:orderId', loginRequired, async(req, res, next)
 
 
 // 주문하기
-orderRouter.post("/order/order_info", loginRequired ,async (req, res, next) => {
+orderRouter.post("/order/order_info", loginRequired, async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
@@ -151,7 +151,7 @@ orderRouter.post("/cart/order", loginRequired ,async (req, res, next) => {
     const totalAmount = req.body.totalAmount;
     const totalPrice = req.body.totalPrice;
     const zipCode = req.body.zipCode;
-    const extraAddress= req.body.extraAddress
+    const extraAddress = req.body.extraAddress;
     const receiverName = req.body.receiverName;
     const receiverPhone = req.body.receiverPhone;
 
@@ -168,7 +168,7 @@ orderRouter.post("/cart/order", loginRequired ,async (req, res, next) => {
       zipCode,
       extraAddress,
       receiverName,
-      receiverPhone
+      receiverPhone,
     });
 
     res.status(201).json(newOrder);

@@ -78,4 +78,8 @@ categoryRouter.delete(
   })
 );
 
+<<<<<<< HEAD
 export { categoryRouter };
+=======
+export { categoryRouter };
+>>>>>>> 3f0f2c46382799d18f90376afc718b34780e1a13

@@ -1,17 +1,18 @@
 import { Schema } from "mongoose";
 
-const categorySchema = new Schema(
-  {
-    nameLarge: {
-      type: String,
-    },
-    nameSmall: {
-      type: String,
-    },
+const subCategorySchema = new Schema({
+  name: {
+    type: String,
+    required: true,
   },
-  {
-    timestamps: true,
-  }
-);
+});
+
+const categorySchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  subCategory: [subCategorySchema],
+});
 
 export { categorySchema };

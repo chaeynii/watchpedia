@@ -1,5 +1,5 @@
 import { userModel } from "../db";
-import { orderModel } from "../db/models/orderModel"
+import { orderModel } from "../db/models/orderModel";
 const productModel = require("../db/models/productModel");
 
 class OrderService {
@@ -20,7 +20,7 @@ class OrderService {
   async getOrders(){
     const orders = await orderModel.findAllOrder()
 
-    return orders
+    return orders;
   }
 
   //주문하기
@@ -32,7 +32,7 @@ class OrderService {
     //주문자 정보 불어오기
     const buyerId = await this.userModel.findById({_id: buyer})
     // 주문번호 랜덤생성
-    const randomNum = String((Math.random().toFixed(5)) * 10)
+    const randomNum = String(Math.random().toFixed(5) * 10);
     //주문번호 날짜 생성
     let today = new Date()
     let year = today.getFullYear()

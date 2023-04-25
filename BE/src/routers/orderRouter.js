@@ -6,11 +6,12 @@ import { orderService } from "../services";
 
 const orderRouter = Router();
 
-orderRouter.get("/order", async ( req, res, next) => {
+//주문내역 전체 조회
+orderRouter.get('/orders/list', async( req, res, next ) =>{
   try{
-    const productInfo = await orderService.getProduct()
+    const orders = await orderService.getOrders()
 
-    res.status(201).send(productInfo)
+    res.status(200).send(orders)
   }catch(error){
     next(error)
   }

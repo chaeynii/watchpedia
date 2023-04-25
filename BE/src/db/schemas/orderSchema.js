@@ -1,28 +1,31 @@
 import { Schema } from "mongoose";
 
 const orderSchema = new Schema({
-  productInfo:[{
+  productInfo:{
     type: Schema.Types.ObjectId,
     ref:"Product",
-  }],
-  productCount:[{
-    type: Number,
-  }],
+  },
+  productCount:{
+    type: [Number],
+    default: 1,
+  },
   buyer:{
     type: Schema.Types.ObjectId,
     ref:"users",
   },
   shippingStatus:{
-    type: ['배송준비중', '배송중', '배송완료', '결제완료'],
+    type: String,
+    enum: ['배송준비중', '배송중', '배송완료', '결제완료'],
+    default:"결제완료",
   },
   orderDate:{
     type: Date,
-    required:true,
-    default: () => Date.now()
+    // required:true,
+    default: new Date()
   },
   orderNumber:{
     type: String,
-    required: true
+    // required: true
   },
   totalAmount:{
     type: Number,

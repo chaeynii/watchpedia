@@ -1,0 +1,22 @@
+h2 {
+    font-size: 35px; 
+    margin:30px 0; 
+    color: #712cf9;
+    font-weight: 700;
+    margin-top: 50px;
+}
+
+#register--findAddress {
+    color:#712cf9; 
+    cursor: pointer; 
+    margin-top: 5px;
+}
+
+#main-container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+#register-submit {
+    margin: 30px 0 60px 0;
+}

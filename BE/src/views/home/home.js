@@ -8,16 +8,15 @@ import { randomId } from "/useful-functions.js";
 // 요소(element), input 혹은 상수
 const landingDiv = document.querySelector("#landingDiv");
 const greetingDiv = document.querySelector("#greetingDiv");
-const loginBtn = document.querySelector('#loginBtn')
+const loginBtn = document.querySelector("#loginBtn");
 
-
-const getToken = sessionStorage.getItem('token')
+const getToken = sessionStorage.getItem("token");
 
 //로그아웃 테스트위해 추가한 코드
-if(getToken){
-  loginBtn.innerText = '로그아웃'
-}else{
-  loginBtn.innerText = '로그인'
+if (getToken) {
+  loginBtn.innerText = "로그아웃";
+} else {
+  loginBtn.innerText = "로그인";
 }
 
 addAllElements();
@@ -62,11 +61,11 @@ function alertGreetingText() {
 }
 
 //로그아웃 테스트 코드
-loginBtn.addEventListener('click', () => {
-  if(loginBtn.innerText === '로그아웃'){
-    sessionStorage.removeItem('token')
+loginBtn.addEventListener("click", () => {
+  if (loginBtn.innerText === "로그아웃") {
+    sessionStorage.removeItem("token");
   }
-})
+});
 
 async function getDataFromApi() {
   // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.

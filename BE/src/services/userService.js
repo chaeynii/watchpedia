@@ -1,4 +1,5 @@
 import { userModel } from "../db";
+import { orderModel } from "../db/models/orderModel"
 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -7,12 +8,13 @@ class UserService {
   // 본 파일의 맨 아래에서, new UserService(userModel) 하면, 이 함수의 인자로 전달됨
   constructor(userModel) {
     this.userModel = userModel;
+    this.orderModel = orderModel;
   }
 
   // 회원가입
   async addUser(userInfo) {
     // 객체 destructuring
-    const { email, name, pw, phone, address_1, address_2 } = userInfo;
+    const { email, name, pw, phone, address_1, address_2, zip } = userInfo;
 
     // 이메일 중복 확인
     const user = await this.userModel.findByEmail(email);
@@ -27,7 +29,15 @@ class UserService {
     // 우선 비밀번호 해쉬화(암호화)
     const hashedPassword = await bcrypt.hash(pw, 10);
 
-    const newUserInfo = { name, email, pw: hashedPassword, phone, address_1, address_2 };
+    const newUserInfo = {
+      name,
+      email,
+      pw: hashedPassword,
+      phone,
+      address_1,
+      address_2,
+      zip,
+    };
 
     // db에 저장
     const createdNewUser = await this.userModel.create(newUserInfo);
@@ -53,13 +63,10 @@ class UserService {
     // 비밀번호 일치 여부 확인
     const correctPasswordHash = user.pw; // db에 저장되어 있는 암호화된 비밀번호
 
-    console.log('correctPaswordHash::::', correctPasswordHash , user.pw)
-    
+    console.log("correctPaswordHash::::", correctPasswordHash, user.pw);
+
     // 매개변수의 순서 중요 (1번째는 프론트가 보내온 비밀번호, 2번쨰는 db에 있떤 암호화된 비밀번호)
-    const isPasswordCorrect = await bcrypt.compare(
-      pw,
-      correctPasswordHash
-    );
+    const isPasswordCorrect = await bcrypt.compare(pw, correctPasswordHash);
 
     if (!isPasswordCorrect) {
       throw new Error(
@@ -71,22 +78,23 @@ class UserService {
     const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
 
     // 2개 프로퍼티를 jwt 토큰에 담음
-    const token = jwt.sign({ userId: user._id }, secretKey);
+    const token = jwt.sign({ userId: user._id, email }, secretKey);
 
     return { token };
   }
 
   // 사용자 목록을 받음.
   async getUsers() {
-    const users = await this.userModel.findAll();
+    const users = await this.userModel.findAll({});
     return users;
   }
 
-  async getCurrentUser(userId){
-    const user = await this.userModel.findById(userId)
+  async getCurrentUser(userId) {
+    const user = await this.userModel.findById(userId);
 
-    return user
+    return user;
   }
+
 
   // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
   async setUser(userInfoRequired, toUpdate) {
@@ -135,10 +143,10 @@ class UserService {
     return user;
   }
 
-  async deleteUser(userId){
-    const removeUser = await this.userModel.delete(userId)
+  async deleteUser(userId) {
+    const removeUser = await this.userModel.delete(userId);
 
-    return removeUser
+    return removeUser;
   }
 }
 

@@ -1,0 +1,91 @@
+[
+  {
+    "name": "갤럭시워치",
+    "category": ["스마트워치", "삼성"],
+    "longContent": "갤럭시 워치에 대한 긴 설명",
+    "shortContent": "갤럭시 워치에 대한 짧은 설명",
+    "smallImageURL": "https://via.placeholder.com/150",
+    "bigImageURL": "https://via.placeholder.com/500",
+    "price": 1000,
+    "color": ["블랙", "화이트", "블루"],
+    "stock": 10
+  },
+  {
+    "name": "애플워치",
+    "category": ["스마트워치", "애플"],
+    "longContent": "애플 워치에 대한 긴 설명",
+    "shortContent": "애플 워치에 대한 짧은 설명",
+    "smallImageURL": "https://via.placeholder.com/150",
+    "bigImageURL": "https://via.placeholder.com/500",
+    "price": 1000,
+    "color": ["블랙", "화이트"],
+    "stock": 10
+  },
+  {
+    "name": "샤오미워치",
+    "category": ["스마트워치", "샤오미"],
+    "longContent": "샤오미 워치에 대한 긴 설명",
+    "shortContent": "샤오미 워치에 대한 짧은 설명",
+    "smallImageURL": "https://via.placeholder.com/150",
+    "bigImageURL": "https://via.placeholder.com/500",
+    "price": 1000,
+    "color": ["블랙", "화이트"],
+    "stock": 10
+  },
+  {
+    "name": "갤럭시워치4세대",
+    "category": ["스마트워치", "삼성"],
+    "longContent": "갤럭시워치4세대에 대한 긴 설명",
+    "shortContent": "갤럭시워치4세대에 대한 짧은 설명",
+    "smallImageURL": "https://via.placeholder.com/150",
+    "bigImageURL": "https://via.placeholder.com/500",
+    "price": 1000,
+    "color": ["블랙", "화이트"],
+    "stock": 10
+  },
+  {
+    "name": "애플워치SE",
+    "category": ["스마트워치", "애플"],
+    "longContent": "애플워치SE에 대한 긴 설명",
+    "shortContent": "애플워치SE에 대한 짧은 설명",
+    "smallImageURL": "https://via.placeholder.com/150",
+    "bigImageURL": "https://via.placeholder.com/500",
+    "price": 1000,
+    "color": ["블랙", "화이트"],
+    "stock": 10
+  },
+  {
+    "name": "샤오미워치2세대",
+    "category": ["스마트워치", "샤오미"],
+    "longContent": "샤오미워치2세대에 대한 긴 설명",
+    "shortContent": "샤오미워치2세대에 대한 짧은 설명",
+    "smallImageURL": "https://via.placeholder.com/150",
+    "bigImageURL": "https://via.placeholder.com/500",
+    "price": 1000,
+    "color": ["블랙", "화이트", "그린"],
+    "stock": 10
+  },
+  {
+    "name": "호환 스트랩",
+    "category": ["워치스트랩", "호환스트랩"],
+    "longContent": "호환 스트랩에대한 긴 설명",
+    "shortContent": "호환 스트랩에대한 짧은 설명",
+    "smallImageURL": "https://via.placeholder.com/150",
+    "bigImageURL": "https://via.placeholder.com/500",
+    "price": 1000,
+    "color": ["블랙", "화이트"],
+    "stock": 10
+  },
+  {
+    "name": "정품 스트랩",
+    "category": ["워치스트랩", "정품스트랩"],
+    "longContent": "정품 스트랩에 대한 긴 설명",
+    "shortContent": "짧은 설명",
+    "smallImageURL": "https://via.placeholder.com/150",
+    "bigImageURL": "https://via.placeholder.com/500",
+    "price": 1000,
+    "color": ["블랙", "화이트"],
+    "stock": 10
+  }
+  ]
+  

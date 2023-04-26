@@ -14,6 +14,7 @@ window.onscroll = function () {
     }
 };
   
+
 const dropdownItems = document.querySelectorAll(".dropdown-item");
 
 dropdownItems.forEach(function(item) {

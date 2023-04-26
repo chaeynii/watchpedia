@@ -25,7 +25,7 @@ const getProductByName = async (name) => {
 };
 // 모든 상품을 가져옴
 const getAllProduct = async () => {
-  const findAllProducts = await productModel.findAll();
+  const findAllProducts = await productModel.findAllproducts();
   return findAllProducts;
 };
 // 이름을 기반으로 데이터베이스에 상품 정보를 업데이트

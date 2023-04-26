@@ -23,7 +23,7 @@ const findProductById = async (productIds) => {
 
 // 전체 목록 조회
 const findAllproducts = async () => {
-  const products = await Product.findAll({});
+  const products = await Product.find({});
   return products;
 };
 

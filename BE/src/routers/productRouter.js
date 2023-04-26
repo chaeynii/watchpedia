@@ -45,7 +45,7 @@ productRouter.get(
 
 // 상품 전체 조회 라우터
 productRouter.get(
-  "/",
+  "/product/products",
   nextError(async (req, res, next) => {
     const products = await productService.getAllProduct();
     return res.status(200).json({ products });

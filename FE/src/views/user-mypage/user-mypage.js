@@ -1,3 +1,5 @@
+import * as Api from "/api.js";
+
 // import { main } from "/public/js/main.js";
 // const { loggedInUser } = await main();
 
@@ -22,24 +24,24 @@ const [
 
 // 유저 불러오기
 let {
-    streetAddress,
-    extraAddress,
-    postCode,
+    address_1,
+    address_2,
+    zip,
     createdAt,
     email,
     name,
-    password,
+    pw,
     role,
-    // _id,
-    phoneNumber,
-} = [,,,'2023-01-01',"abc@naver.com","김민지",1234,"basic-user",]
+    _id,
+    phone,
+} = data;
 
-// userEmail.innerHTML = email;
-// userName.value = name;
-// userPhoneNumber.value = phoneNumber;
-// userPostCode.value = postCode;
-// userStreetAddress.value = streetAddress;
-// userExtraAddress.value = extraAddress;
+userEmail.innerHTML = email;
+userName.value = name;
+userPhoneNumber.value = phone;
+userPostCode.value = zip;
+userStreetAddress.value = address_1;
+userExtraAddress.value = address_2;
 
 // 주소와 핸드폰번호가 없을 경우 빈칸으로 만들기
 if (userPostCode.value === "undefined" || userStreetAddress.value === "undefined") {
@@ -50,6 +52,11 @@ if (userPostCode.value === "undefined" || userStreetAddress.value === "undefined
 
 if (userPhoneNumber.value === "undefined") {
     userPhoneNumber.value = "";
+}
+
+
+function findUser(data){
+    Api.get()
 }
 
 //주소 찾기
@@ -143,7 +150,7 @@ function saveUserData(e) {
         userPhoneNumber.value = phoneNumber;
     }
 
-    fetch(`/api/users/${_id}`, {
+    Api.fetch(`/api/users/${_id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",

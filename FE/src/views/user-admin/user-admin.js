@@ -152,7 +152,7 @@ for (let i = 0; i < allBtns.length; i++) {
       document.querySelector(".btn-add__product").style =
         "display:none";
 
-      const USER_INFO_URL = "./example-data/user.json";
+      const USER_INFO_URL = "/admin/mypage";
 
       fetch(USER_INFO_URL)
         .then(async (res) => {
@@ -184,28 +184,13 @@ for (let i = 0; i < allBtns.length; i++) {
           mainTag.append(newHtml);
         })
         .then(() => {
-          // userManagementEdit();
+          userOrderList();
           userManagementDelete();
         })
         .catch((err) => alert(err));
 
       
 
-      // async function getUserData() {
-      //   try {
-      //     const response1 = await fetch(USER_INFO_URL);
-      //     const userInfoData = await response1.json();
-          
-      //     newHtml.appendChild(createUserTable(userAdmin, userInfoData));
-      //     mainTag.append(newHtml)
-
-      //     // userShowOrderList()
-      //     userManagementDelete()
-      //   } catch(err) {  
-      //     console.log(err)
-      //   }
-      // }
-      // getUserData();
 
     } else if (listName === "카테고리관리") {
       //상품추가와 카테고리추가 없애기
@@ -460,6 +445,31 @@ function orderManagementDelete() {
 //     });
 //   }
 // }
+function userOrderList() {
+  const showListBtns = document.querySelectorAll(".btn__show-list");
+  for (let count = 0; count < showListBtns.length; count++) {
+    showListBtns[count].addEventListener("click", (e) => {
+      // if (conf) {
+      //   const btnId = e.target.parentElement.parentElement.id;
+      //   document.getElementById(`${btnId}`).remove();
+      //   fetch(`/api/users/${btnId}`, {
+      //     method: "DELETE",
+      //   })
+      //     .then(async (res) => {
+      //       const json = await res.json();
+
+      //       if (res.ok) {
+      //         return json;
+      //       }
+
+      //       return Promise.reject(json);
+      //     })
+      //     .then((idData) => alert(`${idData}이 삭제되었습니다.`))
+      //     .catch((err) => alert(err));
+      // }
+    });
+  }
+}
 function userManagementDelete() {
   const deleteBtns = document.querySelectorAll(".btn__delete");
   for (let count = 0; count < deleteBtns.length; count++) {

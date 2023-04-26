@@ -15,32 +15,27 @@ function createTop(listArr) {
   }
   
   function createOrderMiddle(dataArr) {
-    console.log("createOrderMiddle 실행")
-    const middle = document.createElement("tbody");
-    const addHtml = [];
-    console.log(dataArr.length)
-    for (let count = 0; count < dataArr.length; count++) {
-      addHtml.push(
-        `<tr id="${dataArr[count]._id}">
+    return `<tbody>${dataArr.map(data =>
+      `<tr id="${data._id}">
             <th scope="row">
-              ${dataArr[count].date}
+              ${data.date}
             </th>
             <td>
-              ${dataArr[count].orderNumber}
+              ${data.orderNumber}
             </td>
             <td>
-              ${dataArr[count].name}
+              ${data.productList}
             </td>
             <td>
-              ${dataArr[count].products.join(",<br>")}
+              ${data.total}
             </td>
             <td>
-              ${dataArr[count].total}
+              ${data.name}
             </td>
             <td>
               <div class="dropdown">
                 <a class="btn btn-outline-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  ${dataArr[count].shopStatus}
+                  ${data.shippingStatus}
                 </a>
                 <ul class="dropdown-menu btn__edit">
                   <li><a class="dropdown-item">배송전</a></li>
@@ -54,10 +49,8 @@ function createTop(listArr) {
               <button type="button" class="btn btn-outline-danger btn__delete">주문취소</button>
             </td>
           </tr>`
-      );
-    }
-    middle.innerHTML += addHtml.join("");
-    return middle;
+      ).join("")}
+      </tbody>`
   }
   
   function createOrderTable(listArr, datasArr) {
@@ -65,7 +58,7 @@ function createTop(listArr) {
     const table = document.createElement("table");
     table.className = "table text-center";
     table.prepend(createTop(listArr));
-    table.append(createOrderMiddle(datasArr));
+    table.insertAdjacentHTML('beforeend',createOrderMiddle(datasArr));
     return table;
   }
   
@@ -74,25 +67,21 @@ function createTop(listArr) {
     const table = document.createElement("table");
     table.className = "table text-center";
     table.prepend(createTop(listArr));
-    table.append(createUserMiddle(datasArr));
+    table.insertAdjacentHTML('beforeend', createUserMiddle(datasArr));
     return table;
   }
   
   function createUserMiddle(dataArr) {
-    console.log("createUserMiddle 실행")
-    const middle = document.createElement("tbody");
-    const addHtml = [];
-    for (let count = 0; count < dataArr.length; count++) {
-      addHtml.push(
-        `<tr id="${dataArr[count]._id}">
+    return `<tbody>${dataArr.map(data =>
+      `<tr id="${data._id}">
             <th scope="row">
-              ${dataArr[count].date}
+              ${data.date}
             </th>
             <td>
-              ${dataArr[count].email}
+              ${data.email}
             </td>
             <td>
-              ${dataArr[count].name}
+              ${data.name}
             </td>
             <td>
               <button type="button" class="btn btn-outline btn__show-list">조회</button>
@@ -100,37 +89,28 @@ function createTop(listArr) {
             <td>
               <button type="button" class="btn btn-outline-danger btn__delete">회원삭제</button>
             </td>
-          </tr>`
-      );
-    }
-    middle.innerHTML += addHtml.join("");
-    return middle;
+          </tr>`).join("")}
+      </tbody>`
   }
   
   function createCategoryMiddle(dataArr) {
-    const middle = document.createElement("tbody");
-    const addHtml = [];
-    for (let count = 0; count < dataArr.length; count++) {
-      addHtml.push(
-        `<tr id="${dataArr[count]._id}">
+    return `<tbody>${dataArr.map(data => 
+        `<tr id="${data._id}">
             <td class="current__name">
-              ${dataArr[count].name}
+              ${data.name}
             </td>
             <td class="current__name">
-              ${dataArr[count].subCategory}
+              ${data.subCategory}
             </td>
             <td>
-            <button type="button" class="btn btn-outline-primary ms-auto p-2 bd-highlight btn__edit" data-bs-toggle="modal"
-        data-bs-target="#btn__admin__editCategory">수정</button>
+              <button type="button" class="btn btn-outline-primary ms-auto p-2 bd-highlight btn__edit" data-bs-toggle="modal"
+          data-bs-target="#btn__admin__editCategory">수정</button>
             </td>
             <td>
               <button type="button" class="btn btn-outline-danger btn__delete">삭제</button>
             </td>
-          </tr>`
-      );
-    }
-    middle.innerHTML += addHtml.join("");
-    return middle;
+          </tr>`).join("")}
+      </tbody>`
   }
   
   function createCategoryTable(listArr, datasArr) {
@@ -138,30 +118,28 @@ function createTop(listArr) {
     const table = document.createElement("table");
     table.className = "table text-center";
     table.prepend(createTop(listArr));
-    table.append(createCategoryMiddle(datasArr));
+    table.insertAdjacentHTML('beforeend', createCategoryMiddle(datasArr));
+    console.log(table)
     return table;
   }
   
   function createProductMiddle(dataArr) {
-    const middle = document.createElement("tbody");
-    const addHtml = [];
-    for (let count = 0; count < dataArr.length; count++) {
-      addHtml.push(
-        `<tr id="${dataArr[count]._id}">
+    return `<tbody>${dataArr.map(data =>
+      `<tr id="${data._id}">
             <th scope="row">
-              ${dataArr[count].date}
+              ${data.date}
             </th>
             <td class="current__name">
-              ${dataArr[count].name}
+              ${data.name}
             </td>
             <td>
-              ${dataArr[count].category}
+              ${data.category}
             </td>
             <td>
-              ${dataArr[count].price}
+              ${data.price}
             </td>
             <td>
-              ${dataArr[count].stock}
+              ${data.stock}
             </td>
             <td>
             <button type="button" class="btn btn-outline-primary ms-auto p-2 bd-highlight btn__edit" data-bs-toggle="modal"
@@ -171,10 +149,7 @@ function createTop(listArr) {
               <button type="button" class="btn btn-outline-danger btn__delete">삭제</button>
             </td>
           </tr>`
-      );
-    }
-    middle.innerHTML += addHtml.join("");
-    return middle;
+      )}</tbody>`
   }
   
   function createProductTable(listArr, datasArr) {
@@ -182,7 +157,7 @@ function createTop(listArr) {
     const table = document.createElement("table");
     table.className = "table text-center";
     table.prepend(createTop(listArr));
-    table.append(createProductMiddle(datasArr));
+    table.insertAdjacentHTML('beforeend',createProductMiddle(datasArr));
     return table;
   }
   

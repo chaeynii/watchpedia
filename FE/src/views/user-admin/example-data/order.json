@@ -1,20 +1,52 @@
 [
     {
+        "_id": "o001",
         "date": "2023-01-01",
         "orderNumber": "A00123ef97",
         "buyer": "김민지",
         "productList": ["APPLE WATCH", "GALAXY WATCH"],
         "countList": [2, 1],
-        "totalAmount": 400000,
+        "totalAmount": 900000,
         "shippingStatus": "배송전"
     },
     {
+        "_id": "o002",
         "date": "2023-01-02",
         "orderNumber": "A00123eg02",
         "buyer": "김땡땡",
         "productList": ["APPLE WATCH"],
         "countList": [1],
         "totalAmount": 400000,
+        "shippingStatus": "배송전"
+    },
+    {
+        "_id": "o003",
+        "date": "2023-01-03",
+        "orderNumber": "A00123ez01",
+        "buyer": "김민지",
+        "productList": ["GALAXY WATCH"],
+        "countList": [2],
+        "totalAmount": 260000,
+        "shippingStatus": "배송전"
+    },
+    {
+        "_id": "o004",
+        "date": "2023-01-04",
+        "orderNumber": "A00123ez01",
+        "buyer": "김민지",
+        "productList": ["샤오미 와치"],
+        "countList": [1],
+        "totalAmount": 100000,
+        "shippingStatus": "배송전"
+    },
+    {
+        "_id": "o005",
+        "date": "2023-01-05",
+        "orderNumber": "A00123ez01",
+        "buyer": "김땡땡",
+        "productList": ["GALAXY WATCH"],
+        "countList": [2],
+        "totalAmount": 480000,
         "shippingStatus": "배송전"
     }
 ]

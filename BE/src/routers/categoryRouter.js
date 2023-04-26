@@ -39,7 +39,7 @@ categoryRouter.get(
 );
 
 // 카테고리 생성 라우터
-categoryRouter.post("/category", async function (req, res, next) {
+categoryRouter.post("/admin/category", async function (req, res, next) {
   try {
     const categoryData = req.body;
     const createdCategory = await categoryService.addCategory(categoryData);
@@ -54,7 +54,7 @@ categoryRouter.post("/category", async function (req, res, next) {
 
 //  카테고리 업데이트 라우터, admin 추가해야댐
 categoryRouter.put(
-  "/:categoryId",
+  "/admin/:categoryId",
   loginRequired,
   nextError(async (req, res, next) => {
     const categoryId = req.params.categoryId;
@@ -69,7 +69,7 @@ categoryRouter.put(
 
 // 카테고리 삭제 라우터, admin 추가해야댐
 categoryRouter.delete(
-  "/:categoryId",
+  "/admin/:categoryId",
   loginRequired,
   nextError(async (req, res, next) => {
     const categoryId = req.params.categoryId;

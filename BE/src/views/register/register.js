@@ -36,7 +36,8 @@ async function handleSubmit(e) {
 
   if (!isFullNameValid || !isPasswordValid) {
     return alert("이름은 2글자 이상, 비밀번호는 4글자 이상이어야 합니다.");
-  }``
+  }
+  ``;
 
   // if (!isEmailValid) {
   //   return alert("이메일 형식이 맞지 않습니다.");
@@ -59,5 +60,5 @@ async function handleSubmit(e) {
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
-  }``
+  }
 }

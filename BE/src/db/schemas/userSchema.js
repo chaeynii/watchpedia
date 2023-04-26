@@ -1,38 +1,32 @@
 import { Schema } from "mongoose";
 
-const UserSchema = new Schema(
- {
-  email:{
+const UserSchema = new Schema({
+  email: {
     type: String,
     trim: true,
-    required: true
+    required: true,
   },
-  pw:{
+  pw: {
     type: String,
-    required: true
+    required: true,
   },
-  name:{
+  name: {
     type: String,
-    required: true
+    required: true,
   },
-  phone:{
+  phone: {
     type: String,
     // required: true
   },
-  address_1:{
-    type: String
+  address_1: {
+    type: String,
   },
-  address_2:{
-    type: String
+  address_2: {
+    type: String,
   },
-  token:{
-    type: String
+  zip: {
+    type: String,
   },
-  toke_Exp:{
-    type: Number
-  }
- }
-);
+});
 
 export { UserSchema };
-

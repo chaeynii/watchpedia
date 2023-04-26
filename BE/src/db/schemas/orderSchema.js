@@ -1,54 +1,50 @@
 import { Schema } from "mongoose";
 
-const orderSchema = new Schema(
-  {
-    buyer: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
-      required: true,
-    },
-    productList: [
-      {
-        type: Schema.Types.objectId,
-        ref: "product",
-        required: true,
-      },
-    ],
-    countList: [
-      {
-        type: Number,
-        required: true,
-      },
-    ],
-    shippingStatus: {
-      type: String,
-      default: "배송준비중",
-    },
-    postCode: {
-      type: String,
-      required: true,
-    },
-    streetAddress: {
-      type: String,
-      required: true,
-    },
-    extraAddress: {
-      type: String,
-      required: true,
-    },
-    extraAddress: {
-      type: String,
-      required: false,
-    },
-    totalAmount: {
-      type: String,
-      required: true,
-    },
+const orderSchema = new Schema({
+  productInfo:[{
+    type: Schema.Types.ObjectId,
+    ref:"Product",
+  }],
+  productCount:{
+    type: [Number],
+    default: 1,
   },
-  {
-    timestamps: true,
-    collection: "orders",
-  }
-);
+  buyer:{
+    type: Schema.Types.ObjectId,
+    ref:"users",
+  },
+  shoppingStatus:{
+    type: String,
+    enum: ['배송준비중', '배송중', '배송완료', '결제완료'],
+    default:"결제완료",
+  },
+  orderDate:{
+    type: Date,
+    default: new Date()
+  },
+  orderNumber:{
+    type: String,
+  },
+  totalAmount:{
+    type: Number,
+  },
+  totalPrice:{
+    type: Number,
+  },
+  zipCode:{
+    type: String,
+  },
+  extraAddress:{
+    type: String,
+  },
+  receiverName:{
+    type: String,
+  },
+  receiverPhone:{
+    type: String,
+  },
+},{
+    timestamps: true 
+});
 
 export { orderSchema };

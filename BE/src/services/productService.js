@@ -8,6 +8,13 @@ const addProduct = async (productInfo) => {
 
   return createProduct;
 };
+//id로 조회해서 가져옴
+const getProductById = async (productIds) => {
+  const productId = await productModel.findProductById(productIds);
+
+  return productId;
+};
+
 // 이름을 기반으로 데이터베이스에 해당 상품을 가져옴
 const getProductByName = async (name) => {
   const findProduct = await productModel.findProductByName(name);
@@ -43,6 +50,7 @@ const productService = {
   getAllProduct,
   updateProductByName,
   deleteProductByName,
+  getProductById,
 };
 
 export { productService };

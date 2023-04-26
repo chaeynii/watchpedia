@@ -17,6 +17,17 @@ function nextError(callback) {
   };
 }
 
+//상품 Id조회 라우터
+productRouter.get("/:productId", async(req, res, next) => {
+  try{
+    const product = await productService.getProductById(req.params.productId)
+    
+    res.status(200).send(product)
+  }catch(error){
+    next(error)
+  }
+});
+
 // 상품 조회 라우터
 productRouter.get(
   "/:name",

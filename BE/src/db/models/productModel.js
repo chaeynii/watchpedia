@@ -1,7 +1,7 @@
 import { model } from "mongoose";
 import { productSchema } from "../schemas/productSchema";
 
-const Product = model("Product", productSchema);
+export const Product = model("Product", productSchema);
 
 // 상품 생성
 const createProduct = async (productInfo) => {
@@ -13,6 +13,12 @@ const createProduct = async (productInfo) => {
 const findProductByName = async (name) => {
   const product = await Product.findOne({ name: name });
   return product;
+};
+
+//id로 조회해오기
+const findProductById = async (productIds) => {
+  const productId = await Product.findById({ _id: productIds });
+  return productId;
 };
 
 // 전체 목록 조회
@@ -42,4 +48,5 @@ export {
   updateProduct,
   deleteProduct,
   findAllproducts,
+  findProductById,
 };

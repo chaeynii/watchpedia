@@ -1,0 +1,121 @@
+body {
+    width: 100%;
+    color: #3a3a3a;
+}
+
+/* main */
+#main-container {
+    width: 1200px;
+    height: 100%;
+    padding: 100px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    min-height: 100vh; 
+}
+
+.mypage-head {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.mypage-category {
+    display: flex;
+    font-size: 18px;
+}
+
+.mypage-category.nav {
+    gap: 8px;
+    padding: 6px 0;
+}
+
+.mypage-category.nav-item {
+    width: 150px;
+    margin: 10px 0;
+}
+
+.mypage-category--a {
+    color: #3a3a3a;
+}
+
+.mypage-category--a:hover {
+    color: #712cf9;
+}
+
+.mypage-category--a.clicked {
+    color: #712cf9;
+}
+
+.mypage__contents {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: 50px;
+    width: 100%;
+}
+
+.subtitle-area {
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* 주문 정보 없는 경우 */
+.mypage__order--none {
+    width: 100%;
+    height: 500px;
+    text-align: center;
+    margin-top: 100px;
+
+    color: grey;
+    
+    font-size: 20px;
+}
+
+
+/* 주문 정보 있는 경우 */
+.card-header {
+    height: 40px;
+    padding: 13px;
+}
+
+.card-body {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    box-sizing: border-box;
+}
+
+
+/* 상품정보존 */
+.product__image {
+    width: 100px;
+    height: 100px;
+}
+
+.product__information {
+    width: 80%;
+}
+
+.card-text {
+    font-size: small;
+    color: #707070;
+}
+
+/* 세부정보존 */
+.detail__zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin: 10px;
+
+    width: 100px;
+    height: 80px;
+}
+
+.order {
+    display: flex;
+}

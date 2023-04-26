@@ -23,20 +23,11 @@ const [
 ] = document.querySelectorAll(".user-info");
 
 // 유저 불러오기
-let {
-    address_1,
-    address_2,
-    zip,
-    createdAt,
-    email,
-    name,
-    pw,
-    role,
-    _id,
-    phone,
+let { _id, email, pw, address_1, address_2, zip, name, phone
 } = data;
 
 userEmail.innerHTML = email;
+userPassWordOne.value = pw;
 userName.value = name;
 userPhoneNumber.value = phone;
 userPostCode.value = zip;
@@ -54,60 +45,54 @@ if (userPhoneNumber.value === "undefined") {
     userPhoneNumber.value = "";
 }
 
-
-function findUser(data){
-    Api.get()
-}
-
 //주소 찾기
 // Daum 주소 API
-function searchAddress() {
+// function searchAddress() {
 
-    new daum.Postcode({
-        oncomplete: function (data) {
-            let addr = '';
-            let extraAddr = '';
+//     new daum.Postcode({
+//         oncomplete: function (data) {
+//             let addr = '';
+//             let extraAddr = '';
 
 
-            if (data.userSelectedType === 'R') {
-                addr = data.roadAddress;
-            } else {
-                addr = data.jibunAddress;
-            }
+//             if (data.userSelectedType === 'R') {
+//                 addr = data.roadAddress;
+//             } else {
+//                 addr = data.jibunAddress;
+//             }
 
-            if (data.userSelectedType === 'R') {
-                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-                    extraAddr += data.bname;
-                }
-                if (data.buildingName !== '' && data.apartment === 'Y') {
-                    extraAddr +=
-                    extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
-                }
-                if (extraAddr !== '') {
-                    extraAddr = ' (' + extraAddr + ')';
-                }
-            } else {
-            }
+//             if (data.userSelectedType === 'R') {
+//                 if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+//                     extraAddr += data.bname;
+//                 }
+//                 if (data.buildingName !== '' && data.apartment === 'Y') {
+//                     extraAddr +=
+//                     extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
+//                 }
+//                 if (extraAddr !== '') {
+//                     extraAddr = ' (' + extraAddr + ')';
+//                 }
+//             } else {
+//             }
 
-            userPostCode.value = data.zonecode;
-            userStreetAddress.value = `${addr} ${extraAddr}`;
+//             userPostCode.value = data.zonecode;
+//             userStreetAddress.value = `${addr} ${extraAddr}`;
 
-            userExtraAddress.focus();
-        },
-    }).open();
-}
+//             userExtraAddress.focus();
+//         },
+//     }).open();
+// }
 
-addressSearchBtn.addEventListener("click", searchAddress);
+// addressSearchBtn.addEventListener("click", searchAddress);
 
 // 우편번호, 도로명주소 input칸 클릭 시 주소검색 나타나게 구현
-userPostCode.addEventListener("click", searchAddress);
-userStreetAddress.addEventListener("click", searchAddress);
+// userPostCode.addEventListener("click", searchAddress);
+// userStreetAddress.addEventListener("click", searchAddress);
 
 
 // 유저변경
 function saveUserData(e) {
     e.preventDefault();
-
     // 비밀번호 확인
     if (!(userPassWordOne.value === "" && userPassWordTwo.value === "")) {
         // 두 칸이 빈칸이 아니면 = 하나라도 입력값이 있으면
@@ -150,27 +135,24 @@ function saveUserData(e) {
         userPhoneNumber.value = phoneNumber;
     }
 
-    Api.fetch(`/api/users/${_id}`, {
-        method: "PUT",
+    fetch(`/api/mypage/${_id}`, {
+        method: "PATCH",
         headers: {
-            "Content-Type": "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
         body: JSON.stringify({
             _id: `${_id}`,
-            email: `${email}`,
-            password: `${password}`,
-            phoneNumber: `${userPhoneNumber.value}`,
-            createdAt: `${createdAt}`,
-            name: `${userName.value.trim()}`,
-            role: `${role}`,
-            postCode: `${userPostCode.value}`,
-            streetAddress: `${userStreetAddress.value}`,
-            extraAddress: `${userExtraAddress.value}`,
+            pw: `${password}`,
+            phone: `${userPhoneNumber.value}`,
+            zip: `${userPostCode.value}`,
+            address_1: `${userStreetAddress.value}`,
+            address_2: `${userExtraAddress.value}`,
         }),
     })
     .then(async (res) => {
         const json = await res.json();
-
+        console.log('json:::', json)
         if (res.ok) {
             return json;
         }
@@ -179,7 +161,6 @@ function saveUserData(e) {
     })
     .then((userInfoChange) => {
         alert("회원정보가 변경되었습니다.");
-        // window.location.href = "/users/mypage";
     })
     .catch((err) => {
         alert(`에러가 발생했습니다. 관리자에게 문의하세요. \n에러내용: ${err}`);

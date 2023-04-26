@@ -3,6 +3,8 @@
 
 // import { error } from "console";
 
+import * as Api from "../../../../BE/src/app.js";
+
 import {
   createOrderTable,
   createUserTable,
@@ -152,7 +154,7 @@ for (let i = 0; i < allBtns.length; i++) {
       document.querySelector(".btn-add__product").style =
         "display:none";
 
-      const USER_INFO_URL = "/admin/mypage";
+      const USER_INFO_URL = "api/admin/login";
 
       fetch(USER_INFO_URL)
         .then(async (res) => {

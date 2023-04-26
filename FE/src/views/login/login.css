@@ -1,0 +1,17 @@
+#main-container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 35px; 
+    margin-top:50px;
+    margin-bottom: 30px; 
+    color: #712cf9;
+    font-weight: 700;
+}
+
+#loginBtn {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}

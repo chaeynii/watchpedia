@@ -13,13 +13,15 @@ const userDeleteBtn = document.querySelector(".user__delete");
 
 
 function orderListMake(order) {
+    console.log("hi");
     // 주문내역이 있으면 주문내역 없다는 안내멘트 지우기
     orderNone.className = "mypage__order--none hidden";
 
     const orderId = order._id;
     const countList = order.countList;
     const productIdList = order.productList;
-    const orderDay = order.createdAt.split("T")[0];
+    // const orderDay = order.createdAt.split("T")[0];
+    const orderDay = order.createAt;
     const shippingStatus = order.shippingStatus;
 
     orderListZone.innerHTML += `<div class="order__contents card">
@@ -33,7 +35,8 @@ function orderListMake(order) {
 
 
     for (let i = 0; i < countList.length; i++) {
-        fetch(`/api/products/${productIdList[i]}`)
+        //fetch(`/api/products/${productIdList[i]}`)
+        fetch(`order-list-test.json`)
         .then(async (res) => {
             const json = await res.json();
             if (res.ok) {
@@ -55,7 +58,7 @@ function orderListMake(order) {
                     </div>
                     <div class="product__information">
                         <h5 class="card-title">${productName}</h5>
-                        <span class="card-text">${addCommas(productPrice)}원</span>
+                        <span class="card-text">${(productPrice)}원</span>
                         <span class="card-text"> / </span>
                         <span class="card-text">${countList[i]}개</span>
                     </div>
@@ -86,6 +89,13 @@ function orderListMake(order) {
         shippingStatusMessage.style.color = "red";
     }
 }
+
+const sample = {
+    "_id":"001",
+    "createAt": "2023-03-24",
+    "countList": [1,1]
+}
+orderListMake(sample);
 
 
 // 회원탈퇴 기능

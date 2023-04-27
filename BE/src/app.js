@@ -8,7 +8,7 @@ import {
   orderRouter,
 } from "./routers";
 import { errorHandler } from "./middlewares";
-
+import path from "path";
 const app = express();
 
 // CORS 에러 방지
@@ -22,7 +22,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // html, css, js 라우팅
 app.use(viewsRouter);
-
+// 이미지 path 추가
+const imageStorage = path.join(__dirname, "productImages");
+app.use(express.static(imageStorage));
 // api 라우팅
 // 아래처럼 하면, userRouter 에서 '/login' 으로 만든 것이 실제로는 앞에 /api가 붙어서
 // /api/login 으로 요청을 해야 하게 됨. 백엔드용 라우팅을 구분하기 위함임.

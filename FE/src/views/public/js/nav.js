@@ -13,7 +13,6 @@ window.onscroll = function () {
         nav.classList.toggle("drop", windowTop !== 0);
     }
 };
-  
 
 const dropdownItems = document.querySelectorAll(".dropdown-item");
 
@@ -27,9 +26,21 @@ dropdownItems.forEach(function(item) {
   });
 });
 // 제품 목록에서 클릭한 제품의 id값을 URL에 추가하는 함수
-function goToProductDetail(name) {
-  window.location.href = "product-detail.html?name=" + name;
+function goToProductDetail(id) {
+  window.location.href = "../product-detail/product-detail.html?id=" + id;
 }
+
+// 제품 목록에서 제품 클릭 시 이벤트 리스너 등록
+const items = document.querySelectorAll(".item");
+items.forEach(item => {
+  const productId = item.dataset.id;
+  item.addEventListener("click", function(event) {
+    event.preventDefault();
+    goToProductDetail(productId);
+  });
+});
+
+
 
 //로그인 유무 체크
 const utilLink = document.querySelector('.util-link');

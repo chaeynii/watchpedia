@@ -188,8 +188,8 @@ for (let i = 0; i < allBtns.length; i++) {
           mainTag.append(newHtml);
         })
         .then(() => {
-          // categoryManagementEdit();
-          editSubmitCategory();
+          categoryManagementEdit(); //수정모달창
+          editSubmitCategory(); //수정 제출
           categoryManagementCreate();
           categoryManagementDelete();
         })
@@ -227,14 +227,15 @@ for (let i = 0; i < allBtns.length; i++) {
         .then(() => {
           productManagementEdit();
           productManagementDelete();
+          editSubmitProduct();
+          productManagementCreate();
         })
         .catch((err) => alert(err));
     }
   });
 }
 
-editSubmitProduct();
-productManagementCreate();
+
 
 //============ 주문관련 =====================
 function orderManagementEdit() {
@@ -359,9 +360,9 @@ function editSubmitCategory() {
   document
     .querySelector(".submit__edit__category")
     .addEventListener("click", (e) => {
-      console.log("editSubmitCategory - 버튼 클릭")
+      // console.log("editSubmitCategory - 버튼 클릭")
       const newValue = document.getElementById("edit-category-name").value;
-      // /admin/:categoryId
+      console.log(categoryId)
       Api.patch(`/api/admin/${categoryId}`, {
         // method: "PUT",
         headers: {
@@ -371,13 +372,6 @@ function editSubmitCategory() {
           name: newValue.trim(),
         }),
       })
-        // .then(async (res) => {
-        //   const json = await res.json();
-        //   if (res.ok) {
-        //     return json;
-        //   }
-        //   return Promise.reject(json);
-        // })
         .then((data) => {
           alert(`"${beforeValue}"이(가) "${data.name}" 으로 변경되었습니다.`);
           document.querySelector(".btn__admin__category").click();
@@ -386,57 +380,83 @@ function editSubmitCategory() {
         .catch((err) => alert(err));
     });
 }
-// function categoryManagementEdit() {
-//   const editCategoryBtns = document.querySelectorAll(
-//     ".btn__edit"
-//   );
-//   for (let count = 0; count < editCategoryBtns.length; count++) {
-//     editCategoryBtns[count].addEventListener("click", (e) => {
-//       console.log("categoryManagementEdit -> 버튼 클릭")
-//       beforeValue =
-//         document.querySelectorAll(".current__name")[count].innerText;
-//       categoryId = e.currentTarget.parentElement.parentElement.id;
-//       // console.log(categoryId)
-//       const inputCategoryName = document.getElementById("edit-category-name");
-//       inputCategoryName.value = beforeValue;
-//     });
-//   }
-// }
+function categoryManagementEdit() {
+  const editCategoryBtns = document.querySelectorAll(
+    ".btn__edit"
+  );
+  for (let count = 0; count < editCategoryBtns.length; count++) {
+    editCategoryBtns[count].addEventListener("click", (e) => {
+      // console.log("categoryManagementEdit -> 버튼 클릭")
+      beforeValue =
+        document.querySelectorAll(".current__name")[count].innerText;
+      categoryId = e.currentTarget.parentElement.parentElement.id;
+      const inputCategoryName = document.getElementById("edit-category-name");
+      inputCategoryName.value = beforeValue;
+    });
+  }
+}
 function categoryManagementCreate() {
   // const addCategoryBtn = document.querySelector(".submit__category");
   btnAddCategory.addEventListener("click", (e) => {
+    console.log("add버튼 클릭됨")
+    const inputCategoryName = document.getElementById("category-name");
+    console.log(inputCategoryName)
     //category-name
-    fetch("/api/categories", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: `${document.getElementById("category-name").value.trim()}`,
-      }),
-    })
-      .then(async (res) => {
-        const json = await res.json();
-        if (res.ok) {
-          return json;
-        }
-        return Promise.reject();
-      })
-      .then((data) => {
-        const newData = {
-          _id: data._id,
-          date: data.createdAt.slice(0, 10),
-          name: data.name,
-          updateDate: data.updatedAt.slice(0, 10),
-        };
-        alert(`${newData.name} 이(가) 카테고리에 추가되었습니다.`);
-        //모달숨기기
-        document.getElementById("category-name").value = "";
-        bootstrap.Modal.getInstance("#btn__admin__addCategory").hide();
-        document.querySelector(".btn__admin__category").click();
-      })
-      .catch(() => alert("카테고리명을 입력해주세요"));
+    // Api.post("/api/categories", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     name: `${document.getElementById("category-name").value.trim()}`,
+    //   }),
+    // })
+    //   .then(async (res) => {
+    //     const json = await res.json();
+    //     if (res.ok) {
+    //       return json;
+    //     }
+    //     return Promise.reject();
+    //   })
+    //   .then((data) => {
+    //     const newData = {
+    //       _id: data._id,
+    //       date: data.createdAt.slice(0, 10),
+    //       name: data.name,
+    //       updateDate: data.updatedAt.slice(0, 10),
+    //     };
+    //     alert(`${newData.name} 이(가) 카테고리에 추가되었습니다.`);
+    //     //모달숨기기
+    //     document.getElementById("category-name").value = "";
+    //     bootstrap.Modal.getInstance("#btn__admin__addCategory").hide();
+    //     document.querySelector(".btn__admin__category").click();
+    //   })
+    //   .catch(() => alert("카테고리명을 입력해주세요"));
   });
+}
+function createSubmitCategory(){
+  document
+    .querySelector(".submit__category")
+    .addEventListener("click", (e) => {
+      // console.log("editSubmitCategory - 버튼 클릭")
+      const newValue = document.getElementById("edit-category-name").value;
+      console.log(categoryId)
+      Api.patch(`/api/admin/${categoryId}`, {
+        // method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: newValue.trim(),
+        }),
+      })
+        .then((data) => {
+          alert(`"${beforeValue}"이(가) "${data.name}" 으로 변경되었습니다.`);
+          document.querySelector(".btn__admin__category").click();
+          bootstrap.Modal.getInstance("#btn__admin__editCategory").hide();
+        })
+        .catch((err) => alert(err));
+    });
 }
 function categoryManagementDelete() {
   const deleteBtns = document.querySelectorAll(".btn__delete");
@@ -446,7 +466,7 @@ function categoryManagementDelete() {
       if (conf) {
         const btnId = e.target.parentElement.parentElement.id;
         document.getElementById(`${btnId}`).remove();
-        fetch(`/api/categories/${btnId}`, {
+        Api.del(`/api/admin/categories/${btnId}`, {
           method: "DELETE",
         })
           .then(async (res) => {

@@ -27,13 +27,18 @@
     <header>
         <div class="header-wrap">
             <h1 class="logo">
-                <a href="../home/home.html">로고 이미지</a>
+                <!-- url변경 -->
+                <a href="/">로고 이미지</a>
             </h1>
             <ul class="util-link">
-                <!-- <li><button type="button" class="btn btn-link" onclick="location.href='../login.html';">로그인</button></li>
-                <li><button type="button" class="btn btn-link" onclick="location.href='../user-mypage/user-mypage.html';">마이페이지</button></li>
-                <li><button type="button" class="btn btn-link" onclick="location.href='../login.html';">회원가입</button></li>
-                <li><button type="button" class="btn btn-link" onclick="location.href='../cart/cart.html';">장바구니</button></li> -->
+                <!-- button 보다 a 태그가 더 시맨틱적이라 변경함 
+                    다른페지도 이렇게 변경 하셔야해요~
+                    아님 js파일로 만들어서 header 랑 footer 는 컴포넌트 형식으로 관리해도 편할것 같아요!
+                -->
+                <li><a href="/login" class="btn btn-link">로그인</a></li>
+                <li><a href="/mypage" class="btn btn-link">마이페이지</a></li>
+                <li><a href="/register" class="btn btn-link">회원가입</a></li>
+                <li><a href="" class="btn btn-link">장바구니</a></li>
             </ul>
         </div>
     </header>

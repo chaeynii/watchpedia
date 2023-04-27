@@ -29,7 +29,7 @@ orderRouter.get('/mypage/orders/:orderId', loginRequired, async(req, res, next) 
 })
 
 //관리자 수정 가능
-orderRouter.patch('/admin/orders/:orderId', loginRequired, async(req, res, next) => {
+orderRouter.patch('/admin/orders/:orderId', async(req, res, next) => {
   try{
 
     const orderId = req.params.orderId;

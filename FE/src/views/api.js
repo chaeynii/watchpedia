@@ -18,9 +18,9 @@ async function get(endpoint, params = "") {
 
     throw new Error(reason);
   }
+  
 
   const result = await res.json();
-
   return result;
 }
 

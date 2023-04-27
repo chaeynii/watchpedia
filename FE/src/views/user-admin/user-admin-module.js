@@ -18,24 +18,24 @@ function createTop(listArr) {
     return `<tbody>${dataArr.map(data =>
       `<tr id="${data._id}">
             <th scope="row">
-              ${data.date}
+              ${data.orderDate}
             </th>
             <td>
               ${data.orderNumber}
             </td>
             <td>
-              ${data.productList}
+              ${data.productInfo}
             </td>
             <td>
               ${data.total}
             </td>
             <td>
-              ${data.name}
+              ${data.receiverName}
             </td>
             <td>
               <div class="dropdown">
                 <a class="btn btn-outline-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  ${data.shippingStatus}
+                  ${data.shoppingStatus}
                 </a>
                 <ul class="dropdown-menu btn__edit">
                   <li><a class="dropdown-item">배송전</a></li>

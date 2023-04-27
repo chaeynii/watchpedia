@@ -1,10 +1,10 @@
 import * as Api from "/api.js";
 
 
-const loginEmail = document.getElementById("loginInputEmail");
-const loginPassword = document.getElementById("loginInputPw");
+const loginEmail = document.getElementById("adminLoginInputEmail");
+const loginPassword = document.getElementById("adminLoginInputPw");
 
-const loginSubmit = document.getElementById("loginBtn");
+const loginSubmit = document.getElementById("adminLoginBtn");
 
 addAllElements();
 addAllEvents();
@@ -21,23 +21,17 @@ function addAllEvents() {
 async function handleSubmit(e) {
     e.preventDefault(); // 로그인 실패시 에도 기존 내용 유지
 
-    const email = loginEmail.value;
-    const pw = loginPassword.value;
+    const email = adminLoginInputEmail.value;
+    const pw = adminLoginInputPw.value;
 
 // 클라이언트 사이드 데이터 유효성 체크 검사
 
-    // 이메일 형식 체크 함수
-    const isEmailValid= (loginEmail) => {
-        return String(email)
-        .toLowerCase()
-        .match(
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        );
-    };
-
+    const isAdminValid = (loginEmail) => {
+        return email === 'admin'
+    }
     // 비밀번호 길이 체크 함수
     const isPasswordValid = (loginPassword) => {
-        return pw.length >= 4;
+        return pw === "admin";
     };
 
 
@@ -49,20 +43,18 @@ async function handleSubmit(e) {
         return;
     }
 
-    // 이메일 검사
-    if (!isEmailValid(loginEmail)) {
-        alert('올바른 이메일 형식이 아닙니다.');
+    if(!isAdminValid(loginEmail)){
+        alert('관리자 이메일이 아닙니다');
         return;
     }
-
     // 비밀번호 길이 검사
     if (!isPasswordValid(loginPassword)) {
-        alert('비밀번호는 4글자 이상이어야 합니다.');
+        alert('비밀번호가 틀립니다');
         return;
     }
 
 // 로그인 api 요청(fetch 버전)
-const loginURL = "/api/login";
+const loginURL = "/api/admin/login";
 
 const data = { email, pw }
 
@@ -76,7 +68,7 @@ Api.post(loginURL, data)
 
         alert('로그인 성공!')
 
-        window.location.href="/"
+        window.location.href="/admin"
    })
     .catch((error) => {
         // 에러 처리

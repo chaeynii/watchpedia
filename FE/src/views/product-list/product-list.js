@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-=======
+
 import * as Api from "../api.js";
->>>>>>> 7a1a0d7ece495cc1bb84eedd3bfaacfa2f8ae826
+
 const itemlist = document.querySelector(".main-container__itemlist");
 const productUrl = 'api/product';
 

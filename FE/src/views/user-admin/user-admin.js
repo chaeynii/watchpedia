@@ -214,22 +214,13 @@ for (let i = 0; i < allBtns.length; i++) {
 
       // const PRODUCT_INFO_URL = "./example-data/product.json";
 
-      Api.get("")
-        // .then(async (res) => {
-        //   const json = await res.json();
-
-        //   if (res.ok) {
-        //     return json;
-        //   }
-
-        //   return Promise.reject(json);
-        // })
+      const PRODUCT_URL = "/api/product";
+      Api.get(PRODUCT_URL, "products")
         .then((datas) => {
           const newDatas = datas.map((data) => {
             return {
               _id: data._id,
-              date: data.createdAt.slice(0, 10),
-              category: data.category.replace("#", ""),
+              category: data.category,
               name: data.name,
               price: Number(data.price).toLocaleString(),
               stock: Number(data.stock).toLocaleString(),

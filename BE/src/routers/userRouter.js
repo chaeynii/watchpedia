@@ -86,8 +86,6 @@ userRouter.post("/admin/login", async (req, res, next) => {
     // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
     const userToken = await userService.getUserToken({ email, pw });
 
-    console.log("user:::", userToken);
-
     //관리자 아이디 체크
     if (email !== "admin") {
       throw new Error("관리자 회원아닙니다!");

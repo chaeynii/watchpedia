@@ -1,9 +1,12 @@
+import * as Api from "/api.js";
+
 const registerName = document.getElementById("register-name");
 const registerEmail = document.getElementById("register-email");
 const registerPw = document.getElementById("register-pw1");
 const registerPwConfirm = document.getElementById("register-pw2");
-const registerAddress = document.getElementById("register-address1");
-const registerAddressDetail = document.getElementById("register-address2");
+const registerZip = document.getElementById("register-address1");
+const registerAddress = document.getElementById("register-address2");
+const registerAddressDetail = document.getElementById("register-address3");
 const registerPhoneNum = document.getElementById("register-contact");
 
 const registerSubmit = document.getElementById("register-submit");
@@ -25,19 +28,20 @@ function addAllEvents() {
 async function handleSubmit(e) {
     e.preventDefault(); // 폼 제출 시에도 기존 내용 유지
 
-    const fullName = registerName.value;
+    const name = registerName.value;
     const email = registerEmail .value;
-    const password = registerPw.value;
+    const pw = registerPw.value;
     const passwordConfirm = registerPwConfirm.value;
-    const phoneNumber = registerPhoneNum.value;
-    const address1 = registerAddress.value;
-    const address2 = registerAddressDetail.value;
+    const phone = registerPhoneNum.value;
+    const zip = registerZip.value;
+    const address_1 = registerAddress.value;
+    const address_2 = registerAddressDetail.value;
 
 // 클라이언트 사이드 데이터 유효성 체크 검사
 
     // 이름 형식 체크 함수
     const isNameValid = (registerName) => {
-        return fullName.length >= 2;
+        return name.length >= 2;
         };
 
     // 이메일 형식 체크 함수
@@ -51,19 +55,19 @@ async function handleSubmit(e) {
 
     // 비밀번호 길이 체크 함수
     const isPasswordValid = (registerPw) => {
-        return password.length >= 4;
+        return pw.length >= 4;
         };
 
     // 비밀번호 재확인 체크 함수
     const isPasswordSame = (registerPw, registerPwConfirm) => {
-        return password === passwordConfirm;
+        return pw === passwordConfirm;
     }
     
 
     // 휴대폰번호 체크 함수
         const isPhoneNumValid = (registerPhoneNum) => {
             const pattern = /^[0-9]+$/;
-            return pattern.test(phoneNumber);
+            return pattern.test(phone);
     };
     
 
@@ -98,27 +102,24 @@ async function handleSubmit(e) {
         return;
     } 
 
-// 회원가입 api 요청
-  try {
-    const data = {
-      fullName,
-      email,
-      password,
-      phoneNumber,
-      address1,
-      address2,
-    };
 
-    await Api.post("/api/users", data);
+// // 회원가입 api 요청
+// 밑에 형식 이상하면 내부 유효성 검사 안뜨는 문제 발생하고 있음
 
-    console.log(data);
+const registerURL = "/api/register";
 
-    alert(`정상적으로 회원가입되었습니다.`);
+const data = { name, email, pw, zip, address_1, address_2, phone }
 
-    // 로그인 페이지 이동
-    window.location.href = "loginFIN.html";
-  } catch (err) {
-    console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
-  }
+Api.post(registerURL, data)
+    .then((res) => {
+        // 로그인 페이지 이동
+        console.log(res)
+        alert("회원가입에 성공했습니다.");
+        window.location.href = "/login";
+    })
+    .catch((error) => {
+        // 에러 처리
+        console.error(error);
+        alert(error.message)
+    });
 }

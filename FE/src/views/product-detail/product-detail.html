@@ -20,7 +20,7 @@
 
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="product-detail.css">
-    <script defer type="text/javascript" src="product-detail.js"></script>
+    <script defer type="module" src="product-detail.js"></script>
 </head>
 <body>
     <!-- Header [시작] -->
@@ -95,8 +95,8 @@
                     </div>
                   </div>
                   <div class="btn-wrap">
-                    <button type="button" class="btn btn-primary" onclick="addToCart()">장바구니</button>
-                    <button type="button" class="btn btn-primary">바로구매</button>
+                    <button type="button" class="btn btn-primary" onclick="addToCart()" id="addCart">장바구니</button>
+                    <button type="button" class="btn btn-primary" id="buyNow">바로구매</button>
                   </div>
                 </div>
               </div>

@@ -23,7 +23,7 @@ const findProductById = async (productIds) => {
 
 // 전체 목록 조회
 const findAllproducts = async () => {
-  const products = await Product.findAll({});
+  const products = await Product.find({});
   return products;
 };
 
@@ -42,6 +42,11 @@ const deleteProduct = async (name) => {
   return deletedProduct;
 };
 
+// 카테고리 ID로 상품 가져오기
+const findAllByCategoryId = async (categoryId) => {
+  const getProductCategoryId = await Product.find({ categoryId });
+  return getProductCategoryId;
+};
 export {
   findProductByName,
   createProduct,
@@ -49,4 +54,5 @@ export {
   deleteProduct,
   findAllproducts,
   findProductById,
+  findAllByCategoryId,
 };

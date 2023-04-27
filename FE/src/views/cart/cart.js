@@ -1,4 +1,4 @@
-// import * as Api from "/api.js";
+import * as Api from "/api.js";
 
 let cartItemList = document.querySelector("#cart-item-list");
 

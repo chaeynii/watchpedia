@@ -1,6 +1,11 @@
+<<<<<<< HEAD
+=======
+import * as Api from "../api.js";
+>>>>>>> 7a1a0d7ece495cc1bb84eedd3bfaacfa2f8ae826
 const itemlist = document.querySelector(".main-container__itemlist");
+const productUrl = 'api/product';
 
-fetch("../data/data.json")
+Api.get(productUrl, 'category/:categoryId')
   .then(response => response.json())
   .then(productList => {
     const params = new URLSearchParams(location.search);
@@ -18,7 +23,7 @@ fetch("../data/data.json")
         const item = document.createElement("div");
         item.classList.add("item");
         item.innerHTML = `
-          <a href="../product-detail/product-detail.html?name=${product.name}" data-name="${product.name}" class="item">
+          <a href="../product-detail/product-detail.html?id=${product.Id}" class="item">
             <img src="${product.smallImageURL}" alt="${product.name}">
             <p class="item-title">${product.name}</p>
             <span class="item-price">${product.price}</span>
@@ -37,9 +42,9 @@ fetch("../data/data.json")
     items.forEach(item => {
       item.addEventListener("click", function(event) {
         event.preventDefault();
-        const name = this.dataset.name;
-        localStorage.setItem("productName", name);
-        location.href = `../product-detail/product-detail.html?name=${name}`;
+        const id = this.dataset.id;
+        localStorage.setItem("producId", id);
+        location.href = `../product-detail/product-detail.html?name=${id}`;
       });
     });
   })

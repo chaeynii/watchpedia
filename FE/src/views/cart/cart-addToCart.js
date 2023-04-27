@@ -142,10 +142,10 @@ function buyNow() { // 밑에 필요 없을 수도 있음...?? 또는 주문결�
   const token = sessionStorage.getItem("token");
   if (!token) {
     alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-    window.location.replace("/login");
+    window.location.href="/login";
   }
 
-  window.location.replace("/cart-order");
+  window.location.href="/cart-order";
 }
 
 buyBtn.addEventListener("click", buyNow);

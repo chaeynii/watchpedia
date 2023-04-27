@@ -20,9 +20,6 @@
 
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="./login.css">
-    <script defer type="text/javascript" src="./login.js"></script>
-
-
 </head>
 <body>
 
@@ -35,10 +32,11 @@
             </a>
           </h1>
           <ul class="util-link">
-            <li><button type="button" class="btn btn-link" onclick="location.href= 'login.html'">로그인</button></li>  
-              <li><button type="button" class="btn btn-link">마이페이지</button></li>
-              <li><button type="button" class="btn btn-link" onclick="location.href= 'register.html'">회원가입</button></li>
-              <li><button type="button" class="btn btn-link">장바구니</button></li>
+            <!-- 시맨틱적으로 a태그가 맞는것 같아서 변경 -->
+              <li><a href="/login" class="btn btn-link">로그인</a></li>  
+              <li><a href="" class="btn btn-link">마이페이지</a></li>
+              <li><a href="/register" class="btn btn-link">회원가입</a></li>
+              <li><a href="" class="btn btn-link">장바구니</a></li>
           </ul>
       </div>
       
@@ -88,7 +86,7 @@
           <div class="row mb-3">
               <label  class="col-sm-2 col-form-label">비밀번호</label>
               <div class="col-sm-4">
-                <input type="password1" class="form-control" id="loginInputPw" placeholder="4글자 이상 입력해주세요.">
+                <input type="password" class="form-control" id="loginInputPw" placeholder="4글자 이상 입력해주세요.">
               </div>
           </div>
   
@@ -102,5 +100,6 @@
         <address>&copy; 엘리스 SW 4기 : 13팀 - 시계는 와!!치!!</address>
     </footer>
     <!-- Footer [끝] -->
+    <script defer type="module" src="./login.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 // import { productModel } from "../db";
 
 const productModel = require("../db/models/productModel");
+const categoryModel = require("../db/models/categoryModel");
 
 // 상품 정보를 받아와 데이터베이스에 새로운 상품을 추가
 const addProduct = async (productInfo) => {
@@ -44,6 +45,15 @@ const deleteProductByName = async (name, productInfo) => {
 //   return searchedProduct;
 // };
 
+const getProductsByCategoryId = async (categoryId) => {
+  const category = await categoryModel.findCategoryById(categoryId);
+  if (!category) {
+    throw new Error("해당 카테고리에 속한 상품을 찾을 수 없습니다.");
+  }
+  const products = await productModel.findAllByCategoryId(category._id);
+  return products;
+};
+
 const productService = {
   addProduct,
   getProductByName,
@@ -51,6 +61,7 @@ const productService = {
   updateProductByName,
   deleteProductByName,
   getProductById,
+  getProductsByCategoryId,
 };
 
 export { productService };

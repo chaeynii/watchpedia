@@ -1,18 +1,8 @@
 import { Schema } from "mongoose";
 
-const subCategorySchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-});
-
 const categorySchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  subCategory: [subCategorySchema],
+  name: { type: String, required: true },
+  parentCategory: { type: Schema.Types.ObjectId, ref: "Category" },
 });
 
 export { categorySchema };

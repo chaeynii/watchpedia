@@ -99,26 +99,66 @@ async function handleSubmit(e) {
     } 
 
 // 회원가입 api 요청
-  try {
-    const data = {
-      fullName,
-      email,
-      password,
-      phoneNumber,
-      address1,
-      address2,
-    };
+//   try {
+//     const data = {
+//       fullName,
+//       email,
+//       password,
+//       phoneNumber,
+//       address1,
+//       address2,
+//     };
 
-    await Api.post("/api/users", data);
+//     await Api.post("../../../FE/src/views/register/register-dummy.json", data);
 
-    console.log(data);
+//     console.log(data);
 
-    alert(`정상적으로 회원가입되었습니다.`);
+//     alert(`정상적으로 회원가입되었습니다.`);
 
-    // 로그인 페이지 이동
-    window.location.href = "loginFIN.html";
-  } catch (err) {
-    console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
-  }
+//     // 로그인 페이지 이동
+//     window.location.href = "login.html";
+//   } catch (err) {
+//     console.error(err.stack);
+//     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+//   }
+// }
+
+
+// // 회원가입 api 요청
+// 밑에 형식 이상하면 내부 유효성 검사 안뜨는 문제 발생하고 있음
+
+const registerURL = "../../../FE/src/views/register/register-dummy.json";
+
+const datas = {
+    name: data.name,
+    email: data.email,
+    pw: data.pw,
+    zip: data.zip,
+    address_1: data.address_1,
+    address_2: data.address_2,
+    phone: data.phone
 }
+
+fetch(registerURL, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify(datas) 
+})
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("데이터 전송에 실패하였습니다.");
+        }
+        return response.json(); // 응답 데이터를 JSON 형태로 파싱하여 반환
+    })
+    .then((responseData) => {
+        // 로그인 페이지 이동
+        alert("회원가입에 성공했습니다.");
+        window.location.href = "login.html";
+    })
+    .catch((error) => {
+        // 에러 처리
+        console.error(error);
+        alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`)
+    });

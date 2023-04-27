@@ -53,9 +53,8 @@ categoryRouter.post("/admin/category", async function (req, res, next) {
 });
 
 //  카테고리 업데이트 라우터, admin 추가해야댐
-categoryRouter.put(
-  "/admin/:categoryId",
-  loginRequired,
+categoryRouter.patch(
+  "/admin/category/:categoryId", loginRequired,
   nextError(async (req, res, next) => {
     const categoryId = req.params.categoryId;
     const categoryData = req.body;
@@ -69,7 +68,7 @@ categoryRouter.put(
 
 // 카테고리 삭제 라우터, admin 추가해야댐
 categoryRouter.delete(
-  "/admin/:categoryId",
+  "/admin/category/:categoryId",
   loginRequired,
   nextError(async (req, res, next) => {
     const categoryId = req.params.categoryId;

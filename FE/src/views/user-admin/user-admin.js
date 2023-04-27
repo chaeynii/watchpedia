@@ -191,6 +191,7 @@ for (let i = 0; i < allBtns.length; i++) {
           categoryManagementEdit(); //수정모달창
           editSubmitCategory(); //수정 제출
           categoryManagementCreate();
+          createSubmitCategory()
           categoryManagementDelete();
         })
         .catch((err) => alert(err));
@@ -360,11 +361,11 @@ function editSubmitCategory() {
   document
     .querySelector(".submit__edit__category")
     .addEventListener("click", (e) => {
-      // console.log("editSubmitCategory - 버튼 클릭")
+      console.log("editSubmitCategory - 버튼 클릭")
       const newValue = document.getElementById("edit-category-name").value;
       console.log(categoryId)
-      Api.patch(`/api/admin/${categoryId}`, {
-        // method: "PUT",
+      Api.patch("/api/admin/category",categoryId, {
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -399,8 +400,9 @@ function categoryManagementCreate() {
   // const addCategoryBtn = document.querySelector(".submit__category");
   btnAddCategory.addEventListener("click", (e) => {
     console.log("add버튼 클릭됨")
+    bootstrap.Modal.getInstance("#btn__admin__addCategory").show();
     const inputCategoryName = document.getElementById("category-name");
-    console.log(inputCategoryName)
+    console.log(inputCategoryName.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)
     //category-name
     // Api.post("/api/categories", {
     //   method: "POST",

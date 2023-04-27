@@ -1,28 +1,24 @@
-// import { main, addCommas } from "/public/js/main.js";
-// const { loggedInUser } = await main();
-
-// if (!loggedInUser) {
-//     window.location.href = "/";
-// }
-
-// const { orderList, name, _id } = loggedInUser;
+import * as Api from "/api.js";
 
 const orderNone = document.querySelector(".mypage__order--none");
 const orderListZone = document.querySelector(".order__list");
 const userDeleteBtn = document.querySelector(".user__delete");
 
+// 1000 -> 1,000
+const addCommas = n => {
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
 
+// 주문내역 있는 경우
 function orderListMake(order) {
-    console.log("hi");
     // 주문내역이 있으면 주문내역 없다는 안내멘트 지우기
     orderNone.className = "mypage__order--none hidden";
 
     const orderId = order._id;
-    const countList = order.countList;
-    const productIdList = order.productList;
-    // const orderDay = order.createdAt.split("T")[0];
-    const orderDay = order.createAt;
-    const shippingStatus = order.shippingStatus;
+    const countList = order.productCount;
+    //const productIdList = order.productList;
+    const orderDay = order.createdAt.split("T")[0];
+    const shippingStatus = order.shoppingStatus;
 
     orderListZone.innerHTML += `<div class="order__contents card">
         <a href="/orders/detail/${orderId}">
@@ -36,14 +32,15 @@ function orderListMake(order) {
 
     for (let i = 0; i < countList.length; i++) {
         //fetch(`/api/products/${productIdList[i]}`)
-        fetch(`order-list-test.json`)
-        .then(async (res) => {
-            const json = await res.json();
-            if (res.ok) {
-                return json;
-            }
-            return Promise.reject(json);
-        })
+        //fetch(`order-list-test.json`)
+        Api.get(`/api/mypage/orders/:orderId`)
+        // .then(async (res) => {
+        //     const json = await res.json();
+        //     if (res.ok) {
+        //         return json;
+        //     }
+        //     return Promise.reject(json);
+        // })
         .then((product) => {
             const productName = product.name;
             const productImg = product.smallImageURL;
@@ -58,7 +55,7 @@ function orderListMake(order) {
                     </div>
                     <div class="product__information">
                         <h5 class="card-title">${productName}</h5>
-                        <span class="card-text">${(productPrice)}원</span>
+                        <span class="card-text">${addCommas(productPrice)}원</span>
                         <span class="card-text"> / </span>
                         <span class="card-text">${countList[i]}개</span>
                     </div>
@@ -90,12 +87,6 @@ function orderListMake(order) {
     }
 }
 
-const sample = {
-    "_id":"001",
-    "createAt": "2023-03-24",
-    "countList": [1,1]
-}
-orderListMake(sample);
 
 
 // 회원탈퇴 기능
@@ -104,18 +95,18 @@ function deleteUser() {
         "회원 탈퇴 하시겠습니까? \n탈퇴즉시 정보가 삭제됩니다."
     );
     if (answer) {
-        fetch(`/api/users/${_id}`, {
+        fetch(`/api/user/${_id}`, {
             method: "DELETE",
         })
-        .then(async (res) => {
-            const json = await res.json();
+        // .then(async (res) => {
+        //     const json = await res.json();
 
-            if (res.ok) {
-                return json;
-            }
+        //     if (res.ok) {
+        //         return json;
+        //     }
 
-            return Promise.reject(json);
-        })
+        //     return Promise.reject(json);
+        // })
         .then((data) => {
             alert("회원 정보가 삭제되었습니다.");
             window.location.href = "/";

@@ -7,9 +7,7 @@ const productUrl = '/api/product';
 
 Api.get(productUrl, `${productId}`)
   //.then((response) => console.log(response))
-  .then((products) => {
-    console.log(products);
-    const product = products.find((p) => p._id === productId);
+  .then((product) => {
     const productImg = document.getElementById("product-img");
     const productNameEl = document.getElementById("product-name");
     const productDesc = document.getElementById("product-desc");

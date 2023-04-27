@@ -22,17 +22,44 @@ const [
     userExtraAddress,
 ] = document.querySelectorAll(".user-info");
 
-// 유저 불러오기
-let { _id, email, pw, address_1, address_2, zip, name, phone
-} = data;
+const token = sessionStorage.getItem("token");
+let pw, _id;
 
-userEmail.innerHTML = email;
-userPassWordOne.value = pw;
-userName.value = name;
-userPhoneNumber.value = phone;
-userPostCode.value = zip;
-userStreetAddress.value = address_1;
-userExtraAddress.value = address_2;
+Api.get(`/api/mypage`,"64482d003a3beba2765daa2b")
+// {
+//     //method: "GET",
+//     headers: {
+//         Authorization: `Bearer ${token}`,
+//     },
+// })
+  .then((data) => {
+    let { _id, email, pw, address_1, address_2, zip, name, phone } = data;
+    
+    // 유저 데이터를 사용하여 UI를 업데이트합니다.
+    userEmail.innerHTML = email;
+    userPassWordOne.value = pw;
+    userName.value = name;
+    userPhoneNumber.value = phone;
+    userPostCode.value = zip;
+    userStreetAddress.value = address_1;
+    userExtraAddress.value = address_2;
+  })
+  .catch((err) => {
+    alert(`에러가 발생했습니다. 관리자에게 문의하세요. \n에러내용: ${err}`);
+  });
+
+
+// 유저 불러오기
+// let { _id, email, pw, address_1, address_2, zip, name, phone
+// } = data;
+
+// userEmail.innerHTML = email;
+// userPassWordOne.value = pw;
+// userName.value = name;
+// userPhoneNumber.value = phone;
+// userPostCode.value = zip;
+// userStreetAddress.value = address_1;
+// userExtraAddress.value = address_2;
 
 // 주소와 핸드폰번호가 없을 경우 빈칸으로 만들기
 if (userPostCode.value === "undefined" || userStreetAddress.value === "undefined") {
@@ -47,47 +74,47 @@ if (userPhoneNumber.value === "undefined") {
 
 //주소 찾기
 // Daum 주소 API
-// function searchAddress() {
+function searchAddress() {
 
-//     new daum.Postcode({
-//         oncomplete: function (data) {
-//             let addr = '';
-//             let extraAddr = '';
+    new daum.Postcode({
+        oncomplete: function (data) {
+            let addr = '';
+            let extraAddr = '';
 
 
-//             if (data.userSelectedType === 'R') {
-//                 addr = data.roadAddress;
-//             } else {
-//                 addr = data.jibunAddress;
-//             }
+            if (data.userSelectedType === 'R') {
+                addr = data.roadAddress;
+            } else {
+                addr = data.jibunAddress;
+            }
 
-//             if (data.userSelectedType === 'R') {
-//                 if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-//                     extraAddr += data.bname;
-//                 }
-//                 if (data.buildingName !== '' && data.apartment === 'Y') {
-//                     extraAddr +=
-//                     extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
-//                 }
-//                 if (extraAddr !== '') {
-//                     extraAddr = ' (' + extraAddr + ')';
-//                 }
-//             } else {
-//             }
+            if (data.userSelectedType === 'R') {
+                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                    extraAddr += data.bname;
+                }
+                if (data.buildingName !== '' && data.apartment === 'Y') {
+                    extraAddr +=
+                    extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
+                }
+                if (extraAddr !== '') {
+                    extraAddr = ' (' + extraAddr + ')';
+                }
+            } else {
+            }
 
-//             userPostCode.value = data.zonecode;
-//             userStreetAddress.value = `${addr} ${extraAddr}`;
+            userPostCode.value = data.zonecode;
+            userStreetAddress.value = `${addr} ${extraAddr}`;
 
-//             userExtraAddress.focus();
-//         },
-//     }).open();
-// }
+            userExtraAddress.focus();
+        },
+    }).open();
+}
 
-// addressSearchBtn.addEventListener("click", searchAddress);
+addressSearchBtn.addEventListener("click", searchAddress);
 
 // 우편번호, 도로명주소 input칸 클릭 시 주소검색 나타나게 구현
-// userPostCode.addEventListener("click", searchAddress);
-// userStreetAddress.addEventListener("click", searchAddress);
+userPostCode.addEventListener("click", searchAddress);
+userStreetAddress.addEventListener("click", searchAddress);
 
 
 // 유저변경
@@ -100,7 +127,7 @@ function saveUserData(e) {
             // 두 값이 틀리면
             return alert("비밀번호가 다릅니다. 다시 입력해주세요.");
         } else if (userPassWordOne.value === userPassWordTwo.value) {
-            password = userPassWordOne.value;
+            pw = userPassWordOne.value;
         }
     } else {
         return alert("비밀번호를 입력해주세요.");
@@ -135,21 +162,8 @@ function saveUserData(e) {
         userPhoneNumber.value = phoneNumber;
     }
 
-    fetch(`/api/mypage/${_id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
-            _id: `${_id}`,
-            pw: `${password}`,
-            phone: `${userPhoneNumber.value}`,
-            zip: `${userPostCode.value}`,
-            address_1: `${userStreetAddress.value}`,
-            address_2: `${userExtraAddress.value}`,
-        }),
-    })
+    let { pw, address_1, address_2, zip, phone } = data;
+    Api.patch(`/api/mypage`,"64482d003a3beba2765daa2b", data) 
     .then(async (res) => {
         const json = await res.json();
         console.log('json:::', json)

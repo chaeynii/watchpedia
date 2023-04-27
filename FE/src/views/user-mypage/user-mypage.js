@@ -22,23 +22,26 @@ const [
     userExtraAddress,
 ] = document.querySelectorAll(".user-info");
 
-const token = sessionStorage.getItem("token");
-let pw, _id;
+//token역파시 하는 것
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
 
-Api.get(`/api/mypage`,"64482d003a3beba2765daa2b")
-// {
-//     //method: "GET",
-//     headers: {
-//         Authorization: `Bearer ${token}`,
-//     },
-// })
+    return JSON.parse(jsonPayload);
+};
+
+const token = sessionStorage.getItem('token')
+const userId = parseJwt(token).userId
+
+Api.get('/api/mypage', userId)
   .then((data) => {
-    let { _id, email, pw, address_1, address_2, zip, name, phone } = data;
-    
+    let { email, address_1, address_2, zip, name, phone } = data;
     // 유저 데이터를 사용하여 UI를 업데이트합니다.
     userEmail.innerHTML = email;
-    userPassWordOne.value = pw;
-    userName.value = name;
+    userName.innerHTML = name;
     userPhoneNumber.value = phone;
     userPostCode.value = zip;
     userStreetAddress.value = address_1;
@@ -49,20 +52,6 @@ Api.get(`/api/mypage`,"64482d003a3beba2765daa2b")
     window.location.href = "/";
   });
 
-
-// 유저 불러오기
-// let { _id, email, pw, address_1, address_2, zip, name, phone
-// } = data;
-
-// userEmail.innerHTML = email;
-// userPassWordOne.value = pw;
-// userName.value = name;
-// userPhoneNumber.value = phone;
-// userPostCode.value = zip;
-// userStreetAddress.value = address_1;
-// userExtraAddress.value = address_2;
-
-// 주소와 핸드폰번호가 없을 경우 빈칸으로 만들기
 if (userPostCode.value === "undefined" || userStreetAddress.value === "undefined") {
     userPostCode.value = "";
     userStreetAddress.value = "";
@@ -120,23 +109,24 @@ userStreetAddress.addEventListener("click", searchAddress);
 
 // 유저변경
 function saveUserData(e) {
+    const pw = userPassWordOne.value;
+    const phone =  userPhoneNumber.value;
+    const zip = userPostCode.value;
+    const address_1 = userStreetAddress.value;
+    const address_2 = userExtraAddress.value;
+
+
     e.preventDefault();
+
     // 비밀번호 확인
     if (!(userPassWordOne.value === "" && userPassWordTwo.value === "")) {
         // 두 칸이 빈칸이 아니면 = 하나라도 입력값이 있으면
         if (userPassWordOne.value !== userPassWordTwo.value) {
             // 두 값이 틀리면
             return alert("비밀번호가 다릅니다. 다시 입력해주세요.");
-        } else if (userPassWordOne.value === userPassWordTwo.value) {
-            pw = userPassWordOne.value;
         }
     } else {
         return alert("비밀번호를 입력해주세요.");
-    }
-
-    // 이름
-    if (!userName.value.trim()) {
-        return alert("이름을 입력해주세요");
     }
 
     // 전화번호
@@ -163,53 +153,36 @@ function saveUserData(e) {
         userPhoneNumber.value = phoneNumber;
     }
 
-    let { pw, address_1, address_2, zip, phone } = data;
-    Api.patch(`/api/mypage`,"64482d003a3beba2765daa2b", data) 
-    .then(async (res) => {
-        const json = await res.json();
-        console.log('json:::', json)
-        if (res.ok) {
-            return json;
-        }
 
-        return Promise.reject(json);
-    })
-    .then((userInfoChange) => {
-        alert("회원정보가 변경되었습니다.");
-    })
-    .catch((err) => {
-        alert(`에러가 발생했습니다. 관리자에게 문의하세요. \n에러내용: ${err}`);
-    });
+    const changeData = { pw, phone, zip, address_1, address_2}
+
+        Api.patch(`/api/mypage`,userId, changeData) 
+        .then((changeData) => {
+            console.log('changeData:::', changeData)
+            alert("회원정보가 변경되었습니다.");
+        })
+        .catch((err) => {
+            alert(`에러가 발생했습니다. 관리자에게 문의하세요. \n에러내용: ${err}`);
+        });
 }
 
 userInfoChangeBtn.addEventListener("click", saveUserData);
 
 
 // 회원탈퇴 기능
-function deleteUser() {
+async function deleteUser() {
+
     const answer = confirm(
         "회원 탈퇴 하시겠습니까? \n탈퇴즉시 정보가 삭제됩니다."
     );
+    
     if (answer) {
-        fetch(`/api/users/${_id}`, {
-            method: "DELETE",
-        })
-        .then(async (res) => {
-            const json = await res.json();
-
-            if (res.ok) {
-                return json;
-            }
-
-            return Promise.reject(json);
-        })
-        .then((data) => {
-            alert("회원 정보가 삭제되었습니다.");
-            window.location.href = "/";
-        })
-        .catch((err) =>
-            alert(`회원정보 삭제 과정에서 오류가 발생하였습니다: ${err}`)
-        );
+        try{
+            await Api.delete('/api/mypage', userId)
+        }catch(e){
+            sessionStorage.removeItem('token')
+            window.location.href = '/'
+        }
     }
 }
 

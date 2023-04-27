@@ -16,7 +16,7 @@ function nextError(callback) {
 
 // 카테고리 조회 라우터
 categoryRouter.get(
-  "/:categoryId", // model에 기능마다 id를 정의해놨는데 따로 정의할 필요없는지 _id가  categoryId 인것을 여쭤보자!
+  "/category/:categoryId", // model에 기능마다 id를 정의해놨는데 따로 정의할 필요없는지 _id가  categoryId 인것을 여쭤보자!
   nextError(async (req, res, next) => {
     const categoryId = req.params.categoryId;
     const category = await categoryService.getCategoryById(categoryId);
@@ -31,7 +31,7 @@ categoryRouter.get(
 
 // 카테고리 전체 조회 라우터
 categoryRouter.get(
-  "/",
+  "/category/categories",
   nextError(async (req, res, next) => {
     const categories = await categoryService.getAllCategories();
     return res.status(200).json({ categories });

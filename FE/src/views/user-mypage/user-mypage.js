@@ -1,12 +1,5 @@
 import * as Api from "/api.js";
 
-// import { main } from "/public/js/main.js";
-// const { loggedInUser } = await main();
-
-// if (!loggedInUser) {
-//     window.location.href = "/";
-// }
-
 const addressSearchBtn = document.querySelector(".address__search");
 const userInfoChangeBtn = document.querySelector(".user-info--change");
 const userDeleteBtn = document.querySelector(".user__delete");

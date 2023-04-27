@@ -86,8 +86,6 @@ userRouter.post("/admin/login", async (req, res, next) => {
     // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
     const userToken = await userService.getUserToken({ email, pw });
 
-    console.log("user:::", userToken);
-
     //관리자 아이디 체크
     if (email !== "admin") {
       throw new Error("관리자 회원아닙니다!");
@@ -103,7 +101,7 @@ userRouter.post("/admin/login", async (req, res, next) => {
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
-userRouter.get("/admin/users", loginRequired, async function (req, res, next) {
+userRouter.get("/admin/users", async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();

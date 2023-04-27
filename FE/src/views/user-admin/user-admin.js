@@ -3,7 +3,8 @@
 
 // import { error } from "console";
 
-import * as Api from "../../../../BE/src/app.js";
+import * as Api from "/api.js";
+// const Api = require("../api");
 
 import {
   createOrderTable,
@@ -13,6 +14,7 @@ import {
 } from "./user-admin-module.js";
 
 const mainTag = document.getElementById("main__container");
+const ADMIN_URL = "/api/admin";
 
 let categoryId;
 let beforeValue;
@@ -78,6 +80,8 @@ for (let i = 0; i < allBtns.length; i++) {
     const newHtml = document.createElement("div");
     newHtml.className = `bd-example ${listNameEn}`;
 
+    sessionStorage.setItem("key", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDQ4MTA2YmE1NDhhYjEzZWRmNTM2ZmYiLCJlbWFpbCI6ImFkbWluIiwiaWF0IjoxNjgyNDQ0NDExfQ.yl5S7x9f7R644xvT8NQpCwGt7opU0B7RbHmVRbg7P34")
+
     //주문관리 기능 구현
     if (listName === "주문관리") {
       btnAddCategory.style =
@@ -85,18 +89,18 @@ for (let i = 0; i < allBtns.length; i++) {
       btnAddProduct.style =
         "display:none";
 
-      const ORDER_INFO_URL = "./example-data/order.json";
+      // const ORDER_INFO_URL = "./example-data/order.json";
 
-      fetch(ORDER_INFO_URL)
-        .then(async (res) => {
-          const json = await res.json();
+      Api.get(ADMIN_URL, "orders")
+        // .then(async (res) => {
+        //   const json = await res.json();
 
-          if (res.ok) {
-            return json;
-          }
+        //   if (res.ok) {
+        //     return json;
+        //   }
 
-          return Promise.reject(json);
-        })
+        //   return Promise.reject(json);
+        // })
         .then((datas) => {
           const newDatas = datas.map((data) => {
             return {
@@ -126,46 +130,20 @@ for (let i = 0; i < allBtns.length; i++) {
           orderManagementDelete();
         })
         .catch((err) => alert(err));
-      
-      // async function getOrderData() {
-      //   try {
-      //     const response1 = await fetch(ORDER_INFO_URL);
-      //     const orderInfoData = await response1.json();
-          
-      //     newHtml.appendChild(createOrderTable(orderAdmin, orderInfoData));
-      //     mainTag.append(newHtml)
-
-      //     orderManagementEdit();
-      //     orderManagementDelete();
-
-      //   } catch(err) {  
-      //     console.log(err)
-      //   }
-      // }
-      // getOrderData();
-      
     }
 
     //회원관리 기능구현
     else if (listName === "회원관리") {
-      console.log(listName)
+      // console.log("회원관리 in 확인:",listName)
       document.querySelector(".btn-add__category").style =
         "display:none";
       document.querySelector(".btn-add__product").style =
         "display:none";
+    
+      // const USER_INFO_URL = "./example-data/user.json";
 
-      const USER_INFO_URL = "api/admin/login";
-
-      fetch(USER_INFO_URL)
-        .then(async (res) => {
-          const json = await res.json();
-
-          if (res.ok) {
-            return json;
-          }
-
-          return Promise.reject(json);
-        })
+      
+      Api.get(ADMIN_URL,"users")
         .then((datas) => {
           const newDatas = datas.map((data) => {
             return {
@@ -174,9 +152,10 @@ for (let i = 0; i < allBtns.length; i++) {
               date: data.date,
               name: data.name,
               email: data.email,
-              orderList: data.orderList,
+              // orderList: data.orderList,
             };
           });
+          // console.log("newDatas:", newDatas)
           return newDatas.sort((a, b) => {
             return new Date(b.date) - new Date(a.date);
           });
@@ -201,18 +180,9 @@ for (let i = 0; i < allBtns.length; i++) {
       document.querySelector(".btn-add__product").style =
         "display:none";
 
-      const CATEGORY_INFO_URL = "./example-data/category.json";
-      // const CATEGORY_INFO_URL = "api/category";
-      fetch(CATEGORY_INFO_URL)
-        .then(async (res) => {
-          const json = await res.json();
+      // const CATEGORY_INFO_URL = "./example-data/category.json";
 
-          if (res.ok) {
-            return json;
-          }
-
-          return Promise.reject(json);
-        })
+      Api.get("/api/category")
         .then((datas) => {
           const newDatas = datas.map((data) => {
             return {
@@ -235,25 +205,6 @@ for (let i = 0; i < allBtns.length; i++) {
         })
         .catch((err) => alert(err));
 
-      
-
-      // async function getCategoryData() {
-      //   try {
-      //     const response1 = await fetch(CATEGORY_INFO_URL);
-      //     const categoryInfoData = await response1.json();
-          
-      //     newHtml.appendChild(createCategoryTable(categoryAdmin, categoryInfoData));
-      //     mainTag.append(newHtml)
-
-      //     categoryManagementCreate()
-      //     categoryManagementDelete()
-      //   } catch(err) {  
-      //     console.log(err)
-      //   }
-      // }
-
-      // getCategoryData();
-      
     } else if (listName === "상품관리") {
       //상품추가와 카테고리추가 없애기
       document.querySelector(".btn-add__category").style =
@@ -261,33 +212,33 @@ for (let i = 0; i < allBtns.length; i++) {
       document.querySelector(".btn-add__product").style =
         "display:inline";
 
-      const PRODUCT_INFO_URL = "./example-data/product.json";
+      // const PRODUCT_INFO_URL = "./example-data/product.json";
 
-      fetch(PRODUCT_INFO_URL)
-        .then(async (res) => {
-          const json = await res.json();
+      Api.get("")
+        // .then(async (res) => {
+        //   const json = await res.json();
 
-          if (res.ok) {
-            return json;
-          }
+        //   if (res.ok) {
+        //     return json;
+        //   }
 
-          return Promise.reject(json);
-        })
-        // .then((datas) => {
-        //   const newDatas = datas.map((data) => {
-        //     return {
-        //       _id: data._id,
-        //       date: data.createdAt.slice(0, 10),
-        //       category: data.category.replace("#", ""),
-        //       name: data.name,
-        //       price: Number(data.price).toLocaleString(),
-        //       stock: Number(data.stock).toLocaleString(),
-        //     };
-        //   });
-        //   return newDatas.sort((a, b) => {
-        //     return new Date(b.date) - new Date(a.date);
-        //   });
+        //   return Promise.reject(json);
         // })
+        .then((datas) => {
+          const newDatas = datas.map((data) => {
+            return {
+              _id: data._id,
+              date: data.createdAt.slice(0, 10),
+              category: data.category.replace("#", ""),
+              name: data.name,
+              price: Number(data.price).toLocaleString(),
+              stock: Number(data.stock).toLocaleString(),
+            };
+          });
+          return newDatas.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date);
+          });
+        })
         .then((newDatas) => {
           newHtml.appendChild(createProductTable(productAdmin, newDatas));
           mainTag.append(newHtml);
@@ -401,74 +352,27 @@ function orderManagementDelete() {
   }
 }
 
-//============== 유저관련 ===============
-// function userManagementEdit() {
-//   const editBtns = document.querySelectorAll(".dropdown-item");
-//   for (let count = 0; count < editBtns.length; count++) {
-//     editBtns[count].addEventListener("click", (e) => {
-//       e.preventDefault();
-//       const btnValue = e.target.text;
-//       const btnId =
-//         e.target.parentElement.parentElement.parentElement.parentElement
-//           .parentElement.id;
-//       //배송상태가 바뀐 값(배송중 => 배송완료)으로 현재 버튼이 배송완료 바뀌는 기능
-//       e.target.parentElement.parentElement.parentElement.querySelector(
-//         "a"
-//       ).innerText = `${btnValue}`;
-//       let newRole;
-//       if (btnValue === "관리자") {
-//         newRole = "admin";
-//       } else {
-//         newRole = "basic-user";
-//       }
-//       fetch(`/api/users/${btnId}`, {
-//         method: "PUT",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           role: `${newRole}`,
-//         }),
-//       })
-//         .then(async (res) => {
-//           const json = await res.json();
-
-//           if (res.ok) {
-//             return json;
-//           }
-
-//           return Promise.reject(json);
-//         })
-//         .then((alt) => {
-//           alt.role === "admin" ? (alt.role = "관리자") : "일반유저";
-//           alert(`${alt.name}의 권한이 "${alt.role}"로 변경되었습니다.`);
-//         })
-//         .catch((err) => alert(err));
-//     });
-//   }
-// }
 function userOrderList() {
   const showListBtns = document.querySelectorAll(".btn__show-list");
   for (let count = 0; count < showListBtns.length; count++) {
     showListBtns[count].addEventListener("click", (e) => {
-      // if (conf) {
-      //   const btnId = e.target.parentElement.parentElement.id;
-      //   document.getElementById(`${btnId}`).remove();
-      //   fetch(`/api/users/${btnId}`, {
-      //     method: "DELETE",
-      //   })
-      //     .then(async (res) => {
-      //       const json = await res.json();
+      // const btnId = e.target.parentElement.parentElement.id;
+      // console.log(document.getElementById(`${btnId}`))
+      Api.get(ADMIN_URL,"users")
+        // .then(async (res) => {
+        //     const json = await res.json();
 
-      //       if (res.ok) {
-      //         return json;
-      //       }
+        //     if (res.ok) {
+        //       return json;
+        //     }
 
-      //       return Promise.reject(json);
-      //     })
-      //     .then((idData) => alert(`${idData}이 삭제되었습니다.`))
-      //     .catch((err) => alert(err));
-      // }
+        //     return Promise.reject(json);
+        // })
+        .then((datas) => {
+          const getName = datas.map(data => data.name);
+          console.log(getName)
+        })
+        .catch((err) => alert(err));
     });
   }
 }

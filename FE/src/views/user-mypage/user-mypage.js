@@ -45,7 +45,8 @@ Api.get(`/api/mypage`,"64482d003a3beba2765daa2b")
     userExtraAddress.value = address_2;
   })
   .catch((err) => {
-    alert(`에러가 발생했습니다. 관리자에게 문의하세요. \n에러내용: ${err}`);
+    alert(`에러가 발생했습니다. 관리자에게 문의하세요. \n ${err}`);
+    window.location.href = "/";
   });
 
 

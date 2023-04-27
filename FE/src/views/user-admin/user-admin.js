@@ -205,6 +205,7 @@ for (let i = 0; i < allBtns.length; i++) {
 
       
       Api.get(PRODUCT_URL, "products")
+      // Api.get("/api/product/products")
         .then((datas) => {
           const newDatas = datas.products.map((data) => {
             return {
@@ -417,71 +418,7 @@ function createSubmitCategory(){
     .catch((err) => alert(err));
     });
 }
-// function categoryManagementCreate() {
-//   // const addCategoryBtn = document.querySelector(".submit__category");
-//   btnAddCategory.addEventListener("click", (e) => {
-//     console.log("add버튼 클릭됨")
-//     // bootstrap.Modal.getInstance("#btn__admin__addCategory").show();
 
-//     // const inputCategoryName = document.getElementById("category-name");
-//     // console.log(inputCategoryName.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)
-//     // category-name
-//     Api.post("/api/admin/category", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         name: `${document.getElementById("category-name").value.trim()}`,
-//       }),
-//     })
-//     //   .then(async (res) => {
-//     //     const json = await res.json();
-//     //     if (res.ok) {
-//     //       return json;
-//     //     }
-//     //     return Promise.reject();
-//     //   })
-//       .then((data) => {
-//         const newData = {
-//           _id: data._id,
-//           date: data.createdAt.slice(0, 10),
-//           name: data.name,
-//           updateDate: data.updatedAt.slice(0, 10),
-//         };
-//         alert(`${newData.name} 이(가) 카테고리에 추가되었습니다.`);
-//         //모달숨기기
-//         document.getElementById("category-name").value = "";
-//         bootstrap.Modal.getInstance("#btn__admin__addCategory").hide();
-//         document.querySelector(".btn__admin__category").click();
-//       })
-//       .catch(() => alert("카테고리명을 입력해주세요"));
-//   });
-// }
-// function createSubmitCategory(){
-//   document
-//     .querySelector(".submit__category")
-//     .addEventListener("click", (e) => {
-//       // console.log("editSubmitCategory - 버튼 클릭")
-//       const newValue = document.getElementById("edit-category-name").value;
-
-//       Api.post("/api/admin/category",{
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           name: newValue.trim(),
-//         }),
-//       })
-//         .then((data) => {
-//           alert(`"${beforeValue}"이(가) "${data.name}" 으로 변경되었습니다.`);
-//           document.querySelector(".btn__admin__category").click();
-//           bootstrap.Modal.getInstance("#btn__admin__editCategory").hide();
-//         })
-//         .catch((err) => alert(err));
-//     });
-// }
 function categoryManagementDelete() {
   const deleteBtns = document.querySelectorAll(".btn__delete");
   for (let count = 0; count < deleteBtns.length; count++) {
@@ -534,7 +471,7 @@ function editSubmitProduct() {
     formData.append("stock", stock.value.trim());
     formData.append("price", price.value.trim());
 
-    fetch(`/api/products/${productId}`, {
+    Api.patch(`/api/products/${productId}`, {
       method: "PUT",
       body: formData,
       headers: {},
@@ -562,7 +499,7 @@ function productManagementEdit() {
   );
   addCategoryList.forEach((editBtn) => {
     editBtn.addEventListener("click", (e) => {
-      fetch("/api/categories")
+      Api.patch("/api/category")
         .then((datas) => {
           document.getElementById("edit-product-category").innerHTML = "";
           datas.forEach((element) => {
@@ -588,7 +525,7 @@ function productManagementEdit() {
   for (let count = 0; count < editProductBtns.length; count++) {
     editProductBtns[count].addEventListener("click", (e) => {
       productId = e.currentTarget.parentElement.parentElement.id;
-      fetch(`/api/products/${productId}`)
+      Api.patch(`/api/products/${productId}`)
         .then((newData) => {
           name.value = newData.name;
           //카테고리의 제일첫번째 데이터가 현재 데이터의 카테고리 표기가 되게 replace사용
@@ -603,6 +540,12 @@ function productManagementEdit() {
   }
 }
 function productManagementCreate() {
+  btnAddProduct.addEventListener("click", (e)=>{
+    console.log("상품추가 버튼 클릭")
+    createSubmitProduct()
+})
+}
+function createSubmitProduct(){
   //카테고리의 리스트를 불러오는 작업
   // const addCategoryList = document.querySelector(".btn__admin__addProduct");
   btnAddCategory.addEventListener("click", (e) => {

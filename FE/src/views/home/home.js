@@ -1,7 +1,9 @@
+import * as Api from "/api.js";
+
 const itemlist = document.querySelector(".main-container__itemlist");
 
-fetch("../data/data.json")
-  .then(response => response.json())
+Api.get("/api/products","products")
+  // .then(response => response.json())
   .then(productList => {
     if (productList.length === 0) {
       const message = document.createElement("p");
@@ -10,7 +12,7 @@ fetch("../data/data.json")
       message.style.textAlign = "center";
       itemlist.insertAdjacentElement("afterend", message);
     } else {
-      productList.forEach(product => {
+      productList.products.forEach(product => {
         const item = document.createElement("div");
         item.classList.add("item");
         item.innerHTML = `

@@ -14,7 +14,16 @@ import {
 } from "./user-admin-module.js";
 
 const mainTag = document.getElementById("main__container");
+
+//URL
 const ADMIN_URL = "/api/admin";
+const CATEGORY_URL = "/api/categories";
+const PRODUCT_URL = "/api/product";
+
+
+//세션 키 저장
+sessionStorage.setItem("key", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDQ4MTA2YmE1NDhhYjEzZWRmNTM2ZmYiLCJlbWFpbCI6ImFkbWluIiwiaWF0IjoxNjgyNDQ0NDExfQ.yl5S7x9f7R644xvT8NQpCwGt7opU0B7RbHmVRbg7P34")
+
 
 let categoryId;
 let beforeValue;
@@ -40,7 +49,7 @@ const orderAdmin = [
   "주문상태",
   "주문취소",
 ];
-const userAdmin = ["가입날짜", "이메일", "이름", "주문내역", "회원삭제"];
+const userAdmin = ["이름", "이메일", "주문내역", "회원삭제"];
 const categoryAdmin = [
   "카테고리(대)",
   "카테고리(소)",
@@ -48,7 +57,6 @@ const categoryAdmin = [
   "삭제",
 ];
 const productAdmin = [
-  "등록날짜",
   "상품명",
   "카테고리",
   "가격(원)",
@@ -80,8 +88,6 @@ for (let i = 0; i < allBtns.length; i++) {
     const newHtml = document.createElement("div");
     newHtml.className = `bd-example ${listNameEn}`;
 
-    sessionStorage.setItem("key", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDQ4MTA2YmE1NDhhYjEzZWRmNTM2ZmYiLCJlbWFpbCI6ImFkbWluIiwiaWF0IjoxNjgyNDQ0NDExfQ.yl5S7x9f7R644xvT8NQpCwGt7opU0B7RbHmVRbg7P34")
-
     //주문관리 기능 구현
     if (listName === "주문관리") {
       btnAddCategory.style =
@@ -89,25 +95,12 @@ for (let i = 0; i < allBtns.length; i++) {
       btnAddProduct.style =
         "display:none";
 
-      // const ORDER_INFO_URL = "./example-data/order.json";
-
       Api.get(ADMIN_URL, "orders")
-        // .then(async (res) => {
-        //   const json = await res.json();
-
-        //   if (res.ok) {
-        //     return json;
-        //   }
-
-        //   return Promise.reject(json);
-        // })
         .then((datas) => {
           const newDatas = datas.map((data) => {
             return {
               _id: data._id,
               orderNumber: data.orderNumber,
-              // date: data.createdAt.slice(0, 10),
-              date: data.date,
               name: data.buyer,
               // products: data.productList.map((data) => data.name),
               productList: data.productList,
@@ -140,15 +133,12 @@ for (let i = 0; i < allBtns.length; i++) {
       document.querySelector(".btn-add__product").style =
         "display:none";
     
-      // const USER_INFO_URL = "./example-data/user.json";
-
-      
       Api.get(ADMIN_URL,"users")
         .then((datas) => {
+          console.log(datas)
           const newDatas = datas.map((data) => {
             return {
               _id: data._id,
-              // date: data.createdAt.slice(0, 10),
               date: data.date,
               name: data.name,
               email: data.email,
@@ -180,15 +170,13 @@ for (let i = 0; i < allBtns.length; i++) {
       document.querySelector(".btn-add__product").style =
         "display:none";
 
-      // const CATEGORY_INFO_URL = "./example-data/category.json";
-
-      Api.get("/api/category")
+      Api.get(CATEGORY_URL, "categories")
         .then((datas) => {
-          const newDatas = datas.map((data) => {
+          const newDatas = datas.categories.map((data) => {
             return {
               _id: data._id,
               name: data.name,
-              subCategory: data.subCategory,
+              parentCategory: data.parentCategory,
             };
           });
           return newDatas.sort((a, b) => {
@@ -200,7 +188,9 @@ for (let i = 0; i < allBtns.length; i++) {
           mainTag.append(newHtml);
         })
         .then(() => {
-          categoryManagementEdit();
+          // categoryManagementEdit();
+          editSubmitCategory();
+          categoryManagementCreate();
           categoryManagementDelete();
         })
         .catch((err) => alert(err));
@@ -212,12 +202,10 @@ for (let i = 0; i < allBtns.length; i++) {
       document.querySelector(".btn-add__product").style =
         "display:inline";
 
-      // const PRODUCT_INFO_URL = "./example-data/product.json";
-
-      const PRODUCT_URL = "/api/product";
+      
       Api.get(PRODUCT_URL, "products")
         .then((datas) => {
-          const newDatas = datas.map((data) => {
+          const newDatas = datas.products.map((data) => {
             return {
               _id: data._id,
               category: data.category,
@@ -226,6 +214,8 @@ for (let i = 0; i < allBtns.length; i++) {
               stock: Number(data.stock).toLocaleString(),
             };
           });
+          console.log(newDatas)
+
           return newDatas.sort((a, b) => {
             return new Date(b.date) - new Date(a.date);
           });
@@ -239,31 +229,10 @@ for (let i = 0; i < allBtns.length; i++) {
           productManagementDelete();
         })
         .catch((err) => alert(err));
-
-      
-
-      // async function getProductData() {
-      //   try {
-      //     const response1 = await fetch(PRODUCT_INFO_URL);
-      //     const productInfoData = await response1.json();
-          
-      //     newHtml.appendChild(createProductTable(productAdmin, productInfoData));
-      //     mainTag.append(newHtml)
-
-      //     productManagementCreate()
-      //     productManagementDelete()
-
-      //   } catch(err) {  
-      //     console.log(err)
-      //   }
-      // }
-
-      // getProductData();
     }
   });
 }
-editSubmitCategory();
-categoryManagementCreate();
+
 editSubmitProduct();
 productManagementCreate();
 
@@ -279,14 +248,14 @@ function orderManagementEdit() {
       const btnId =
         e.target.parentElement.parentElement.parentElement.parentElement
           .parentElement.id;
-      console.log("e.target.parentElement:", e.target.parentElement)
-      console.log("e.target.parentElement.parentElement:", e.target.parentElement.parentElement)
-      console.log("e.target.parentElement.parentElement.parentElement:", e.target.parentElement.parentElement.parentElement)
-      console.log("e.target.parentElement.parentElement.parentElement.parentElement:", 
-      e.target.parentElement.parentElement.parentElement.parentElement)
-      console.log("e.target.parentElement.parentElement.parentElement.parentElement.parentElement:", 
-      e.target.parentElement.parentElement.parentElement.parentElement.parentElement)
-      console.log("btnId:",btnId)
+      // console.log("e.target.parentElement:", e.target.parentElement)
+      // console.log("e.target.parentElement.parentElement:", e.target.parentElement.parentElement)
+      // console.log("e.target.parentElement.parentElement.parentElement:", e.target.parentElement.parentElement.parentElement)
+      // console.log("e.target.parentElement.parentElement.parentElement.parentElement:", 
+      // e.target.parentElement.parentElement.parentElement.parentElement)
+      // console.log("e.target.parentElement.parentElement.parentElement.parentElement.parentElement:", 
+      // e.target.parentElement.parentElement.parentElement.parentElement.parentElement)
+      // console.log("btnId:",btnId)
       //배송상태가 바뀐 값(배송중 => 배송완료)으로 현재 버튼이 배송완료 바뀌는 기능
       e.target.parentElement.parentElement.parentElement.querySelector(
         "a"
@@ -347,21 +316,12 @@ function userOrderList() {
   const showListBtns = document.querySelectorAll(".btn__show-list");
   for (let count = 0; count < showListBtns.length; count++) {
     showListBtns[count].addEventListener("click", (e) => {
-      // const btnId = e.target.parentElement.parentElement.id;
-      // console.log(document.getElementById(`${btnId}`))
+      const getEmail = document.getElementsByClassName("user-email")[count-1].innerText;
+      
       Api.get(ADMIN_URL,"users")
-        // .then(async (res) => {
-        //     const json = await res.json();
-
-        //     if (res.ok) {
-        //       return json;
-        //     }
-
-        //     return Promise.reject(json);
-        // })
         .then((datas) => {
-          const getName = datas.map(data => data.name);
-          console.log(getName)
+          console.log(datas)
+          console.log(":::",getEmail, "의 주문내역을 불러옵니다")
         })
         .catch((err) => alert(err));
     });
@@ -399,9 +359,11 @@ function editSubmitCategory() {
   document
     .querySelector(".submit__edit__category")
     .addEventListener("click", (e) => {
+      console.log("editSubmitCategory - 버튼 클릭")
       const newValue = document.getElementById("edit-category-name").value;
-      fetch(`/api/categories/${categoryId}`, {
-        method: "PUT",
+      // /admin/:categoryId
+      Api.patch(`/api/admin/${categoryId}`, {
+        // method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -409,13 +371,13 @@ function editSubmitCategory() {
           name: newValue.trim(),
         }),
       })
-        .then(async (res) => {
-          const json = await res.json();
-          if (res.ok) {
-            return json;
-          }
-          return Promise.reject(json);
-        })
+        // .then(async (res) => {
+        //   const json = await res.json();
+        //   if (res.ok) {
+        //     return json;
+        //   }
+        //   return Promise.reject(json);
+        // })
         .then((data) => {
           alert(`"${beforeValue}"이(가) "${data.name}" 으로 변경되었습니다.`);
           document.querySelector(".btn__admin__category").click();
@@ -424,20 +386,22 @@ function editSubmitCategory() {
         .catch((err) => alert(err));
     });
 }
-function categoryManagementEdit() {
-  const editCategoryBtns = document.querySelectorAll(
-    ".btn__edit"
-  );
-  for (let count = 0; count < editCategoryBtns.length; count++) {
-    editCategoryBtns[count].addEventListener("click", (e) => {
-      beforeValue =
-        document.querySelectorAll(".current__name")[count].innerText;
-      categoryId = e.currentTarget.parentElement.parentElement.id;
-      const inputCategoryName = document.getElementById("edit-category-name");
-      inputCategoryName.value = beforeValue;
-    });
-  }
-}
+// function categoryManagementEdit() {
+//   const editCategoryBtns = document.querySelectorAll(
+//     ".btn__edit"
+//   );
+//   for (let count = 0; count < editCategoryBtns.length; count++) {
+//     editCategoryBtns[count].addEventListener("click", (e) => {
+//       console.log("categoryManagementEdit -> 버튼 클릭")
+//       beforeValue =
+//         document.querySelectorAll(".current__name")[count].innerText;
+//       categoryId = e.currentTarget.parentElement.parentElement.id;
+//       // console.log(categoryId)
+//       const inputCategoryName = document.getElementById("edit-category-name");
+//       inputCategoryName.value = beforeValue;
+//     });
+//   }
+// }
 function categoryManagementCreate() {
   // const addCategoryBtn = document.querySelector(".submit__category");
   btnAddCategory.addEventListener("click", (e) => {
@@ -623,16 +587,16 @@ function productManagementCreate() {
   //카테고리의 리스트를 불러오는 작업
   // const addCategoryList = document.querySelector(".btn__admin__addProduct");
   btnAddCategory.addEventListener("click", (e) => {
-    fetch("/api/categories")
-      .then(async (res) => {
-        const json = await res.json();
+    Api.get(CATEGORY_URL,"categories")
+      // .then(async (res) => {
+      //   const json = await res.json();
 
-        if (res.ok) {
-          return json;
-        }
+      //   if (res.ok) {
+      //     return json;
+      //   }
 
-        return Promise.reject(json);
-      })
+      //   return Promise.reject(json);
+      // })
       .then((datas) => {
         document.getElementById("create-product-category").innerHTML = "";
         datas.forEach((element) => {
@@ -666,18 +630,11 @@ function productManagementCreate() {
     formData.append("stock", stock.value.trim());
     formData.append("price", price.value.trim());
 
-    fetch("/api/products", {
+    Api.put("/api/products", {
       method: "POST",
       body: formData,
       headers: {},
     })
-      .then(async (res) => {
-        const json = await res.json();
-        if (res.ok) {
-          return json;
-        }
-        return Promise.reject(json);
-      })
       .then((data) => {
         alert(`${data.name} 이(가) 상품에 추가되었습니다.`);
         //form 안의 input값 전부 초기화하기

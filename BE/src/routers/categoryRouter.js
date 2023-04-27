@@ -31,7 +31,7 @@ categoryRouter.get(
 
 // 카테고리 전체 조회 라우터
 categoryRouter.get(
-  "/category/categories",
+  "/categories/categories",
   nextError(async (req, res, next) => {
     const categories = await categoryService.getAllCategories();
     return res.status(200).json({ categories });

@@ -12,7 +12,9 @@ const addProduct = async (productInfo) => {
 //id로 조회해서 가져옴
 const getProductById = async (productIds) => {
   const productId = await productModel.findProductById(productIds);
-
+  if (!productId) {
+    throw new Error("해당 상품은 없습니다.");
+  }
   return productId;
 };
 

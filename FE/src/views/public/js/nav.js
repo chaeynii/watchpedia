@@ -26,13 +26,13 @@ dropdownItems.forEach(function(item) {
     }
   });
 });
-  // 제품 목록에서 클릭한 제품의 id값을 URL에 추가하는 함수
-  function goToProductDetail(name) {
-    window.location.href = "product-detail.html?name=" + name;
-  }
+// 제품 목록에서 클릭한 제품의 id값을 URL에 추가하는 함수
+function goToProductDetail(name) {
+  window.location.href = "product-detail.html?name=" + name;
+}
 
-  //로그인 유무 체크
-  const utilLink = document.querySelector('.util-link');
+//로그인 유무 체크
+const utilLink = document.querySelector('.util-link');
 const loginBtn = document.createElement('button');
 const signupBtn = document.createElement('button');
 const mypageBtn = document.createElement('button');

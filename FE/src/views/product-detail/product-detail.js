@@ -39,7 +39,8 @@ fetch("../data/data.json")
       amountCount.innerText = amount;
     });
 
-    const addToCartBtn = document.querySelector(".btn-primary");
+    //const addToCartBtn = document.querySelector(".btn-primary");
+    /*
     addToCartBtn.addEventListener("click", () => {
       const cartItem = {
         name: product.name,
@@ -64,6 +65,7 @@ fetch("../data/data.json")
 
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
     });
+    */
   })
   .catch((error) => {
     console.error("에러 발생:", error);

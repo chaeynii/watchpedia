@@ -1,6 +1,8 @@
+import * as Api from "/api.js";
+
 const itemlist = document.querySelector(".main-container__itemlist");
 
-fetch("../data/data.json")
+Api.get("../data/data.json")
   .then(response => response.json())
   .then(productList => {
     if (productList.length === 0) {

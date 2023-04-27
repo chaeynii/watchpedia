@@ -1,4 +1,4 @@
-import * as Api from "/api.js";
+// import * as Api from "/api.js";
 
 // const urlParams = new URL(location.href).searchParams;
 // const productId = urlParams.get("id"); //productId 정의

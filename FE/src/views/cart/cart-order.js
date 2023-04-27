@@ -1,9 +1,11 @@
-import * as Api from "/api.js";
+// import * as Api from "/api.js";
 
 // // 장바구니 데이터 불러오기
 const buyList =
   JSON.parse(localStorage.getItem("buy-direct")) || 
-  JSON.parse(localStorage.getItem("buy-cart")); //cart 메인 페이지
+  JSON.parse(localStorage.getItem("buy-cart")) ||
+  JSON.parse(localStorage.getItem("buy-totalAmount")) ||
+  JSON.parse(localStorage.getItem("buy-totalPrice"));
   console.log("buyList: ", buyList);
 
 
@@ -20,15 +22,36 @@ async function inputOrdererInfo() {
 inputOrdererInfo();
 
 
+// // 총 상품 개수와 총 상품 가격 업데이트 함수
+// function updateCartTotal() {
+//   let totalAmountElement = document.getElementById("cart-total-amount");
+//   let totalPriceElement = document.getElementById("cart-total-price");
+
+//     totalAmountElement.innerHTML = `${totalAmount}개`;
+//     totalPriceElement.innerHTML = `${totalPrice}원`;
+// }
+// updateCartTotal()
+
+
 // 총 상품 개수와 총 상품 가격 업데이트 함수
 function updateCartTotal() {
+  let buyList = JSON.parse(localStorage.getItem("buy-cart"));
   let totalAmountElement = document.getElementById("cart-total-amount");
   let totalPriceElement = document.getElementById("cart-total-price");
+  let totalAmount = 0;
+  let totalPrice = 0;
 
-    totalAmountElement.innerHTML = `${totalAmount}개`;
-    totalPriceElement.innerHTML = `${totalPrice}원`;
+  buyList.forEach(function(item) {
+    totalAmount += item.totalAmount;
+    totalPrice += item.totalPrice; 
+  });
+
+  console.log(totalAmount)
+  totalAmountElement.innerHTML = `${totalAmount}개`;
+  totalPriceElement.innerHTML = `${totalPrice}원`;
 }
-updateCartTotal()
+
+updateCartTotal();
 
 
 // 배송지 정보 입력

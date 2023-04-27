@@ -1,4 +1,4 @@
-import * as Api from "/api.js";
+// import * as Api from "/api.js";
 
 let cartItemList = document.querySelector("#cart-item-list");
 
@@ -124,6 +124,8 @@ const singleItemTotalPrice = document.querySelectorAll('#singleItem-total'); // 
       if (totalPriceElement) {
         totalPriceElement.innerHTML = `${totalPrice}원`;
       }
+      localStorage.setItem('totalAmount', totalAmount);
+      localStorage.setItem('totalPrice', totalPrice);
     }
 
 // ********************************************
@@ -172,6 +174,36 @@ allDeleteBtn.addEventListener("click", allDelete);
 // ********************************************
 
 // 주문하기 페이지로 넘어가기
+// const buyAllBtn = document.querySelector(".all-item-order-btn");
+
+// function buyAllItem() {
+//   const buyList = JSON.parse(localStorage.getItem("cart")).map((elem) => {
+//     return {
+//       name: elem.name,
+//       price: elem.price,
+//       smallImageURL: elem.smallImageURL,
+//       productCount: elem.productCount,
+//       color: elem.color,
+//       totalAmount: elem.totalAmount,
+//       totalPrice: elem.totalPrice
+//     };
+//   });
+//   localStorage.setItem("buy-cart", JSON.stringify(buyList));
+
+//   // 로그인을 하지 않은 경우
+//   const token = sessionStorage.getItem("token");
+//   if (!token) {
+//     alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+//     window.location.replace("../login/login.html");
+//     return;
+//   }
+//   window.location.replace("cart-order.html");
+// }
+
+// buyAllBtn.addEventListener("click", buyAllItem);
+
+
+
 const buyAllBtn = document.querySelector(".all-item-order-btn");
 
 function buyAllItem() {
@@ -182,11 +214,15 @@ function buyAllItem() {
       smallImageURL: elem.smallImageURL,
       productCount: elem.productCount,
       color: elem.color,
-      totalAmount: elem.totalAmount,
-      totalPrice: elem.totalPrice
     };
   });
+
+  const totalAmount = JSON.parse(localStorage.getItem("totalAmount"));
+  const totalPrice = JSON.parse(localStorage.getItem("totalPrice"));
+
   localStorage.setItem("buy-cart", JSON.stringify(buyList));
+  localStorage.setItem("buy-totalAmount", JSON.stringify(totalAmount));
+  localStorage.setItem("buy-totalPrice", JSON.stringify(totalPrice));
 
   // 로그인을 하지 않은 경우
   const token = sessionStorage.getItem("token");
@@ -199,4 +235,5 @@ function buyAllItem() {
 }
 
 buyAllBtn.addEventListener("click", buyAllItem);
+console.log(totalAmount)
 

@@ -1,6 +1,34 @@
-// 로컬스토리지에 있는 장바구니 최종 리스트 화면에 출력 시작
-let cartOrderList = document.querySelector(".cart-paydetail"); //최종 결제 정보 하단에 그려지도록
-let cartList = JSON.parse(localStorage.getItem("buy-cart")); // 파싱된 카트리스트
+import * as Api from "/api.js";
+
+// // 장바구니 데이터 불러오기
+const buyList =
+  JSON.parse(localStorage.getItem("buy-direct")) || 
+  JSON.parse(localStorage.getItem("buy-cart")); //cart 메인 페이지
+  console.log("buyList: ", buyList);
+
+
+// 로그인한 주문자 정보 불러오기
+let userData;
+async function inputOrdererInfo() {
+  userData = await Api.get("/api/user");
+  deliveryName.value = userData.name || null;
+  deliveryPostcode.value = userData.zip || null;
+  deliveryAddress.value = userData.address_1 || null;
+  deliveryAddress2.value = userData.address_2 || null;
+  deliveryTel.value = userData.phone || null;
+}
+inputOrdererInfo();
+
+
+// 총 상품 개수와 총 상품 가격 업데이트 함수
+function updateCartTotal() {
+  let totalAmountElement = document.getElementById("cart-total-amount");
+  let totalPriceElement = document.getElementById("cart-total-price");
+
+    totalAmountElement.innerHTML = `${totalAmount}개`;
+    totalPriceElement.innerHTML = `${totalPrice}원`;
+}
+updateCartTotal()
 
 
 // 배송지 정보 입력
@@ -12,14 +40,7 @@ const deliveryTel = document.querySelector("#cartOrder__contact");
 
 const payButton = document.querySelector("#cart-order--submit");
 
-// 장바구니 데이터 불러오기
-const buyList =
-  JSON.parse(localStorage.getItem("buy-direct")) || 
-  JSON.parse(localStorage.getItem("buy-cart")); //cart 메인 페이지
-  
-console.log("buyList: ", buyList);
-
-// ******* 주문 정보 및 유저 post 요청(try, catch 버전) ********
+// ******* 결제 정보 및 유저 DB post 보내기 ********
 async function order() {
   if (!deliveryName.value || !deliveryPostcode.value || //상품 상세페이지에서 끌어오는 거
     !deliveryAddress.value || !deliveryAddress2.value ||
@@ -29,21 +50,21 @@ async function order() {
 
   try {
     const data = {
-      products: buyList, // 상품명, id, 가격, 이미지, 색상, 총수량, 총합계
-      buyer: deliveryName.value,
-      recipientPhoneNumber: deliveryTel.value,
-      recipientAddress: deliveryAddress.value,
-      stre
+      receiverName: deliveryName.value,
+      zipCode: deliveryPostcode.value,
+      extraAddress: deliveryAddress.value,
+      // 그냥 주소 스키마는 어디에??
+      receiverPhone: deliveryTel.value,
+
+      name: buyList.name,
+      price: buyList.price,
+      smallImageURL: buyList.smallImageURL,
+      color: buyList.color,
+      totalAmount: buyList.totalAmount,
+      totalPrice: buyList.totalPrice,
     };
 
     await Api.post("/api/order", data); //결제 api 경로 확인
-
-    // const userUpdateData = {
-    //   phoneNumber: ordererTel.value,
-    // };
-
-    // await Api.patch("/api/orders/create", userData._id, userUpdateData);
-
     alert("주문이 정상적으로 완료되었습니다.");
 
     // buylist 지우기
@@ -62,43 +83,3 @@ async function order() {
 }
 
 payButton.addEventListener("click", order);
-
-
-
-// ******* 주문 정보 및 유저 post 요청(fetch 버전) ********
-// 장바구니 결제 정보를 담은 객체
-// const cartData = {
-//   name: elem.name,
-//   id: elem.id,
-//   price: elem.price,
-
-//   image: elem.image, 
-//   color: elem.color,
-//   totalAmount: elem.totalAmount,
-//   totalPrice: elem.totalPrice
-// };
-
-// // fetch를 사용하여 서버로 데이터 전송
-// fetch('/api/orders/create', {
-//   method: 'POST', 
-//   headers: {
-//     'Content-Type': 'application/json' 
-//   },
-//   body: JSON.stringify(cartData) 
-// })
-// .then(response => {
-//   if (response.ok) {
-//     // 응답이 성공적으로 처리되었을 경우의 처리
-//     alert("결제가 완료되었습니다.");
-//     window.location.replace("cart-order-finished.html");
-//   } else {
-//     // 응답이 에러인 경우의 처리
-//     console.error('장바구니 결제 정보 전송에 실패하였습니다.');
-//   }
-// })
-// .catch(error => {
-//   // 오류 발생 시의 처리
-//   console.error('장바구니 결제 중 오류가 발생하였습니다.', error);
-// });
-
-// payButton.addEventListener("click", order);

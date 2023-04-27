@@ -1,3 +1,5 @@
+import * as Api from "/api.js";
+
 // const urlParams = new URL(location.href).searchParams;
 // const productId = urlParams.get("id"); //productId 정의
 
@@ -28,7 +30,7 @@
 
 
 
-// ******* 유정님 작업 ******* //
+// ******* 유정님 작업 시작 ******* //
 // const addToCartBtn = document.querySelector(".btn-primary");
 // addToCartBtn.addEventListener("click", () => {
 //   const cartItem = {
@@ -59,46 +61,41 @@
 // console.error("에러 발생:", error);
 // });
 
-// ******* 유정님 작업 ******* //
+// ******* 유정님 작업 끝 ******* //
 
 
 // 상세페이지에서 장바구니 버튼 눌렀을 떄 로컬 스토리지로 올리는 작업 정의 
 // 나중에 product detail 페이지에서 이 js 모듈 불러와야 함!!!!
-const addCartBtn = document.querySelector(".addCart"); // 장바구니 클래스명 필요
+const addCartBtn = document.querySelector("#addCart"); // 장바구니 클래스명 필요
 
 function addCart() {  // 장바구니 담기 함수
-  let cartList = JSON.parse(localStorage.getItem("cart")); // 로컬스토리지 cart 정보 파싱하는 함수(선언 밑에 있음)
+  let cartList = JSON.parse(localStorage.getItem("cart")); 
+  // 로컬스토리지 cart 정보 파싱하는 함수(선언 밑에 있음)
 
   if (cartList === null) { // 빈 장바구니
     cartList = []; // 배열로 담기
   }
 
-
   // 로컬스토리지에 올릴 조건 정의 시작, 문자열만 셀렉 (제외 조건: 상품설명 제외, 이미지는 객체에서 등장)
-  let productName = document.querySelector(".product-name") // 상품명
-
-  let productPrice = Number( //상품가격
-    document.querySelector(".product-price") // 원은 공백값으로 변경
-  );
-  let productAmount = document.querySelector(".product-amount") // 상품 수량
+  let name = document.querySelector(".product-name") // 상품명
+  let price = Number(document.querySelector(".product-price"));  //상품가격
+  let smallImageURL = document.querySelector(".product-detail-img") // 상품 이미지
   let productColor = document.querySelector(".product-color") // 상품 색상
-
+  let productCount = document.querySelector(".product-amount-count") // 상품 수량
 
   // 로컬에 실을 정보 객체 형태 통으로 담기
   const wantToCart = {
-    name: productName,
-    price: productPrice,
-    smallImageUR: document.querySelector(".product-detail-img").src,
-    productCount: productAmount,
-    color: productColor,
+    name: name,
+    price: price,
+    smallImageURL: document.querySelector(".product-detail-img").src,
+    productCount: document.querySelector(".product-amount-count").value,
+    color: color,
   };
 
   // (예외처리) 기존 장바구니 리스트에 현재 상품이 있는 경우
   let check = true;
   for (let elem of cartList) {
-    if (elem["productNAME"] === document.querySelector(".product-name").name) {  
-      // productNAME은 설정한 변수값
-      // id 없어도 디테일 페이지에 상품 name 추가해야함
+    if (elem["name"] === document.querySelector(".product-name").value) {  
       check = false;
       alert("동일한 상품이 이미 장바구니에 담겨있습니다.");
       break; 
@@ -113,32 +110,42 @@ function addCart() {  // 장바구니 담기 함수
   localStorage.setItem("cart", JSON.stringify(cartList)); 
   alert("장바구니 넣기 성공!");
 }
-addCartBtn.addEventListener("click", addCart); // 장바구니 버튼 id html 추가 필요(상품명만 하기로 했음)
+
+addCartBtn.addEventListener("click", addCart);
 
 
 // 바로구매 작업
-const buyBtn = document.querySelector(".BuyNow"); // 바로구매 버튼 id html 추가 필요
+const buyBtn = document.querySelector("#buyNow"); 
 
 function buyNow() { // 밑에 필요 없을 수도 있음...?? 또는 주문결제 페이지에서 구현 필요
-let productName = document.querySelector(".product-name") // 새로 선언한 이름
-let productPrice = Number(document.querySelector(".product-price"));
-let productAmount = document.querySelector(".product-amount") // 상품 수량
-let productColor = document.querySelector(".product-color") // 상품 색상
+  let name = document.querySelector(".product-name") // 상품명
+  let price = Number(document.querySelector(".product-price"));  //상품가격
+  let smallImageURL = document.querySelector(".product-detail-img") // 상품 이미지
+  let productColor = document.querySelector(".product-color") // 상품 색상
+  let productCount = document.querySelector(".product-amount-count") // 상품 수량
 
-  const buyList = [ //왜 이건 배열로 담는지 ?
+  const buyList = [ 
     {
-    productName: productName,
-    productPrice: productPrice,
-    ProductImage: document.querySelector(".product-detail-img").src,
-    productAmount: productAmount,
-    productColor: productColor,
+      name: name,
+      price: price,
+      smallImageURL: document.querySelector(".product-detail-img").src,
+      productCount: document.querySelector(".product-amount-count").value,
+      color: color,
     },
   ];
 
 
 // 로컬스토리지 값 문자열로 저장
   localStorage.setItem("buy-direct", JSON.stringify(buyList));
-  window.location.replace("cart-order.html");
+
+  // 로그인을 하지 않은 경우
+  const token = sessionStorage.getItem("token");
+  if (!token) {
+    alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+    window.location.replace("/login");
+  }
+
+  window.location.replace("/cart-order");
 }
 
 buyBtn.addEventListener("click", buyNow);

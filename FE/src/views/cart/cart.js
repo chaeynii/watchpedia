@@ -1,11 +1,13 @@
+import * as Api from "/api.js";
+
 let cartItemList = document.querySelector("#cart-item-list");
 
 // mock 데이터
-let cartList = JSON.parse(localStorage.getItem('cartItems')); // 지금 mock여서 기능 동작안하는 것임
-localStorage.setItem("cart", JSON.stringify(cartList)); // 임시로 이거 달아주기(test 용)
+let cartList = JSON.parse(localStorage.getItem('cart')); // 지금 mock여서 기능 동작안하는 것임
+// localStorage.setItem("cart", JSON.stringify(cartList)); // 임시로 이거 달아주기??(test 용)
 
 // 로컬스토리지에 있는 장바구니 리스트 화면에 출력
-function addCartItemList(cartList) {
+function addCartItemList(cartList) { // cart key의 value 값들
   let cartListContent = "";
   console.log("cartList: ", cartList);
   if (cartList !== null && cartList.length !== 0) {
@@ -16,8 +18,8 @@ function addCartItemList(cartList) {
                   <div class="cart-item-column item-info-center" id="table-name">${item.name}</div>
                   <div class="cart-item-column item-info-center" id="table-price">${item.price}</div> 
                   <div class="cart-item-column item-info-center" id="table-color">${item.color}</div>
-                  <div class="cart-item-column item-info-center" id="result-count">${item.count}</div>
-                  <div class="cart-item-column item-info-center" id="singleItem-total">${item.price * item.count}</div>
+                  <div class="cart-item-column item-info-center" id="result-count">${item.productCount}</div>
+                  <div class="cart-item-column item-info-center" id="singleItem-total">${item.price * item.productCount}</div>
                 </div>
                 <div class="cart-count-btns">
                 <div class="cart-item-column item-info-right">
@@ -42,7 +44,8 @@ function addCartItemList(cartList) {
   cartItemList.innerHTML = cartListContent;
 }
 addCartItemList(cartList);
-updateCartTotal(); // 계산 박스 바로 반영되게끔 함수 호출 위치를 변경
+updateCartTotal(); // 계산 박스 실시간 바로 반영되게끔 함수 호출 위치를 변경
+
 
 // ********************************************
 
@@ -124,19 +127,24 @@ const singleItemTotalPrice = document.querySelectorAll('#singleItem-total'); // 
     }
 
 // ********************************************
+
 // 개별 cart list 삭제
 const itemDeleteBtns = document.querySelectorAll(".item-delete-btn");
 
 function itemDelete(e) {
   if (window.confirm("선택하신 상품을 장바구니에서 삭제하시겠습니까?")) {
-    // debugger;
-    const cart = JSON.parse(localStorage.getItem("cart")) || []; 
-    const newCartList = cart.filter((elem) => { 
-      console.log(elem.id, e.target.id) // 1 | "1"
-      return elem.id !== parseInt(e.target.id); // 형 비교 parseInt로 해야 함
-    });
-    localStorage.setItem("cart", JSON.stringify(newCartList)); // cart key 값 저장
-    addCartItemList(newCartList); //화면에 새로운 장바구니 출력
+    const newCartList = JSON.parse(localStorage.getItem("cart")).filter(
+      (elem) => {
+        return (
+          elem.name !==
+          e.target.closest(".cart-item").querySelector("#table-name").innerText
+          // 삭제 버튼 클릭시 해당 버튼의 부모 요소 li 찾고, 상품명 찾기
+        );
+      }
+    );
+    localStorage.setItem("cart", JSON.stringify(newCartList));
+    addCartItemList(newCartList);
+    updateCartTotal();
   }
 }
 
@@ -145,11 +153,13 @@ for (const btn of itemDeleteBtns) {
 }
 
 
+// ********************************************
+
 // 전체 cart list 삭제
 const allDeleteBtn = document.querySelector(".all-item-delete-btn");
 
 function allDelete() {
-  console.log(localStorage.getItem("cartList"));
+  console.log(localStorage.getItem("cart"));
   if (window.confirm("전체 상품을 장바구니에서 삭제하시겠습니까?")) {
     localStorage.removeItem("cart");
     addCartItemList([]);
@@ -168,10 +178,9 @@ function buyAllItem() {
   const buyList = JSON.parse(localStorage.getItem("cart")).map((elem) => {
     return {
       name: elem.name,
-      id: elem.id,
       price: elem.price,
-
-      image: elem.image, // 스키마는 없음
+      smallImageURL: elem.smallImageURL,
+      productCount: elem.productCount,
       color: elem.color,
       totalAmount: elem.totalAmount,
       totalPrice: elem.totalPrice

@@ -18,35 +18,35 @@ function createTop(listArr) {
     return `<tbody>${dataArr.map(data =>
       `<tr id="${data._id}">
             <th scope="row">
-              ${data.date}
+              ${data.orderDate}
             </th>
             <td>
               ${data.orderNumber}
             </td>
-            <td>
-              ${data.productList}
+            <td class="product-info">
+              ${data.productInfo}
             </td>
             <td>
               ${data.total}
             </td>
-            <td>
-              ${data.name}
+            <td class="user-info">
+              ${data.buyer}
             </td>
             <td>
               <div class="dropdown">
                 <a class="btn btn-outline-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  ${data.shippingStatus}
+                  ${data.shoppingStatus}
                 </a>
                 <ul class="dropdown-menu btn__edit">
-                  <li><a class="dropdown-item">배송전</a></li>
+                  <li><a class="dropdown-item">결제완료</a></li>
+                  <li><a class="dropdown-item">배송준비중</a></li>
                   <li><a class="dropdown-item">배송중</a></li>
                   <li><a class="dropdown-item">배송완료</a></li>
-                  <li><a class="dropdown-item">취소완료</a></li>
                 </ul>
               </div>
             </td>
             <td>
-              <button type="button" class="btn btn-outline-danger btn__delete">주문취소</button>
+              <button type="button" class="btn btn-outline-danger btn__delete">주문삭제</button>
             </td>
           </tr>`
       ).join("")}
@@ -75,16 +75,14 @@ function createTop(listArr) {
     return `<tbody>${dataArr.map(data =>
       `<tr id="${data._id}">
             <th scope="row">
-              ${data.date}
+              ${data.name}
             </th>
-            <td>
+            <td class="user-email">
               ${data.email}
             </td>
             <td>
-              ${data.name}
-            </td>
-            <td>
-              <button type="button" class="btn btn-outline btn__show-list">조회</button>
+            <button type="button" class="btn btn-outline-primary ms-auto p-2 bd-highlight btn__show-list" data-bs-toggle="modal"
+            data-bs-target="#btn__admin__showList">조회</button>
             </td>
             <td>
               <button type="button" class="btn btn-outline-danger btn__delete">회원삭제</button>
@@ -98,9 +96,6 @@ function createTop(listArr) {
         `<tr id="${data._id}">
             <td class="current__name">
               ${data.name}
-            </td>
-            <td class="current__name">
-              ${data.subCategory}
             </td>
             <td>
               <button type="button" class="btn btn-outline-primary ms-auto p-2 bd-highlight btn__edit" data-bs-toggle="modal"
@@ -126,15 +121,12 @@ function createTop(listArr) {
   function createProductMiddle(dataArr) {
     return `<tbody>${dataArr.map(data =>
       `<tr id="${data._id}">
-            <th scope="row">
-              ${data.date}
-            </th>
-            <td class="current__name">
+            <th scope="row" class="current__name">
               ${data.name}
-            </td>
-            <td>
-              ${data.category}
-            </td>
+            </th>
+            <td class="category-info">
+              ${data.category[0]}
+            </td> 
             <td>
               ${data.price}
             </td>
@@ -149,7 +141,7 @@ function createTop(listArr) {
               <button type="button" class="btn btn-outline-danger btn__delete">삭제</button>
             </td>
           </tr>`
-      )}</tbody>`
+      ).join("")}</tbody>`
   }
   
   function createProductTable(listArr, datasArr) {

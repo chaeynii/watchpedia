@@ -3,6 +3,7 @@ async function get(endpoint, params = "") {
   const apiUrl = `${endpoint}/${params}`;
   console.log(`%cGET 요청: ${apiUrl} `, "color: #a25cd1;");
 
+  console.log("params:",params)
   const res = await fetch(apiUrl, {
     // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
     headers: {
@@ -17,9 +18,9 @@ async function get(endpoint, params = "") {
 
     throw new Error(reason);
   }
+  
 
   const result = await res.json();
-
   return result;
 }
 
@@ -57,7 +58,8 @@ async function post(endpoint, data) {
 // api 로 PATCH 요청 (/endpoint/params 로, JSON 데이터 형태로 요청함)
 async function patch(endpoint, params = "", data) {
   const apiUrl = `${endpoint}/${params}`;
-
+  console.log("data:",data)
+  console.log("patch-params:",params)
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
   const bodyData = JSON.stringify(data);

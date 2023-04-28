@@ -78,12 +78,18 @@
                 <div class="admin-add">
                     <ul>
                         <li><a>
-                            <button type="button" class="btn-add__category">
+                            <button type="button"
+                                    class="btn-add__category"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#btn__admin__addCategory">
                                 카테고리 추가
                             </button>
                         </a></li>
                         <li><a>
-                            <button type="button" class="btn-add__product">
+                            <button type="button"
+                                    class="btn-add__product"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#btn__admin__addProduct">
                                 상품 추가
                             </button>
                         </a></li>
@@ -93,9 +99,10 @@
 
             <!--카테고리 추가-->
             <div
-            class="modal fade btn-add__category"
+            id="btn__admin__addCategory"
+            class="modal fade btn__admin__addCategory"
             tabindex="-1"
-            aria-labelledby="btn-add__category__ModalLabel"
+            aria-labelledby="btn__admin__addCategory__ModalLabel"
             aria-hidden="true"
             >
             <div class="modal-dialog">
@@ -103,7 +110,7 @@
                 <div class="modal-header">
                 <h1
                     class="modal-title fs-5"
-                    id="btn-add__category__ModalLabell"
+                    id="btn__admin__addCategory__ModalLabell"
                 >
                     카테고리 추가
                 </h1>
@@ -166,13 +173,13 @@
                 <form>
                     <div class="mb-3">
                     <label for="edit-category-name" class="col-form-label"
-                        >카테고리(대)</label
+                        >카테고리명</label
                     >
                     <input
                         type="text"
                         class="form-control"
                         id="edit-category-name"
-                        placeholder="카테고리(대) 이름을 입력해주세요"
+                        placeholder="카테고리 이름을 입력해주세요"
                         required
                     />
                     </div>
@@ -192,15 +199,15 @@
             <!--상품 추가-->
             <div
             class="modal fade"
-            id="btn-add__product"
+            id="btn__admin__addProduct"
             tabindex="-1"
-            aria-labelledby="btn-add__product__ModalLabel"
+            aria-labelledby="btn__admin__addProduct__ModalLabel"
             aria-hidden="true"
             >
                 <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="btn-add__product__ModalLabel">
+                    <h1 class="modal-title fs-5" id="btn__admin__addProduct__ModalLabel">
                         상품추가
                     </h1>
                     <button
@@ -447,7 +454,7 @@
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
+                      <h5 class="modal-title">삭제</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -459,7 +466,37 @@
                     </div>
                   </div>
                 </div>
-              </div>
+            </div>
+            <!-- 주문내역 조회 -->
+            <div class="modal btn__show-list"
+            id="btn__admin__showList"
+            tabindex="-1"
+            aria-labelledby="btn__admin__showList__ModalLabel"
+            aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        <h1
+                        class="modal-title fs-5"
+                        id="btn__admin__showList__ModalLabel">
+                        주문내역 조회
+                        </h1>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                      주문내역을 보여줍니다
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                  </div>
+                </div>
+            </div>
         </div>
     </main>
 

@@ -1,17 +1,17 @@
-
 import * as Api from "../api.js";
 
 const itemlist = document.querySelector(".main-container__itemlist");
 const itemCount = document.createElement("p");
 itemCount.classList.add("item-count");
 itemlist.insertAdjacentElement("beforebegin", itemCount);
-const productUrl = 'api/products/category';
 
+const productUrl = 'api/product/category';
 const params = new URLSearchParams(location.search);
 const category = params.get("category");
 
-Api.get(productUrl, `${category}`)
-  .then(productList => {
+Api.get(productUrl,`${category}`)
+  .then(productList => { 
+    console.log(productUrl);
     if (productList.products.length === 0) {
       const message = document.createElement("p");
       message.textContent = "해당 카테고리의 제품이 존재하지 않습니다.";
@@ -48,6 +48,7 @@ Api.get(productUrl, `${category}`)
   .catch(error => {
     console.error("에러 발생:", error);
   });
+
  /*
 
 import * as Api from "../api.js";

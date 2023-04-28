@@ -12,8 +12,13 @@
 ## 1. 서비스 소개
 
 - 기술 스택
+
   - FrontEnd : HTML, CSS, JavaScript, Bulma
   - BackEnd : Express, MongoDB, Mongoose, Nodejs
+
+  # API 명세서
+
+  # [api 명세서](https://www.notion.so/bf509b36161445f1909b0d08695b4648?v=bd202ffd964849899f15d3518e0fdbfc&pvs=4).
 
 ## 2. 서비스 주요 기능 설명
 
@@ -24,7 +29,7 @@
 
 ## 3. 서비스 구성도
 
-<p><img src="./infra.png", height="100x", width="100px"></p>
+<p><img src="./infra.PNG", height="500x", width="800px"></p>
 
 ## 4. 프로젝트 팀원 역할 분담
 

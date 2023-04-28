@@ -184,13 +184,13 @@ userRouter.patch(
 );
 
 //회워탈퇴
-userRouter.delete('/user/:userId', loginRequired, async(req, res, next) => {
+userRouter.delete('/mypage/:userId', loginRequired, async(req, res, next) => {
   try{
     
-    await userService.deleteUser(req.params)
+    await userService.deleteUser(req.params.userId)
 
     res.status(201).send()
-    res.redirect('/')
+    // res.redirect('/')
   }catch(error){
     next(error)
   }
@@ -202,10 +202,9 @@ userRouter.delete(
   loginRequired,
   async (req, res, next) => {
     try {
-      await userService.deleteUser(req.params);
+      await userService.deleteUser(req.params.userId);
 
       res.status(201).send();
-      res.redirect("/");
     } catch (error) {
       next(error);
     }

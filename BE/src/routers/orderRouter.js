@@ -115,6 +115,7 @@ orderRouter.post("/order/order_info", loginRequired, async (req, res, next) => {
     const totalPrice = req.body.totalPrice;
     const zipCode = req.body.zipCode;
     const extraAddress = req.body.extraAddress;
+    const extraAddress_2 = req.body.extraAddress_2;
     const receiverName = req.body.receiverName;
     const receiverPhone = req.body.receiverPhone;
 
@@ -130,6 +131,7 @@ orderRouter.post("/order/order_info", loginRequired, async (req, res, next) => {
       totalPrice,
       zipCode,
       extraAddress,
+      extraAddress_2,
       receiverName,
       receiverPhone,
     });

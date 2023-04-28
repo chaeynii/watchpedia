@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watchpedia</title>
-    <link rel="icon" href="../../../public/images/favicon.png">
+    <link rel="icon" href="../public/images/favicon.png">
 
     <!-- public css -->
-    <link rel="stylesheet" href="../../../public/css/reset.css">
-    <link rel="stylesheet" href="../../../public/css/nav.css">
-    <script defer type="text/javascript" src="../../../public/js/nav.js"></script>
-    <link rel="stylesheet" href="../../../public/css/footer.css">
+    <link rel="stylesheet" href="../public/css/reset.css">
+    <link rel="stylesheet" href="../public/css/nav.css">
+    <script defer type="text/javascript" src="../public/js/nav.js"></script>
+    <link rel="stylesheet" href="../public/css/footer.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <!-- bootstrap -->
@@ -20,7 +20,8 @@
 
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="product-detail.css">
-    <script defer type="text/javascript" src="product-detail.js"></script>
+    <script defer type="module" src="product-detail.js"></script>
+    <script defer type="module" src="../cart/cart-addToCart.js"></script>
 </head>
 <body>
     <!-- Header [시작] -->
@@ -95,8 +96,8 @@
                     </div>
                   </div>
                   <div class="btn-wrap">
-                    <button type="button" class="btn btn-primary" onclick="addToCart()">장바구니</button>
-                    <button type="button" class="btn btn-primary">바로구매</button>
+                    <button type="button" class="btn btn-primary" id="addCart">장바구니</button>
+                    <button type="button" class="btn btn-primary" id="buyNow">바로구매</button>
                   </div>
                 </div>
               </div>

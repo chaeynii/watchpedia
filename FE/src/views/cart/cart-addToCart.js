@@ -24,8 +24,9 @@ function addCart() {  // 장바구니 담기 함수
 Api.get(productUrl, `${productId}`) 
     .then((product)=> {
       const name = product.name;
-      const image = product.bigImageURL;
-      const price = product.price;
+      const image = product.bigImageURL; // 뒤는 스키마 정보
+      const price = product.price; 
+      const id = product._id;
       console.log("product 확인:", product); //id를 포함한 가장 많은 정보들이 들어옴
 
       //document로 가져옴
@@ -36,6 +37,7 @@ Api.get(productUrl, `${productId}`)
         name: name,
         image: image,
         price: price,
+        id: id,
 
         count: count.innerText,
         color: color.value,
@@ -74,6 +76,7 @@ Api.get(productUrl, `${productId}`)
       const name = product.name;
       const image = product.bigImageURL;
       const price = product.price;
+      const id = product._id;
       console.log("product 확인:", product);
 
     const count = document.querySelector(".product-amount-count");
@@ -83,6 +86,7 @@ Api.get(productUrl, `${productId}`)
         name: name,
         image: image,
         price: price,
+        id: id,
 
         count: count.innerText,
         color: color.value,

@@ -50,11 +50,10 @@ const token = sessionStorage.getItem('token')
 const userId = parseJwt(token).userId
 
 // // 로그인 유저 id 불러오기
-Api.get("/mypage", userId ) 
+Api.get("/api/mypage", userId ) 
   .then((res)=>{
      })
   .catch((err) => {
-    console.error(err);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   });
   
@@ -87,17 +86,30 @@ let total_amount = JSON.parse(localStorage.getItem('totalAmount'));
   let total_price = JSON.parse(localStorage.getItem('totalPrice'));
   console.log("받아온 총 금액 입니다", total_price)
 
+const receiverName = deliveryName.value;
+const zipCode = deliveryPostcode.value;
+const extraAddress = deliveryAddress.value;
+const extraAddress_2 = deliveryAddress2.value;
+const receiverPhone = deliveryTel.value;
+
+
 let finalOrderList = {
-  buyList,
-  total_amount,
-  total_price
+  receiverName: receiverName,
+  zipCode: zipCode,
+  extraAddress: extraAddress,
+  extraAddress_2: extraAddress_2,
+  receiverPhone: receiverPhone,
+
+  productInfo: buyList.id,
+  totalAmount: total_amount,
+  totalPrice: total_price.id
 }
 
 Api.post("/api/cart/order", finalOrderList) // 주문하기 
     .then((res)=>{
       alert("주문이 정상적으로 완료되었습니다.");
       // buylist 지우기
-      if (buyList == JSON.parse(localStorage.getItem("buy-direct"))) {
+      if (buyList == localStorage.getItem("buy-direct")) {
         localStorage.removeItem("buy-direct");
       } else {
         localStorage.removeItem("buy-cart");
@@ -105,7 +117,7 @@ Api.post("/api/cart/order", finalOrderList) // 주문하기
       }
       window.location.href = "./cart-order-finished.html";
     }).catch((err) => {
-    console.error(err);
+  
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   })
 }

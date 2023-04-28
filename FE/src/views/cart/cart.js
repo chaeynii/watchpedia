@@ -184,6 +184,7 @@ function buyAllItem() {
       name: elem.name,
       price: elem.price,
       image: elem.bigImageURL,
+      _id: elem._id,
 
       count: elem.innerText,
       color: elem.value,

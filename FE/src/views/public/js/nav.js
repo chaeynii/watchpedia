@@ -113,7 +113,10 @@ mypageBtn.addEventListener('click', () => {
 cartBtn.addEventListener('click', () => {
   location.href = '../cart/cart.html';
 });
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> a73c5ac0e55ba4e3f73f7bb1cbc4ffe37484f89a

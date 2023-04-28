@@ -47,6 +47,7 @@ const deleteProductByName = async (name, productInfo) => {
 //   return searchedProduct;
 // };
 
+// 카테고리별 상품 조회
 const getProductsByCategoryId = async (categoryId) => {
   const category = await categoryModel.findCategoryById(categoryId);
   if (!category) {

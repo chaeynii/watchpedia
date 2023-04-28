@@ -18,7 +18,7 @@
 
   # API 명세서
 
-  # [api 명세서](https://www.notion.so/bf509b36161445f1909b0d08695b4648?v=bd202ffd964849899f15d3518e0fdbfc&pvs=4).
+  # [https://www.notion.so/bf509b36161445f1909b0d08695b4648?v=bd202ffd964849899f15d3518e0fdbfc&pvs=4](https://www.notion.so/bf509b36161445f1909b0d08695b4648?v=bd202ffd964849899f15d3518e0fdbfc&pvs=4).
 
 ## 2. 서비스 주요 기능 설명
 

@@ -30,7 +30,7 @@ productRouter.get("/product/:productId", async (req, res, next) => {
 
 // 상품 조회 라우터
 productRouter.get(
-  "product/:name",
+  "/product/:name",
   nextError(async (req, res, next) => {
     const name = req.params.name;
     const product = await productService.getProductByName(name);
@@ -68,7 +68,7 @@ productRouter.post("/admin/product", async function (req, res, next) {
 
 // 상품 업데이트 라우터, admin 추가해야함
 productRouter.patch(
-  "/admin/product/:name",
+  "/admin/product/:productId",
   loginRequired,
   nextError(async (req, res, next) => {
     const productName = req.params.name;
@@ -83,7 +83,7 @@ productRouter.patch(
 
 // 상품 삭제 라우터 , admin 추가해야함
 productRouter.delete(
-  "/admin/product/:name",
+  "/admin/product/:productId",
   loginRequired,
   nextError(async (req, res, next) => {
     const productName = req.params.name;

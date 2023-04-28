@@ -33,7 +33,10 @@ const updateCategory = async (categoryId, categoryData) => {
 
 // 카테고리 삭제
 const deleteCategory = async (categoryId, categoryData) => {
-  const deletedCategory = await categoryModel.delete(categoryId, categoryData);
+  const deletedCategory = await categoryModel.deleteCategory(
+    categoryId,
+    categoryData
+  );
   return deletedCategory;
 };
 

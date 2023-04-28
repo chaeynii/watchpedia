@@ -61,33 +61,43 @@ items.forEach(item => {
 
 //로그인 유무 체크
 const utilLink = document.querySelector('.util-link');
-const loginBtn = document.createElement('button');
-const signupBtn = document.createElement('button');
-const mypageBtn = document.createElement('button');
-const cartBtn = document.createElement('button');
 
-// 페이지 로딩 시 상태 체크
-function checkStatus() {
-  const token = localStorage.getItem('token');
+const loginBtn = document.querySelector('#login');
+const logoutBtn = document.querySelector('#logout');
+const mypageBtn = document.querySelector('#mypage');
+const registerBtn = document.querySelector('#register');
+const cartBtn = document.querySelector('#cart');
 
+const token = sessionStorage.getItem('token');
   if (token) {
     // 로그인 상태
-    loginBtn.style.display = 'none';
-    signupBtn.style.display = 'none';
+    loginBtn.style.display  = 'none';
+    logoutBtn.style.display = 'inline-block';
+    registerBtn.style.display = 'none';
     mypageBtn.style.display = 'inline-block';
     cartBtn.style.display = 'inline-block';
   } else {
     // 로그아웃 상태
     loginBtn.style.display = 'inline-block';
-    signupBtn.style.display = 'inline-block';
+    logoutBtn.style.display = 'none';
+    registerBtn.style.display = 'inline-block';
     mypageBtn.style.display = 'none';
-    cartBtn.style.display = 'none';
+    cartBtn.style.display = 'inline-block';
   }
-}
 
-// 로그인/로그아웃 상태 업데이트
-function updateStatus() {
-  checkStatus();
+// 로그아웃 이벤트 등록
+logoutBtn.addEventListener("click", logout);
+
+function logout(e) {
+  e.preventDefault();
+
+  if (window.confirm("로그아웃 하시겠습니까?")) {
+    sessionStorage.removeItem("token");
+    console.log("token");
+    alert("로그아웃 되었습니다.");
+
+    location.href = "/";
+  }
 }
 
 // 이벤트 등록
@@ -95,7 +105,7 @@ loginBtn.addEventListener('click', () => {
   location.href = '../login.html';
 });
 signupBtn.addEventListener('click', () => {
-  location.href = '../signup.html';
+  location.href = '../register.html';
 });
 mypageBtn.addEventListener('click', () => {
   location.href = '../user-mypage/user-mypage.html';
@@ -103,31 +113,3 @@ mypageBtn.addEventListener('click', () => {
 cartBtn.addEventListener('click', () => {
   location.href = '../cart/cart.html';
 });
-
-// 버튼 설정
-loginBtn.type = 'button';
-loginBtn.className = 'btn btn-link';
-loginBtn.textContent = '로그인';
-
-signupBtn.type = 'button';
-signupBtn.className = 'btn btn-link';
-signupBtn.textContent = '회원가입';
-
-mypageBtn.type = 'button';
-mypageBtn.className = 'btn btn-link';
-mypageBtn.textContent = '마이페이지';
-mypageBtn.style.display = 'none';
-
-cartBtn.type = 'button';
-cartBtn.className = 'btn btn-link';
-cartBtn.textContent = '장바구니';
-cartBtn.style.display = 'none';
-
-// 버튼 추가
-utilLink.appendChild(loginBtn);
-utilLink.appendChild(mypageBtn);
-utilLink.appendChild(signupBtn);
-utilLink.appendChild(cartBtn);
-
-// 초기 상태 체크
-checkStatus();

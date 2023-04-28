@@ -44,9 +44,10 @@ const deleteProduct = async (name) => {
 
 // 카테고리 ID로 상품 가져오기
 const findAllByCategoryId = async (categoryId) => {
-  const getProductCategoryId = await Product.find({ categoryId });
+  const getProductCategoryId = await Product.find({ category: categoryId });
   return getProductCategoryId;
 };
+
 export {
   findProductByName,
   createProduct,

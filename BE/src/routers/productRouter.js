@@ -18,7 +18,7 @@ function nextError(callback) {
 }
 
 //상품 Id조회 라우터
-productRouter.get("product/:productId", async (req, res, next) => {
+productRouter.get("/product/:productId", async (req, res, next) => {
   try {
     const product = await productService.getProductById(req.params.productId);
 
@@ -45,7 +45,7 @@ productRouter.get(
 
 // 상품 전체 조회 라우터
 productRouter.get(
-  "/product/products",
+  "/products/products",
   nextError(async (req, res, next) => {
     const products = await productService.getAllProduct();
     return res.status(200).json({ products });
@@ -103,7 +103,7 @@ productRouter.delete(
 // );
 
 // 카테고리별 제품 목록 api
-productRouter.get("/product/category/:categoryId", async (req, res, next) => {
+productRouter.get("product/category/:categoryId", async (req, res, next) => {
   try {
     const categoryId = req.params.categoryId;
     const products = await productService.getProductsByCategoryId(categoryId);

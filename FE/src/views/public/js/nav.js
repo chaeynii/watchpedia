@@ -15,16 +15,33 @@ window.onscroll = function () {
 };
 
 const dropdownItems = document.querySelectorAll(".dropdown-item");
+dropdownItems.forEach(function(item) {
+  item.addEventListener("click", function(event) {
+    event.preventDefault();
+    const category = event.target.textContent;
+    if (category) {
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set('category', category); // encodeURIComponent로 카테고리 인코딩
+      const productListUrl = `../product-list/product-list.html${currentUrl.search}`;
+      window.location.href = productListUrl;
+    }
+  });
+});
+/*
+const dropdownItems = document.querySelectorAll(".dropdown-item");
 
 dropdownItems.forEach(function(item) {
   item.addEventListener("click", function(event) {
     event.preventDefault();
     const category = event.target.textContent;
     if (category) {
-      location.href = `../product-list/product-list.html?category=${category}`;
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set('category', category);
+      window.location.href = currentUrl.toString();
     }
   });
 });
+*/
 // 제품 목록에서 클릭한 제품의 id값을 URL에 추가하는 함수
 function goToProductDetail(id) {
   window.location.href = "../product-detail/product-detail.html?id=" + id;

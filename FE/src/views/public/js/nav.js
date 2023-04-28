@@ -25,6 +25,7 @@ dropdownItems.forEach(function(item) {
     }
   });
 });
+
 // 제품 목록에서 클릭한 제품의 id값을 URL에 추가하는 함수
 function goToProductDetail(id) {
   window.location.href = "../product-detail/product-detail.html?id=" + id;

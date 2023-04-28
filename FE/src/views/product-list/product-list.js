@@ -1,4 +1,6 @@
+
 import * as Api from "../api.js";
+
 const itemlist = document.querySelector(".main-container__itemlist");
 const productUrl = 'api/product';
 

@@ -36,6 +36,18 @@ const deliveryTel = document.querySelector("#cartOrder__contact");
 
 const payButton = document.querySelector("#cart-order--submit");
 
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+};
+
+const token = sessionStorage.getItem('token')
+const userId = parseJwt(token).userId
 
 // // 로그인 유저 id 불러오기
 Api.get("/mypage", userId ) 
@@ -46,10 +58,10 @@ Api.get("/mypage", userId )
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   });
   
-
+  
 let userData;
 async function inputOrdererInfo() {
-  userData = await Api.get("/api/user/mypage", userId);
+  userData = await Api.get("/api/mypage", userId);
   deliveryName.value = userData.name || null;
   deliveryPostcode.value = userData.zip || null;
   deliveryAddress.value = userData.address_1 || null;
@@ -69,7 +81,19 @@ return alert("배송지 정보를 입력해주세요.");
 let buyList = JSON.parse(localStorage.getItem('cart')); 
 console.log("받아온 주문목록 입니다", buyList)
 
-Api.post("/api/order/order_info", buyList) // 주문하기 
+let total_amount = JSON.parse(localStorage.getItem('totalAmount'));
+  console.log("받아온 총 수량 입니다", total_amount)
+
+  let total_price = JSON.parse(localStorage.getItem('totalPrice'));
+  console.log("받아온 총 금액 입니다", total_price)
+
+let finalOrderList = {
+  buyList,
+  total_amount,
+  total_price
+}
+
+Api.post("/api/cart/order", finalOrderList) // 주문하기 
     .then((res)=>{
       alert("주문이 정상적으로 완료되었습니다.");
       // buylist 지우기

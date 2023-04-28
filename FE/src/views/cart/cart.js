@@ -2,12 +2,12 @@ import * as Api from "../api.js";
 
 let cartItemList = document.querySelector("#cart-item-list");
 
-let cartList = JSON.parse(localStorage.getItem('cart')); 
-console.log("받아온 로컬스토리지 입니다", cartList)
-
+let cartList = JSON.parse(localStorage.getItem("cart"));
+console.log("받아온 로컬스토리지 입니다", cartList);
 
 // 로컬스토리지에 있는 장바구니 리스트 화면에 출력
-function addCartItemList(cartList) { // cart key의 value 값들
+function addCartItemList(cartList) {
+  // cart key의 value 값들
   let cartListContent = "";
   console.log("cartList: ", cartList);
   if (cartList !== null && cartList.length !== 0) {
@@ -15,11 +15,21 @@ function addCartItemList(cartList) { // cart key의 value 값들
       cartListContent += ` 
             <li class="cart-item">
                   <div><img class="cart-img" src="${item.image}"></div>
-                  <div class="cart-item-column item-info-center" id="table-name">${item.name}</div>
-                  <div class="cart-item-column item-info-center" id="table-price">${item.price}</div> 
-                  <div class="cart-item-column item-info-center" id="table-color">${item.color}</div>
-                  <div class="cart-item-column item-info-center" id="result-count">${item.count}</div>
-                  <div class="cart-item-column item-info-center" id="singleItem-total">${item.price * item.count}</div>
+                  <div class="cart-item-column item-info-center" id="table-name">${
+                    item.name
+                  }</div>
+                  <div class="cart-item-column item-info-center" id="table-price">${
+                    item.price
+                  }</div> 
+                  <div class="cart-item-column item-info-center" id="table-color">${
+                    item.color
+                  }</div>
+                  <div class="cart-item-column item-info-center" id="result-count">${
+                    item.count
+                  }</div>
+                  <div class="cart-item-column item-info-center" id="singleItem-total">${
+                    item.price * item.count
+                  }</div>
                 </div>
                 <div class="cart-count-btns">
                 <div class="cart-item-column item-info-right">
@@ -29,17 +39,18 @@ function addCartItemList(cartList) { // cart key의 value 값들
                     <button class="item-plus-btn" type="button">+</button>
                 </div>
                 <div class="cart-item-column item-info-right">
-                    <button class="item-delete-btn" type="button" id=${item.id}>삭제</button>
+                    <button class="item-delete-btn" type="button" id=${
+                      item.id
+                    }>삭제</button>
                 </div>
             </li>`;
     });
-
   } else {
     cartListContent += "장바구니에 담긴 상품이 없습니다.";
     document.querySelector(".cart-total").style.display = "none";
     document.querySelector(".cart-item-list__header").style.display = "none";
     for (const btn of document.querySelectorAll(".buttons-container")) {
-    btn.style.display = "none";
+      btn.style.display = "none";
     }
   }
   cartItemList.innerHTML = cartListContent;
@@ -47,87 +58,89 @@ function addCartItemList(cartList) { // cart key의 value 값들
 addCartItemList(cartList);
 updateCartTotal(); // 계산 박스 실시간 바로 반영되게끔 함수 호출 위치를 변경
 
-
 // ********************************************
 
-const singleItemCount = document.querySelectorAll('#result-count'); // 모든 개별 수량 접근
-const plusBtn = document.querySelectorAll('.item-plus-btn'); // 모든 플러스 버튼 접근
-const minusBtn = document.querySelectorAll('.item-minus-btn'); // 모든 마이너스 버튼 접근
+const singleItemCount = document.querySelectorAll("#result-count"); // 모든 개별 수량 접근
+const plusBtn = document.querySelectorAll(".item-plus-btn"); // 모든 플러스 버튼 접근
+const minusBtn = document.querySelectorAll(".item-minus-btn"); // 모든 마이너스 버튼 접근
 
-const singleItemPrice = document.querySelectorAll('#table-price'); // 모든 개별 단가 접근
-const singleItemTotalPrice = document.querySelectorAll('#singleItem-total'); // 모든 개별 단가*금액 = total
-
+const singleItemPrice = document.querySelectorAll("#table-price"); // 모든 개별 단가 접근
+const singleItemTotalPrice = document.querySelectorAll("#singleItem-total"); // 모든 개별 단가*금액 = total
 
 // 수량 증가 및 감소
-    // 모든 플러스 버튼에 이벤트 리스너 등록
-    plusBtn.forEach(function(plusBtn) {
-      plusBtn.addEventListener('click', function() {
-      //개별 수량 증가 로직
-        let itemCountElement = plusBtn.closest('.cart-item').querySelector('#result-count');
-        let itemCount = parseInt(itemCountElement.textContent);
-        itemCountElement.textContent = itemCount + 1;
+// 모든 플러스 버튼에 이벤트 리스너 등록
+plusBtn.forEach(function (plusBtn) {
+  plusBtn.addEventListener("click", function () {
+    //개별 수량 증가 로직
+    let itemCountElement = plusBtn
+      .closest(".cart-item")
+      .querySelector("#result-count");
+    let itemCount = parseInt(itemCountElement.textContent);
+    itemCountElement.textContent = itemCount + 1;
 
-      updateSingleItemTotal(plusBtn);
+    updateSingleItemTotal(plusBtn);
+    updateCartTotal();
+  });
+});
+
+// 모든 마이너스 버튼에 이벤트 리스너 등록
+minusBtn.forEach(function (minusBtn) {
+  minusBtn.addEventListener("click", function () {
+    let itemCountElement = minusBtn
+      .closest(".cart-item")
+      .querySelector("#result-count");
+    let itemCount = parseInt(itemCountElement.textContent);
+    if (itemCount > 1) {
+      itemCountElement.textContent = itemCount - 1;
+
+      updateSingleItemTotal(minusBtn);
       updateCartTotal();
-      });
-    });
+    }
+  });
+});
 
-    // 모든 마이너스 버튼에 이벤트 리스너 등록
-    minusBtn.forEach(function(minusBtn) {
-      minusBtn.addEventListener('click', function() {
-        let itemCountElement = minusBtn.closest('.cart-item').querySelector('#result-count');
-        let itemCount = parseInt(itemCountElement.textContent);
-        if(itemCount > 1){
-          itemCountElement.textContent = itemCount -1 ;
+// 개별 수량 변경 시 총 가격 변동 함수
+function updateSingleItemTotal(plusBtn, minusBtn) {
+  let cartItem = plusBtn.closest(".cart-item");
+  let itemCountElement = cartItem.querySelector("#result-count");
+  let itemCount = parseInt(itemCountElement.textContent);
+  let itemPriceElement = cartItem.querySelector("#table-price");
+  let itemPrice = parseInt(itemPriceElement.textContent);
+  let itemTotalElement = cartItem.querySelector("#singleItem-total");
+  itemTotalElement.textContent = itemCount * itemPrice;
+}
 
-          updateSingleItemTotal(minusBtn);
-          updateCartTotal();
-        }
-      });
-    });
+// 총 상품 개수와 총 상품 가격 업데이트 함수
+function updateCartTotal() {
+  let cartItems = document.querySelectorAll(".cart-item");
+  let totalAmountElement = document.getElementById("cart-total-amount");
+  let totalPriceElement = document.getElementById("cart-total-price");
+  let totalAmount = 0;
+  let totalPrice = 0;
 
-    // 개별 수량 변경 시 총 가격 변동 함수
-    function updateSingleItemTotal(plusBtn, minusBtn) {
-      let cartItem = plusBtn.closest('.cart-item');
-      let itemCountElement = cartItem.querySelector('#result-count');
+  cartItems.forEach(function (cartItem) {
+    let itemCountElement = cartItem.querySelector("#result-count");
+    if (itemCountElement) {
       let itemCount = parseInt(itemCountElement.textContent);
-      let itemPriceElement = cartItem.querySelector('#table-price');
-      let itemPrice = parseInt(itemPriceElement.textContent);
-      let itemTotalElement = cartItem.querySelector('#singleItem-total');
-      itemTotalElement.textContent = itemCount * itemPrice;
+      totalAmount += itemCount;
     }
 
-    // 총 상품 개수와 총 상품 가격 업데이트 함수
-    function updateCartTotal() {
-      let cartItems = document.querySelectorAll('.cart-item');
-      let totalAmountElement = document.getElementById('cart-total-amount');
-      let totalPriceElement = document.getElementById('cart-total-price');
-      let totalAmount = 0;
-      let totalPrice = 0;
-
-      cartItems.forEach(function(cartItem) {
-        let itemCountElement = cartItem.querySelector('#result-count');
-        if (itemCountElement) {
-          let itemCount = parseInt(itemCountElement.textContent);
-          totalAmount += itemCount;
-        }
-
-        let itemTotalElement = cartItem.querySelector('#singleItem-total');
-        if (itemTotalElement) {
-          let itemTotal = parseInt(itemTotalElement.textContent);
-          totalPrice += itemTotal
-        }
-      });
-
-      if (totalAmountElement) {
-        totalAmountElement.innerHTML = `${totalAmount}개`;
-      }
-      if (totalPriceElement) {
-        totalPriceElement.innerHTML = `${totalPrice}원`;
-      }
-      localStorage.setItem('totalAmount', totalAmount);
-      localStorage.setItem('totalPrice', totalPrice);
+    let itemTotalElement = cartItem.querySelector("#singleItem-total");
+    if (itemTotalElement) {
+      let itemTotal = parseInt(itemTotalElement.textContent);
+      totalPrice += itemTotal;
     }
+  });
+
+  if (totalAmountElement) {
+    totalAmountElement.innerHTML = `${totalAmount}개`;
+  }
+  if (totalPriceElement) {
+    totalPriceElement.innerHTML = `${totalPrice}원`;
+  }
+  localStorage.setItem("totalAmount", totalAmount);
+  localStorage.setItem("totalPrice", totalPrice);
+}
 
 // ********************************************
 
@@ -155,7 +168,6 @@ for (const btn of itemDeleteBtns) {
   btn.addEventListener("click", itemDelete);
 }
 
-
 // ********************************************
 
 // 전체 cart list 삭제
@@ -171,7 +183,6 @@ function allDelete() {
 }
 allDeleteBtn.addEventListener("click", allDelete);
 
-
 // ********************************************
 
 // 주문하기 페이지로 넘어가기
@@ -179,7 +190,6 @@ const buyAllBtn = document.querySelector(".all-item-order-btn");
 
 function buyAllItem() {
   const buyList = JSON.parse(localStorage.getItem("cart")).map((elem) => {
-    
     return {
       name: elem.name,
       price: elem.price,
@@ -192,7 +202,7 @@ function buyAllItem() {
 
   console.log("buyList 출력", buyList);
   const totalAmount = JSON.parse(localStorage.getItem("totalAmount"));
-  console.log(totalAmount)
+  console.log(totalAmount);
   const totalPrice = JSON.parse(localStorage.getItem("totalPrice"));
 
   localStorage.setItem("buy-cart", JSON.stringify(buyList));
@@ -210,5 +220,3 @@ function buyAllItem() {
 }
 
 buyAllBtn.addEventListener("click", buyAllItem);
-
-

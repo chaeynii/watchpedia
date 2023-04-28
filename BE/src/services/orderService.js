@@ -27,7 +27,7 @@ class OrderService {
   async addOrder(orderInfo) {
     // 객체 destructuring
     const { productInfo ,productCount, buyer, shoppingStatus, orderDate, 
-      totalAmount, totalPrice,zipCode, extraAddress,receiverName,receiverPhone } = orderInfo;
+      totalAmount, totalPrice,zipCode, extraAddress, extraAddress_2,receiverName,receiverPhone } = orderInfo;
     
     //주문자 정보 불어오기
     const buyerId = await this.userModel.findById({_id: buyer})
@@ -43,7 +43,7 @@ class OrderService {
     console.log()
 
     const newOrderInfo = { productInfo, productCount, buyer: buyerId, shoppingStatus, orderDate, orderNumber: createOrderNum, 
-      totalAmount, totalPrice, zipCode,  extraAddress, receiverName, receiverPhone };
+      totalAmount, totalPrice, zipCode,  extraAddress, extraAddress_2, receiverName, receiverPhone };
 
     // db에 저장
     const createdOrder = await this.orderModel.create(newOrderInfo);

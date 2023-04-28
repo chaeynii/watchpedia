@@ -56,7 +56,7 @@ Api.get('/api/admin', "orders")
                 <div>
                 <div class="detail__zone">
                     <div class="shipping__status__${i}">${shoppingStatus[i]}</div>
-                        <a type="button" class="btn btn-outline-secondary" href="../order-detail/order-detail.html">
+                        <a type="button" class="btn btn-outline-secondary" href="/mypage/order">
                             주문상세
                          </a>
                     </div>

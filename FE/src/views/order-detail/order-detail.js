@@ -118,8 +118,8 @@ function renderOrderContent(order) {
             <label for="order-detail--recipient" class="order-detail--address">주소</label>
             <div class="order-detail__content--underline">
                 (${order.zipCode})
-                <!-- ${order.shippingStreetAddress} -->
                 ${order.extraAddress}
+                ${order.extraAddress_2}
             </div>
         </div>
     </div>
@@ -217,9 +217,9 @@ function fillOrderEditModalInput(order) {
     document.getElementById(
         "modal-address__input--first"
     ).value = order.extraAddress;
-    // document.getElementById(
-    //     "modal-address__input--second"
-    // ).value = order.extraAddress;
+    document.getElementById(
+        "modal-address__input--second"
+    ).value = order.extraAddress_2;
 }
 
 // 주문 수정 모달 창의 확인 버튼 클릭 시 주문 수정이 이루어짐

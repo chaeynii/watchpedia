@@ -18,6 +18,7 @@ Api.get('/api/admin', "orders")
     .then((order) => {
         const myOrder = order.filter(item  => item['buyer']._id === userId)
         for(let i = 0 ; i < myOrder.length; i++){
+            console.log(myOrder);
             let orders = myOrder[i]
             console.log(orders);
 
@@ -27,9 +28,11 @@ Api.get('/api/admin', "orders")
         const productInfo = document.getElementById(
             "order-detail__product--info"
         );
-        renderOrderProduct(orders, productInfo);
 
+        renderOrderProduct(orders, productInfo);
+        
         checkOrderShippingStatus(orders);
+        console.log("orders:::", orders);
 
         fillOrderEditModalInput(orders);
     }})

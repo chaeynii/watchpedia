@@ -24,7 +24,7 @@
 
 ## 3. 서비스 구성도
 
-<p><img src="./infra.png", height="100x", width="100px"></p>
+<p><img src="./infra.PNG", height="100x", width="100px"></p>
 
 ## 4. 프로젝트 팀원 역할 분담
 

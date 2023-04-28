@@ -37,6 +37,9 @@ const orderSchema = new Schema({
   extraAddress:{
     type: String,
   },
+  extraAddress_2:{
+    type: String,
+  },
   receiverName:{
     type: String,
   },

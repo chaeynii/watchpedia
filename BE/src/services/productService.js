@@ -10,12 +10,12 @@ const addProduct = async (productInfo) => {
   return createProduct;
 };
 //id로 조회해서 가져옴
-const getProductById = async (productIds) => {
-  const productId = await productModel.findProductById(productIds);
-  if (!productId) {
+const getProductById = async (productId) => {
+  const product = await productModel.findProductById(productId);
+  if (!product) {
     throw new Error("해당 상품은 없습니다.");
   }
-  return productId;
+  return product;
 };
 
 // 이름을 기반으로 데이터베이스에 해당 상품을 가져옴

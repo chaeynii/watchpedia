@@ -1,10 +1,10 @@
-import * as Api from "/api.js";
+import * as Api from "../api.js";
 
 let cartItemList = document.querySelector("#cart-item-list");
 
-// mock 데이터
-let cartList = JSON.parse(localStorage.getItem('cart')); // 지금 mock여서 기능 동작안하는 것임
-// localStorage.setItem("cart", JSON.stringify(cartList)); // 임시로 이거 달아주기??(test 용)
+let cartList = JSON.parse(localStorage.getItem('cart')); 
+console.log("받아온 로컬스토리지 입니다", cartList)
+
 
 // 로컬스토리지에 있는 장바구니 리스트 화면에 출력
 function addCartItemList(cartList) { // cart key의 value 값들
@@ -18,8 +18,8 @@ function addCartItemList(cartList) { // cart key의 value 값들
                   <div class="cart-item-column item-info-center" id="table-name">${item.name}</div>
                   <div class="cart-item-column item-info-center" id="table-price">${item.price}</div> 
                   <div class="cart-item-column item-info-center" id="table-color">${item.color}</div>
-                  <div class="cart-item-column item-info-center" id="result-count">${item.productCount}</div>
-                  <div class="cart-item-column item-info-center" id="singleItem-total">${item.price * item.productCount}</div>
+                  <div class="cart-item-column item-info-center" id="result-count">${item.count}</div>
+                  <div class="cart-item-column item-info-center" id="singleItem-total">${item.price * item.count}</div>
                 </div>
                 <div class="cart-count-btns">
                 <div class="cart-item-column item-info-right">
@@ -37,6 +37,7 @@ function addCartItemList(cartList) { // cart key의 value 값들
   } else {
     cartListContent += "장바구니에 담긴 상품이 없습니다.";
     document.querySelector(".cart-total").style.display = "none";
+    document.querySelector(".cart-item-list__header").style.display = "none";
     for (const btn of document.querySelectorAll(".buttons-container")) {
     btn.style.display = "none";
     }
@@ -174,50 +175,24 @@ allDeleteBtn.addEventListener("click", allDelete);
 // ********************************************
 
 // 주문하기 페이지로 넘어가기
-// const buyAllBtn = document.querySelector(".all-item-order-btn");
-
-// function buyAllItem() {
-//   const buyList = JSON.parse(localStorage.getItem("cart")).map((elem) => {
-//     return {
-//       name: elem.name,
-//       price: elem.price,
-//       smallImageURL: elem.smallImageURL,
-//       productCount: elem.productCount,
-//       color: elem.color,
-//       totalAmount: elem.totalAmount,
-//       totalPrice: elem.totalPrice
-//     };
-//   });
-//   localStorage.setItem("buy-cart", JSON.stringify(buyList));
-
-//   // 로그인을 하지 않은 경우
-//   const token = sessionStorage.getItem("token");
-//   if (!token) {
-//     alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-//     window.location.replace("../login/login.html");
-//     return;
-//   }
-//   window.location.replace("cart-order.html");
-// }
-
-// buyAllBtn.addEventListener("click", buyAllItem);
-
-
-
 const buyAllBtn = document.querySelector(".all-item-order-btn");
 
 function buyAllItem() {
   const buyList = JSON.parse(localStorage.getItem("cart")).map((elem) => {
+    
     return {
       name: elem.name,
       price: elem.price,
-      smallImageURL: elem.smallImageURL,
-      productCount: elem.productCount,
-      color: elem.color,
+      image: elem.bigImageURL,
+
+      count: elem.innerText,
+      color: elem.value,
     };
   });
 
+  console.log("buyList 출력", buyList);
   const totalAmount = JSON.parse(localStorage.getItem("totalAmount"));
+  console.log(totalAmount)
   const totalPrice = JSON.parse(localStorage.getItem("totalPrice"));
 
   localStorage.setItem("buy-cart", JSON.stringify(buyList));
@@ -235,5 +210,5 @@ function buyAllItem() {
 }
 
 buyAllBtn.addEventListener("click", buyAllItem);
-console.log(totalAmount)
+
 

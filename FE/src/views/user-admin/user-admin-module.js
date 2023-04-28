@@ -23,14 +23,14 @@ function createTop(listArr) {
             <td>
               ${data.orderNumber}
             </td>
-            <td>
+            <td class="product-info">
               ${data.productInfo}
             </td>
             <td>
               ${data.total}
             </td>
-            <td>
-              ${data.receiverName}
+            <td class="user-info">
+              ${data.buyer}
             </td>
             <td>
               <div class="dropdown">
@@ -38,15 +38,15 @@ function createTop(listArr) {
                   ${data.shoppingStatus}
                 </a>
                 <ul class="dropdown-menu btn__edit">
-                  <li><a class="dropdown-item">배송전</a></li>
+                  <li><a class="dropdown-item">결제완료</a></li>
+                  <li><a class="dropdown-item">배송준비중</a></li>
                   <li><a class="dropdown-item">배송중</a></li>
                   <li><a class="dropdown-item">배송완료</a></li>
-                  <li><a class="dropdown-item">취소완료</a></li>
                 </ul>
               </div>
             </td>
             <td>
-              <button type="button" class="btn btn-outline-danger btn__delete">주문취소</button>
+              <button type="button" class="btn btn-outline-danger btn__delete">주문삭제</button>
             </td>
           </tr>`
       ).join("")}
@@ -81,7 +81,8 @@ function createTop(listArr) {
               ${data.email}
             </td>
             <td>
-              <button type="button" class="btn btn-outline btn__show-list">조회</button>
+            <button type="button" class="btn btn-outline-primary ms-auto p-2 bd-highlight btn__show-list" data-bs-toggle="modal"
+            data-bs-target="#btn__admin__showList">조회</button>
             </td>
             <td>
               <button type="button" class="btn btn-outline-danger btn__delete">회원삭제</button>
@@ -95,9 +96,6 @@ function createTop(listArr) {
         `<tr id="${data._id}">
             <td class="current__name">
               ${data.name}
-            </td>
-            <td class="current__name">
-              ${data.parentCategory}
             </td>
             <td>
               <button type="button" class="btn btn-outline-primary ms-auto p-2 bd-highlight btn__edit" data-bs-toggle="modal"
@@ -126,9 +124,9 @@ function createTop(listArr) {
             <th scope="row" class="current__name">
               ${data.name}
             </th>
-            <td>
-              ${data.category}
-            </td>
+            <td class="category-info">
+              ${data.category[0]}
+            </td> 
             <td>
               ${data.price}
             </td>

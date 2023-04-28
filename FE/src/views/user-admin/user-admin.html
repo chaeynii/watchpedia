@@ -173,13 +173,13 @@
                 <form>
                     <div class="mb-3">
                     <label for="edit-category-name" class="col-form-label"
-                        >카테고리(대)</label
+                        >카테고리명</label
                     >
                     <input
                         type="text"
                         class="form-control"
                         id="edit-category-name"
-                        placeholder="카테고리(대) 이름을 입력해주세요"
+                        placeholder="카테고리 이름을 입력해주세요"
                         required
                     />
                     </div>
@@ -199,15 +199,15 @@
             <!--상품 추가-->
             <div
             class="modal fade"
-            id="btn-add__product"
+            id="btn__admin__addProduct"
             tabindex="-1"
-            aria-labelledby="btn-add__product__ModalLabel"
+            aria-labelledby="btn__admin__addProduct__ModalLabel"
             aria-hidden="true"
             >
                 <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="btn-add__product__ModalLabel">
+                    <h1 class="modal-title fs-5" id="btn__admin__addProduct__ModalLabel">
                         상품추가
                     </h1>
                     <button
@@ -468,23 +468,35 @@
                 </div>
             </div>
             <!-- 주문내역 조회 -->
-            <div class="modal btn__show-list" tabindex="-1">
+            <div class="modal btn__show-list"
+            id="btn__admin__showList"
+            tabindex="-1"
+            aria-labelledby="btn__admin__showList__ModalLabel"
+            aria-hidden="true"
+            >
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">주문내역</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1
+                        class="modal-title fs-5"
+                        id="btn__admin__showList__ModalLabel">
+                        주문내역 조회
+                        </h1>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
                     </div>
                     <div class="modal-body">
-                      <p>Modal body text goes here.</p>
+                      주문내역을 보여줍니다
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                   </div>
                 </div>
-              </div>
+            </div>
         </div>
     </main>
 

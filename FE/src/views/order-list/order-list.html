@@ -20,28 +20,28 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     
     <!-- public css -->
-    <link rel="stylesheet" href="../public/css/reset.css">
-    <link rel="stylesheet" href="../public/css/nav.css">
-    <script defer type="text/javascript" src="../public/js/nav.js"></script>
-    <link rel="stylesheet" href="../public/css/footer.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/nav.css">
+    <script defer type="text/javascript" src="/public/js/nav.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/css/footer.css">
     
     <!-- costom css -->
-    <link rel="stylesheet" href="order-list.css">
+    <link rel="stylesheet" type="text/css" href="order-list.css">
 </head>
 <body>
     <!-- Header [시작] -->
     <header>
         <div class="header-wrap">
             <h1 class="logo">
-                <a href="../home/home.html">    
+                <a href="/">    
                     <img src="https://via.placeholder.com/150x80" alt="임시로고이미지">
                 </a>
             </h1>
             <ul class="util-link">
-                <li><button type="button" class="btn btn-link">로그인</button></li>
-                <li><button type="button" class="btn btn-link">마이페이지</button></li>
-                <li><button type="button" class="btn btn-link">회원가입</button></li>
-                <li><button type="button" class="btn btn-link">장바구니</button></li>
+                <li><a href="/login" class="btn btn-link">로그인</a></li>
+                <li><a href="/mypage" class="btn btn-link">마이페이지</a></li>
+                <li><a href="" class="btn btn-link">회원가입</a></li>
+                <li><a href="" class="btn btn-link">장바구니</a></li>
             </ul>
         </div>
     </header>
@@ -88,7 +88,7 @@
                         <a class="mypage-category--a" aria-current="page" href="../user-mypage/user-mypage.html">회원정보 수정</a>
                     </li>
                     <li class="mypage-category nav-item">
-                        <a class="mypage-category--a clicked" href="order-list.html">주문/배송 조회</a>
+                        <a class="mypage-category--a clicked order__check" href="/mypage/orders">주문/배송 조회</a>
                     </li>
                     <li class="mypage-category nav-item">
                         <a class="mypage-category--a user__delete" href="#">회원 탈퇴</a>

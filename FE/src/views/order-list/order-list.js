@@ -56,7 +56,7 @@ Api.get('/api/admin', "orders")
                 <div>
                 <div class="detail__zone">
                     <div class="shipping__status__${i}">${shoppingStatus[i]}</div>
-                        <a type="button" class="btn btn-outline-secondary" href="../order-detail/order-detail.html">
+                        <a type="button" class="btn btn-outline-secondary" href="/mypage/order">
                             주문상세
                          </a>
                     </div>
@@ -133,46 +133,46 @@ function orderListMake(order) {
 
 
 
-    for (let i = 0; i < countList.length; i++) {
-        const productId = countList[i].id;
-        //const productCount = countList[i].count;
-        Api.get('/api/product', `${productId}`)
-        .then((product) => {
-            const productName = product.name;
-            const productImg = product.smallImageURL;
-            const productPrice = product.price;
+    // for (let i = 0; i < countList.length; i++) {
+    //     const productId = countList[i].id;
+    //     //const productCount = countList[i].count;
+    //     Api.get('/api/product', `${productId}`)
+    //     .then((product) => {
+    //         const productName = product.name;
+    //         const productImg = product.smallImageURL;
+    //         const productPrice = product.price;
 
-            // 상품정보 삽입
-            const dateOrder = document.querySelector(`.order__${orderId}`);
-            dateOrder.innerHTML += `
-                <div class="card-body">
-                    <div class="product__picture">
-                        <img src=${productImg} class="product__image"/>
-                    </div>
-                    <div class="product__information">
-                        <h5 class="card-title">${productName}</h5>
-                        <span class="card-text">${addCommas(productPrice)}원</span>
-                        <span class="card-text"> / </span>
-                        <span class="card-text">${countList[i]}개</span>
-                    </div>
-                </div>
-            `;
-        })
-        .catch((err) => alert(err));
-    }
+    //         // 상품정보 삽입
+    //         const dateOrder = document.querySelector(`.order__${orderId}`);
+    //         dateOrder.innerHTML += `
+    //             <div class="card-body">
+    //                 <div class="product__picture">
+    //                     <img src=${productImg} class="product__image"/>
+    //                 </div>
+    //                 <div class="product__information">
+    //                     <h5 class="card-title">${productName}</h5>
+    //                     <span class="card-text">${addCommas(productPrice)}원</span>
+    //                     <span class="card-text"> / </span>
+    //                     <span class="card-text">${countList[i]}개</span>
+    //                 </div>
+    //             </div>
+    //         `;
+    //     })
+    //     .catch((err) => alert(err));
+    // }
 
     // 배송상태와 주문상세버튼 날짜별로 1개씩 추가
-    const orderZone = document.querySelector(`.orderzone__${orderId}`);
-    orderZone.innerHTML += `
-        <div>
-            <div class="detail__zone">
-                <div class="shipping__status__${orderId}">${shippingStatus}</div>
-                <a type="button" class="btn btn-outline-secondary" href="/orders/detail/${orderId}">
-                    주문상세
-                </a>
-            </div>
-        </div>
-    `;
+    // const orderZone = document.querySelector(`.orderzone__${orderId}`);
+    // orderZone.innerHTML += `
+    //     <div>
+    //         <div class="detail__zone">
+    //             <div class="shipping__status__${orderId}">${shippingStatus}</div>
+    //             <a type="button" class="btn btn-outline-secondary" href="/orders/detail/${orderId}">
+    //                 주문상세
+    //             </a>
+    //         </div>
+    //     </div>
+    // `;
 
     // 배송현황 취소완료시 글씨 색 red로 변경
     if (shippingStatus === "취소완료") {

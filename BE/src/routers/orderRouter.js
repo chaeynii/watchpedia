@@ -114,55 +114,6 @@ orderRouter.post("/order/order_info", loginRequired, async (req, res, next) => {
     const totalAmount = req.body.totalAmount;
     const totalPrice = req.body.totalPrice;
     const zipCode = req.body.zipCode;
-
-    const extraAddress= req.body.extraAddress;
-    const extraAddress_2 = req.body.extraAddress_2;
-    const receiverName = req.body.receiverName;
-    const receiverPhone = req.body.receiverPhone;
-
-    // 위 데이터를 유저 db에 추가하기
-    const newOrder = await orderService.addOrder({
-      productInfo,
-      productCount,
-      buyer,
-      shoppingStatus,
-      orderDate,
-      orderNumber,
-      totalAmount,
-      totalPrice,
-      zipCode,
-      extraAddress,
-      extraAddress_2,
-      receiverName,
-      receiverPhone
-    });
-
-    res.status(201).json(newOrder);
-  } catch (error) {
-    next(error);
-  }
-});
-
-//장바구니
-orderRouter.post("/cart/order", loginRequired ,async (req, res, next) => {
-  try {
-    // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
-    // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
-      );
-    }
-
-    const productInfo = req.body.productInfo;
-    const productCount = req.body.productCount;
-    const buyer = req.body.buyer;
-    const shoppingStatus = req.body.shoppingStatus;
-    const orderDate = req.body.orderDate;
-    const orderNumber = req.body.orderNumber;
-    const totalAmount = req.body.totalAmount;
-    const totalPrice = req.body.totalPrice;
-    const zipCode = req.body.zipCode;
     const extraAddress = req.body.extraAddress;
     const extraAddress_2 = req.body.extraAddress_2;
     const receiverName = req.body.receiverName;
@@ -238,9 +189,12 @@ orderRouter.post("/cart/order", loginRequired, async (req, res, next) => {
 });
 
 //주문삭제
-orderRouter.delete('/mypage/orders/:orderId', loginRequired, async(req, res, next) => {
-  try{
-    await orderService.deleteOrder(req.params.orderId)
+orderRouter.delete(
+  "/mypage/orders/:orderId",
+  loginRequired,
+  async (req, res, next) => {
+    try {
+      await orderService.deleteOrder(req.params);
 
       res.status(201).send();
     } catch (error) {
@@ -250,14 +204,18 @@ orderRouter.delete('/mypage/orders/:orderId', loginRequired, async(req, res, nex
 );
 
 //관리자 주문삭제
-orderRouter.delete('/admin/orders/:orderId', loginRequired, async(req, res, next) => {
-  try{
-    await orderService.deleteOrder(req.params.orderId)
+orderRouter.delete(
+  "/admin/orders/:orderId",
+  loginRequired,
+  async (req, res, next) => {
+    try {
+      await orderService.deleteOrder(req.params);
 
-    res.status(201).send()
-  }catch(error){
-    next(error)
+      res.status(201).send();
+    } catch (error) {
+      next(error);
+    }
   }
-})
+);
 
 export { orderRouter };

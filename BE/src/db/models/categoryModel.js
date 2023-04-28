@@ -16,12 +16,12 @@ const findCategoryById = async (categoryId) => {
 };
 
 const findAllCategories = async () => {
-  const categories = await Category.findAll({});
+  const categories = await Category.find({});
   return categories;
 };
 
 // 카테고리 업데이트
-const updateCategory = async (category, update) => {
+const updateCategory = async (categoryId, update) => {
   const filter = { _id: categoryId };
   const option = { returnOriginal: false }; // 업데이트 된 이후의 정보가 반환
   const updateCategory = await Category.findOneAndUpdate(
@@ -34,7 +34,7 @@ const updateCategory = async (category, update) => {
 
 // 카테고리 삭제
 const deleteCategory = async (categoryId) => {
-  const deletedCategory = await Category.findOndeAndRemove({ _id: categoryId });
+  const deletedCategory = await Category.findOneAndRemove({ _id: categoryId });
   return deletedCategory;
 };
 

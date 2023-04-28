@@ -18,7 +18,7 @@ function nextError(callback) {
 }
 
 //상품 Id조회 라우터
-productRouter.get("/:productId", async (req, res, next) => {
+productRouter.get("product/:productId", async (req, res, next) => {
   try {
     const product = await productService.getProductById(req.params.productId);
 
@@ -30,7 +30,7 @@ productRouter.get("/:productId", async (req, res, next) => {
 
 // 상품 조회 라우터
 productRouter.get(
-  "/:name",
+  "product/:name",
   nextError(async (req, res, next) => {
     const name = req.params.name;
     const product = await productService.getProductByName(name);
@@ -45,7 +45,7 @@ productRouter.get(
 
 // 상품 전체 조회 라우터
 productRouter.get(
-  "/",
+  "/product/products",
   nextError(async (req, res, next) => {
     const products = await productService.getAllProduct();
     return res.status(200).json({ products });
@@ -67,8 +67,8 @@ productRouter.post("/admin/product", async function (req, res, next) {
 });
 
 // 상품 업데이트 라우터, admin 추가해야함
-productRouter.put(
-  "/admin/:name",
+productRouter.patch(
+  "/admin/product/:name",
   loginRequired,
   nextError(async (req, res, next) => {
     const productName = req.params.name;
@@ -83,7 +83,7 @@ productRouter.put(
 
 // 상품 삭제 라우터 , admin 추가해야함
 productRouter.delete(
-  "/admin/:name",
+  "/admin/product/:name",
   loginRequired,
   nextError(async (req, res, next) => {
     const productName = req.params.name;
@@ -101,5 +101,16 @@ productRouter.delete(
 //     return res.status(200).json({ product: searchedProduct });
 //   })
 // );
+
+// 카테고리별 제품 목록 api
+productRouter.get("/product/category/:categoryId", async (req, res, next) => {
+  try {
+    const categoryId = req.params.categoryId;
+    const products = await productService.getProductsByCategoryId(categoryId);
+    res.status(200).json({ products });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export { productRouter };

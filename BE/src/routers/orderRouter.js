@@ -181,7 +181,7 @@ orderRouter.post("/cart/order", loginRequired ,async (req, res, next) => {
 //주문삭제
 orderRouter.delete('/mypage/orders/:orderId', loginRequired, async(req, res, next) => {
   try{
-    await orderService.deleteOrder(req.params)
+    await orderService.deleteOrder(req.params.orderId)
 
     res.status(201).send()
   }catch(error){
@@ -192,7 +192,7 @@ orderRouter.delete('/mypage/orders/:orderId', loginRequired, async(req, res, nex
 //관리자 주문삭제
 orderRouter.delete('/admin/orders/:orderId', loginRequired, async(req, res, next) => {
   try{
-    await orderService.deleteOrder(req.params)
+    await orderService.deleteOrder(req.params.orderId)
 
     res.status(201).send()
   }catch(error){

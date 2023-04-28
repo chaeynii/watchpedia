@@ -1,12 +1,5 @@
 import * as Api from "/api.js";
 
-// import { main } from "/public/js/main.js";
-// const { loggedInUser } = await main();
-
-// if (!loggedInUser) {
-//     window.location.href = "/";
-// }
-
 const addressSearchBtn = document.querySelector(".address__search");
 const userInfoChangeBtn = document.querySelector(".user-info--change");
 const userDeleteBtn = document.querySelector(".user__delete");
@@ -48,7 +41,8 @@ Api.get('/api/mypage', userId)
     userExtraAddress.value = address_2;
   })
   .catch((err) => {
-    alert(`에러가 발생했습니다. 관리자에게 문의하세요. \n에러내용: ${err}`);
+    alert(`에러가 발생했습니다. 관리자에게 문의하세요. \n ${err}`);
+    window.location.href = "/";
   });
 
 if (userPostCode.value === "undefined" || userStreetAddress.value === "undefined") {

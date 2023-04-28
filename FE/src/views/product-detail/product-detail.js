@@ -1,10 +1,13 @@
-const urlParams = new URLSearchParams(window.location.search);
-const productName = urlParams.get("name");
+import * as Api from "../api.js";
 
-fetch("../data/data.json")
-  .then((response) => response.json())
-  .then((products) => {
-    const product = products.find((p) => p.name === productName);
+const urlParams = new URLSearchParams(window.location.search);
+const productId = urlParams.get("id");
+const productUrl = '/api/product';
+
+
+Api.get(productUrl, `${productId}`)
+  //.then((response) => console.log(response))
+  .then((product) => {
     const productImg = document.getElementById("product-img");
     const productNameEl = document.getElementById("product-name");
     const productDesc = document.getElementById("product-desc");
@@ -39,6 +42,7 @@ fetch("../data/data.json")
       amountCount.innerText = amount;
     });
 
+    /*
     const addToCartBtn = document.querySelector(".btn-primary");
     addToCartBtn.addEventListener("click", () => {
       const cartItem = {
@@ -64,13 +68,8 @@ fetch("../data/data.json")
 
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
     });
+    */
   })
   .catch((error) => {
     console.error("에러 발생:", error);
   });
-
-
-/* 
-  nav.js에 토큰 확인해서
-  버튼을 보여줄지, 안보여줄지
-*/

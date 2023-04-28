@@ -24,10 +24,11 @@ const getAllCategories = async () => {
 
 // 카테고리 업데이트
 const updateCategory = async (categoryId, categoryData) => {
-  const updatedCategory = await categoryModel.update.update(
+  const updatedCategory = await categoryModel.updateCategory(
     categoryId,
     categoryData
   );
+  return updatedCategory;
 };
 
 // 카테고리 삭제

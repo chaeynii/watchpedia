@@ -1,7 +1,7 @@
 import * as Api from "../api.js";
 
 const itemlist = document.querySelector(".main-container__itemlist");
-const productUrl = 'api/product';
+const productUrl = 'api/products';
 
 Api.get(productUrl, 'products')
   .then(productList => {
@@ -20,7 +20,7 @@ Api.get(productUrl, 'products')
           <a href="../product-detail/product-detail.html?id=${product._id}" data-id="${product._id}" class="item">
             <img src="${product.smallImageURL}" alt="${product.name}">
             <p class="item-title">${product.name}</p>
-            <span class="item-price">${product.price}</span>
+            <span class="item-price">${addCommas(product.price)}원</span>
           </a>
         `;
         itemlist.appendChild(item);
@@ -42,3 +42,12 @@ Api.get(productUrl, 'products')
   .catch(error => {
     console.error("에러 발생:", error);
   });
+
+function goToProductDetail(id) {
+  localStorage.setItem("productId", id);
+  location.href = `../product-detail/product-detail.html?id=${encodeURIComponent(id)}`;
+}
+
+const addCommas = n => {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};

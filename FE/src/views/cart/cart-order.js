@@ -56,7 +56,9 @@ const userId = parseJwt(token).userId;
 
 // // 로그인 유저 id 불러오기
 Api.get("/api/mypage", userId)
-  .then((res) => {})
+  .then((res) => {
+    console.log(res);
+  })
   .catch((err) => {
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   });
@@ -98,17 +100,19 @@ async function order() {
   const extraAddress = deliveryAddress.value;
   const extraAddress_2 = deliveryAddress2.value;
   const receiverPhone = deliveryTel.value;
+  const listArr = JSON.parse(localStorage.getItem("cart")).map((i) => i.id);
 
+  console.log(listArr);
   let finalOrderList = {
     receiverName: receiverName,
     zipCode: zipCode,
     extraAddress: extraAddress,
     extraAddress_2: extraAddress_2,
     receiverPhone: receiverPhone,
-
-    productInfo: buyList.id,
+    productInfo: listArr,
     totalAmount: total_amount,
     totalPrice: total_price.id,
+    buyer: userId,
   };
 
   Api.post("/api/cart/order", finalOrderList) // 주문하기
@@ -129,4 +133,5 @@ async function order() {
       );
     });
 }
+
 payButton.addEventListener("click", order);

@@ -1,0 +1,20 @@
+[
+    {
+        "_id": "001",
+        "createdAt": "2023-03-24",
+        "smallImageURL":"#",
+        "name": "Apple watch SE 2",
+        "price": 65000,
+        "countList": [1],
+        "shippingStatus": "배송준비중"
+    },
+    {
+        "_id": "002",
+        "createdAt": "2023-03-25",
+        "smallImageURL":"#",
+        "name": "Apple watch SE 2",
+        "price": 65000,
+        "countList": [1],
+        "shippingStatus": "배송준비중"
+    }
+]
